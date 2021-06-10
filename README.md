@@ -96,14 +96,14 @@ System.out.println(calc / 10);
 * ❔ 변수 `calc` 값 수정해 보기
 
 ### 한줄에 변수 여러개 선언하기 (선언문)
-```js
-let a, b, c;
+```java
+int a, b, c;
 ```
 * ❔ 문제: System.out.println(a); 한다면
 * ❔ 문제: 한줄로 변수 `a, b, c`에 각각 `1, 2, 3` 넣어 보기
 * <details><summary>정답</summary>
 
-  ```js
+  ```java
   int a = 1, b = 2, c = 3;
   ```
 </details>
