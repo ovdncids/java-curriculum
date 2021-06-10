@@ -38,6 +38,7 @@ C:\Program Files\Java\jdk1.8.0_291
 ## 변수 (Variable)
 ### 변수를 사용하는 이유
 1. 자료형 데이터를 보관 할 수 있고, 자유롭게 값을 수정 할 수 있다.
+
 Variable.java
 ```java
 public class Variable {
