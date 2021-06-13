@@ -193,3 +193,49 @@ boolean boolean2 = true;
 boolean result6 = boolean1 + boolean2;
 ```
 * ❔ `+` 연산자를 `-`, `*`, `/`로 바꾼다면
+
+2. 동등 비교 연산자 (==)
+```java
+boolean equalBoolean1 = true == true;
+boolean equalBoolean2 = true == false;
+boolean equalInt1 = 1 == 1;
+boolean equalInt2 = 1 == 2;
+boolean equalString1 = "a" == "a";
+boolean equalString2 = "a" == "b";
+```
+* ❕ `true == true`를 `true == 1`으로 바꾼다면
+* ❕ `true == true`를 `true == "true"`으로 바꾼다면
+
+3. 비교 연산자 (<, <=, >, >=)
+```java
+boolean compareInt1 = 1 <= 1;
+boolean compareInt2 = 1 > 2;
+```
+* ❕ `1 <= 1`를 `"a" >= "a"`으로 바꾼다면
+* ❕ `1 > 2`를 `true > true"`으로 바꾼다면
+
+4. 논리 연산자 (&&, ||)
+```java
+boolean logical1 = true && true;
+boolean logical2 = false || false;
+```
+* ❕ `true && true`를 `true && 1`으로 바꾼다면
+* ❕ `false || false`를 `false || "a"`으로 바꾼다면
+
+5. 소괄호() 연산자
+```java
+int roundBracket1 = 1 + 2 * 3;
+int roundBracket2 = (1 + 2) * 3;
+int roundBracket3 = ((1 + 2) * 3);
+```
+* ❕ `소괄호 연산자`는 `4칙 연산자`보다 우선 순위를 갖는다.
+* ❔ 문제: `소괄호 연산자` 안에서 `true`와 `false`를 `동등 연산자`로 비교 후에 `boolean`형 변수 `y`에 넣고, `y`를 `System.out.println`로 찍어 보기
+* <details><summary>정답</summary>
+
+  ```java
+  boolean y = (true == false);
+  System.out.println(y);
+  ```
+</details>
+
+## if문(제어문 > 조건문)
