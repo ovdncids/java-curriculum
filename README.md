@@ -110,3 +110,48 @@ int a, b, c;
 </details>
 
 ## 상수 (Constant)
+Constant.java
+
+### 상수를 사용하는 이유
+1. 한번 선언된 값의 변경을 막기 위해 사용 한다.
+```java
+final boolean c1 = true;
+final int c2 = 100;
+final String c3 = "abc";
+System.out.println(c1);
+System.out.println(c2);
+System.out.println(c3);
+```
+* ❔ c1 상수에 final을 2번 선언 한다면
+* ❔ c1 상수에 값을 변경해 보기
+* 상수에 대한 CRUD 설명
+
+## 연산자 (Operator)
+Operator.java
+1. int형에 대한 4칙 연산자 (`+, -, *, /`)
+```java
+int int1 = 1;
+int int2 = 2;
+int result1 = int1 - int2;
+int result2 = int1 * int2;
+int result3 = int1 / int2;
+int result4 = int1 + int2;
+```
+* ❔ `int1` 값을 문자 `"1"`로 바꾼다면
+* ❔ `int1` 변수의 형식을 `String`으로 바꾼다면
+
+2. String형에 대한 4칙 연산자 (`+, -, *, /`)
+```java
+String string1 = "a";
+String string2 = "b";
+String result5 = string1 + string2;
+```
+* ❔ `+` 연산자를 `-`, `*`, `/`로 바꾼다면
+
+3. boolean형에 대한 4칙 연산자 (`+, -, *, /`)
+```java
+boolean boolean1 = true;
+boolean boolean2 = true;
+boolean result6 = boolean1 + boolean2;
+```
+* ❔ `+` 연산자를 `-`, `*`, `/`로 바꾼다면
