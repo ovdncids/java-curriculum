@@ -128,9 +128,9 @@ System.out.println(c3);
 
 ## 연산자 (Operator)
 Operator.java
-1. 4칙 연산자 (`+, -, *, /`)
+### 1. 4칙 연산자 (`+, -, *, /`)
 
-### 숫자형에 대한 4칙 연산자
+#### 숫자형에 대한 4칙 연산자
 ```java
 int int1 = 1;
 int int2 = 2;
@@ -160,7 +160,7 @@ int result4 = int1 + int2;
   ```
 </details>
 
-### 문자형에 대한 4칙 연산자 (`+, -, *, /`)
+#### 문자형에 대한 4칙 연산자 (`+, -, *, /`)
 ```java
 String string1 = "a";
 String string2 = "b";
@@ -186,7 +186,7 @@ String result5 = string1 + string2;
   ```
 </details>
 
-### boolean형에 대한 4칙 연산자 (`+, -, *, /`)
+#### boolean형에 대한 4칙 연산자 (`+, -, *, /`)
 ```java
 boolean boolean1 = true;
 boolean boolean2 = true;
@@ -194,7 +194,7 @@ boolean result6 = boolean1 + boolean2;
 ```
 * ❔ `+` 연산자를 `-`, `*`, `/`로 바꾼다면
 
-2. 동등 비교 연산자 (==)
+### 2. 동등 비교 연산자 (==)
 ```java
 boolean equalBoolean1 = true == true;
 boolean equalBoolean2 = true == false;
@@ -206,7 +206,7 @@ boolean equalString2 = "a" == "b";
 * ❕ `true == true`를 `true == 1`으로 바꾼다면
 * ❕ `true == true`를 `true == "true"`으로 바꾼다면
 
-3. 비교 연산자 (<, <=, >, >=)
+### 3. 비교 연산자 (<, <=, >, >=)
 ```java
 boolean compareInt1 = 1 <= 1;
 boolean compareInt2 = 1 > 2;
@@ -214,7 +214,7 @@ boolean compareInt2 = 1 > 2;
 * ❕ `1 <= 1`를 `"a" >= "a"`으로 바꾼다면
 * ❕ `1 > 2`를 `true > true"`으로 바꾼다면
 
-4. 논리 연산자 (&&, ||)
+### 4. 논리 연산자 (&&, ||)
 ```java
 boolean logical1 = true && true;
 boolean logical2 = false || false;
@@ -222,7 +222,7 @@ boolean logical2 = false || false;
 * ❕ `true && true`를 `true && 1`으로 바꾼다면
 * ❕ `false || false`를 `false || "a"`으로 바꾼다면
 
-5. 소괄호() 연산자
+### 5. 소괄호() 연산자
 ```java
 int roundBracket1 = 1 + 2 * 3;
 int roundBracket2 = (1 + 2) * 3;
@@ -239,3 +239,57 @@ int roundBracket3 = ((1 + 2) * 3);
 </details>
 
 ## if문(제어문 > 조건문)
+1. 기본 구조
+```java
+if (조건1) {
+  // 조건1이 참인 경우 실행
+} else if (조건2) {
+  // 조건2가 참인 경우 실행
+} else if (조건3) {
+  // 조건3이 참인 경우 실행
+  // else if는 여러게 사용 가능
+} else {
+  // 해당 되는 조건이 없을 경우 실행
+}
+```
+* 예제
+```java
+int if1 = 1;
+if (if1 == 1) {
+    System.out.println("참1");
+} else if (if1 == 2 || if1 == 3) {
+    System.out.println("참2 또는 참3");
+} else if (if1 == 4 && true) {
+    System.out.println("참4");
+} else {
+    System.out.println("거짓");
+}
+```
+* 조건은 주로 연산자에서 `boolean` 형식으로 받는다.
+* `if1` 값을 수정하여 `참2 또는 참3`이 나오게 만들기
+* `if1` 값을 수정하여 `참4`이 나오게 만들기
+* `if1` 값을 수정하여 `거짓`이 나오게 만들기
+
+* ❔ 문제: 조건이 `1 == 1`인 `if`문을 만들고, 참인 경우 `System.out.println("참");`을 찍어 보기
+* <details><summary>정답</summary>
+
+  ```java
+  if (1 == 1) {
+    System.out.println("참");
+  }
+  ```
+</details>
+
+### 3항 연산자
+```java
+String condition3 = 1 == 1 ? "a" : "b";
+```
+* ❔ 문제: 조건이 `2 == 3`인 `3항 연산자`문을 만들고, 참인 경우 `"c"` 거짓인 경우 `"d"`를 String `condition4` 변수에 넣어 보기
+* <details><summary>정답</summary>
+
+  ```java
+  String condition4 = 2 == 3 ? "c" : "d";
+  ```
+</details>
+
+## 배열
