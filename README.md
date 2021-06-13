@@ -128,7 +128,9 @@ System.out.println(c3);
 
 ## 연산자 (Operator)
 Operator.java
-1. int형에 대한 4칙 연산자 (`+, -, *, /`)
+1. 4칙 연산자 (`+, -, *, /`)
+
+### 숫자형에 대한 4칙 연산자
 ```java
 int int1 = 1;
 int int2 = 2;
@@ -139,16 +141,52 @@ int result4 = int1 + int2;
 ```
 * ❔ `int1` 값을 문자 `"1"`로 바꾼다면
 * ❔ `int1` 변수의 형식을 `String`으로 바꾼다면
+* ❔ 문제: 프리랜서 개발자가 월 500만원을 받고 있다. 3.3% 원천징수를 때고 받는 실수령액과 세금을 계산하라.
+  ```java
+  int salary = 5000000;
+  double rate = 3.3;
+  double tax = ??;
+  double realSalary = ??;
 
-2. String형에 대한 4칙 연산자 (`+, -, *, /`)
+  힌트: 세금 계산식 = 급여 * 원천징수 / 100
+  ```
+* <details><summary>정답</summary>
+
+  ```java
+  int salary = 5000000;
+  double rate = 3.3;
+  double tax = salary * rate / 100;
+  double realSalary = salary - tax;
+  ```
+</details>
+
+### 문자형에 대한 4칙 연산자 (`+, -, *, /`)
 ```java
 String string1 = "a";
 String string2 = "b";
 String result5 = string1 + string2;
 ```
 * ❔ `+` 연산자를 `-`, `*`, `/`로 바꾼다면
+* ❔ 문제: 출력할 문구중에 일정 부분만 바꾸어서 출력하고 싶다. 다음을 완성 하시오.
+  ```java
+  String string3 = "올해 총 카드 사용 금액은 ";
+  String string4 = " 입니다.";
+  String string5 = ??;
+  System.out.println(string3 + string4);
 
-3. boolean형에 대한 4칙 연산자 (`+, -, *, /`)
+  출력: 올해 총 카드 사용 금액은 오백만원 입니다
+  ```
+* <details><summary>정답</summary>
+
+  ```java
+  String string3 = "올해 총 카드 사용 금액은 ";
+  String string4 = " 입니다.";
+  String string5 = " 오백만원";
+  System.out.println(string3 + string5 + string4);
+  ```
+</details>
+
+### boolean형에 대한 4칙 연산자 (`+, -, *, /`)
 ```java
 boolean boolean1 = true;
 boolean boolean2 = true;
