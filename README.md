@@ -219,6 +219,8 @@ boolean compareInt2 = 1 > 2;
 boolean logical1 = true && true;
 boolean logical2 = false || false;
 ```
+* `&&`를 사용하는 상황: 로그인이 되어 있고, 글수정 권한이 있는 아이디인 경우, 글수정 버튼 활성화
+* `||`를 사용하는 상황: 프리미엄 회원이거나 광고를 본 경우, 영상 시청 가능
 * ❕ `true && true`를 `true && 1`으로 바꾼다면
 * ❕ `false || false`를 `false || "a"`으로 바꾼다면
 
