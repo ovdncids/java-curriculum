@@ -169,12 +169,14 @@ String result5 = string1 + string2;
 * ❔ `+` 연산자를 `-`, `*`, `/`로 바꾼다면
 * ❔ 문제: 출력할 문구중에 일정 부분만 바꾸어서 출력하고 싶다. 다음을 완성 하시오.
   ```java
-  String string3 = "올해 총 카드 사용 금액은 ";
-  String string4 = " 입니다.";
-  String string5 = ??;
-  System.out.println(string3 + string4);
+  String stringFirst = "올해 총 카드 사용 금액은 ";
+  String stringLast = " 입니다.";
+  String stringChange = ??;
+  System.out.println(stringFirst + stringLast);
 
   출력: 올해 총 카드 사용 금액은 오백만원 입니다.
+  출력: 올해 총 카드 사용 금액은 천만원 입니다.
+  출력: 올해 총 카드 사용 금액은 이천만원 입니다.
   ```
 * <details><summary>정답</summary>
 
