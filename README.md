@@ -269,7 +269,7 @@ if (if1 == 1) {
     System.out.println("거짓");
 }
 ```
-* 조건은 주로 연산자에서 `boolean` 형식으로 받는다.
+* 조건은 주로 연산자를 사용해서 `boolean` 형식으로 받는다.
 * `if1` 값을 수정하여 `참2 또는 참3`이 나오게 만들기
 * `if1` 값을 수정하여 `참4`이 나오게 만들기
 * `if1` 값을 수정하여 `거짓`이 나오게 만들기
@@ -296,4 +296,138 @@ String condition3 = 1 == 1 ? "a" : "b";
   ```
 </details>
 
-## 배열
+<!--
+## 원시(Primitive)자료형과 래퍼(Wrapper)클래스
+### int와 Integer형 비교
+```java
+int int1 = 1;
+Integer int2 = new Integer(1);
+System.out.println(int1 == int2);
+System.out.println(int2.toString() + 1);
+System.out.println(int2.equals(int1));
+// System.out.println(int1.toString());
+// System.out.println(int1.equals(int1));
+```
+
+### boolean과 Boolean형 비교
+```java
+boolean bool1 = true;
+Boolean bool2 = new Boolean(true);
+System.out.println(bool1 == bool2);
+System.out.println(bool2.toString() + 1);
+System.out.println(bool2.equals(bool1));
+// System.out.println(bool1.toString());
+// System.out.println(bool1.equals(int1));
+```
+-->
+
+## 기본형(Primitive type) 배열
+Array.java
+
+### 배열을 사용하는 이유
+1. 순차적인 반복 작업에 사용한다. (주로 동일한 데이터 타입으로 묶인 경우가 많다.)
+2. 숫자(index)를 바탕으로 해당 데이터에 접근 한다.
+
+* https://t1.daumcdn.net/blogfile/fs8/27_25_21_25_0O7Ul_IMAGE_0_42.jpg?original&filename=42.jpg
+
+### 배열의 CRUD
+```java
+// 배열 Create
+int[] array1 = {};
+int[] array2 = {0, 1, 2};
+int[] array3 = new int[10];
+
+// 배열 Read
+int a1 = array2[0];
+int a2 = array2[1];
+System.out.println(array2[2]);
+
+// 배열 Update
+array3[0] = 3;
+array3[1] = array2[1];
+array3[2] = array3[1];
+
+// 배열 Delete
+```
+* ❕ `System.out.println(array1[0]);` 존재 하지 않은 배열 안의 `index`를 `Read` 한다면
+* ❕ 런타임 에러(RunTime Error), 컴파일 에러(Compile Error) 차이점 설명
+
+### 배열의 크기
+```java
+int length1 = array1.length;
+int length2 = array2.length;
+int lastIndex = array2.length - 1;
+int lastValue = array2[lastIndex];
+```
+* ❕ `lastValue`는 `array2` 배열의 마지막 요소의 값을 받는다.
+
+### 배열의 성격
+```java
+let arr1 = [];
+let arr2 = [];
+// quiz1
+if (arr1) {
+  const result = '참';
+  console.log(result);
+} else {
+  const result = '거짓';
+  console.log(result);
+}
+const quiz2 = arr1 === arr2;
+const quiz3 = arr1[5];
+// quiz4
+arr1[9] = 10;
+```
+* ❔ `빈 배열`은 참일까 거짓일까?
+* ❔ 문제: `arr1`와 `arr2`는 같을까?
+* <details><summary>정답</summary>
+
+  https://ovdncids.github.io/javascript-curriculum/images/memory.png
+  ```
+  배열은 선언과 동시에 별도의 `메모리 공간`에 존재하고, 변수는 단지 해당 배열이 있는 `메모리 주소`를 가지고 있다.
+  따라서 `arr1`과 `arr2`는 서로 다른 배열의 주소를 가지므로 같지 않다.
+  만약 `arr1` 변수의 값을 변화 시킨다면, `메모리 주소`를 잃어 버리므로 해당 배열은 더이상 접근할 수 없게 된다.
+  ```
+</details>
+
+* ❔ 해당 배열이 가진 `length`보다 큰 `index`를 `Read` 한다면?
+* ❔ 해당 배열이 가진 `length`보다 큰 `index`를 `Update` 한다면?
+
+### 익명 배열
+```java
+console.log([1, 2, 3]);
+```
+* 해당 배열의 `메모리 주소`를 누구도 받지 않으므로 재사용 할 수 없다.
+
+### 배열 실습
+* 1 부터 5까지 더하기(total 변수를 만들어서 한번씩 더해서 만듬)
+```java
+const testArray1 = [1, 2, 3, 4, 5];
+let total1 = testArray1[0];
+total1 = total1 + testArray1[1];
+total1 = total1 + testArray1[2];
+total1 += testArray1[3];
+total1 += testArray1[4];
+```
+
+* `testArray1` 평균 구하기
+```java
+const avg = total1 / testArray1.length;
+```
+
+* `testArray1` 홀수만 더하기
+```java
+const odd1 = testArray1[0] + testArray1[2] + testArray1[4];
+```
+
+* `testArray1` 짝수만 더하기
+```java
+const even1 = testArray1[1] + testArray1[3];
+```
+
+* 홀수만 지우기
+```java
+testArray1.splice(0, 1);
+testArray1.splice(1, 1);
+testArray1.splice(2, 1);
+```
