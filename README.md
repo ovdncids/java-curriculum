@@ -349,8 +349,6 @@ array3[2] = array3[1];
 
 // 배열 Delete
 ```
-* ❕ `System.out.println(array1[0]);` 존재 하지 않은 배열 안의 `index`를 `Read` 한다면
-* ❕ 런타임 에러(RunTime Error), 컴파일 에러(Compile Error) 차이점 설명
 
 ### 배열의 크기
 ```java
@@ -363,22 +361,20 @@ int lastValue = array2[lastIndex];
 
 ### 배열의 성격
 ```java
-let arr1 = [];
-let arr2 = [];
+int[] arr1 = {};
+int[] arr2 = {};
 // quiz1
-if (arr1) {
-  const result = '참';
-  console.log(result);
+if (arr1 == arr2) {
+    String result = "참";
+    System.out.println(result);
 } else {
-  const result = '거짓';
-  console.log(result);
+    String result = "거짓";
+    System.out.println(result);
 }
-const quiz2 = arr1 === arr2;
-const quiz3 = arr1[5];
-// quiz4
-arr1[9] = 10;
+int quiz2 = arr1[5];
+// quiz3
+arr1[5] = 10;
 ```
-* ❔ `빈 배열`은 참일까 거짓일까?
 * ❔ 문제: `arr1`와 `arr2`는 같을까?
 * <details><summary>정답</summary>
 
@@ -386,24 +382,19 @@ arr1[9] = 10;
   ```
   배열은 선언과 동시에 별도의 `메모리 공간`에 존재하고, 변수는 단지 해당 배열이 있는 `메모리 주소`를 가지고 있다.
   따라서 `arr1`과 `arr2`는 서로 다른 배열의 주소를 가지므로 같지 않다.
-  만약 `arr1` 변수의 값을 변화 시킨다면, `메모리 주소`를 잃어 버리므로 해당 배열은 더이상 접근할 수 없게 된다.
+  실제 값을 가지고 있지 않고, 메모리 주소를 가지고 있는 변수를 참조형 변수(Reference variable)라고 한다.
   ```
 </details>
 
 * ❔ 해당 배열이 가진 `length`보다 큰 `index`를 `Read` 한다면?
 * ❔ 해당 배열이 가진 `length`보다 큰 `index`를 `Update` 한다면?
-
-### 익명 배열
-```java
-console.log([1, 2, 3]);
-```
-* 해당 배열의 `메모리 주소`를 누구도 받지 않으므로 재사용 할 수 없다.
+* ❕ 런타임 에러(RunTime Error), 컴파일 에러(Compile Error) 차이점 설명
 
 ### 배열 실습
 * 1 부터 5까지 더하기(total 변수를 만들어서 한번씩 더해서 만듬)
 ```java
-const testArray1 = [1, 2, 3, 4, 5];
-let total1 = testArray1[0];
+int[] testArray1 = {1, 2, 3, 4, 5};
+int total1 = testArray1[0];
 total1 = total1 + testArray1[1];
 total1 = total1 + testArray1[2];
 total1 += testArray1[3];
@@ -412,22 +403,25 @@ total1 += testArray1[4];
 
 * `testArray1` 평균 구하기
 ```java
-const avg = total1 / testArray1.length;
+int avg = total1 / testArray1.length;
 ```
 
 * `testArray1` 홀수만 더하기
 ```java
-const odd1 = testArray1[0] + testArray1[2] + testArray1[4];
+int odd1 = testArray1[0] + testArray1[2] + testArray1[4];
 ```
 
 * `testArray1` 짝수만 더하기
 ```java
-const even1 = testArray1[1] + testArray1[3];
+int even1 = testArray1[1] + testArray1[3];
 ```
 
-* 홀수만 지우기
-```java
-testArray1.splice(0, 1);
-testArray1.splice(1, 1);
-testArray1.splice(2, 1);
-```
+* ❔ 문제: `testArray1`의 `index` 번호 `0, 1, 4`번을 모두 곱해서 int 변수 `multiply1`에 넣기
+* <details><summary>정답</summary>
+
+  ```java
+  int multiply1 = testArray1[0] * testArray1[1] * testArray1[4];
+  ```
+</details>
+
+## for문(제어문 > 반복문)
