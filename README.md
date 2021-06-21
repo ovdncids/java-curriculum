@@ -441,71 +441,72 @@ for (초기문; 조건문; 증감문) {
 ```
 * 예제
 ```java
-for (let index1 = 0; index1 < 3; index1++) {
-  console.log(index1);
+for (int index1 = 0; index1 < 3; index1++) {
+  System.out.println(index1);
 }
 ```
 
 2. break
 ```java
-for (let index2 = 1; index2 <= 3; index2++) {
-  console.log(index2);
+for (int index2 = 1; index2 <= 3; index2++) {
+  System.out.println(index2);
   break;
 }
 ```
 
 3. continue
 ```java
-for (let index3 = 1; index3 <= 3; index3 += 1) {
-  console.log(index3);
-  continue;
-  console.log(index3);
+for (int index3 = 1; index3 <= 3; index3 += 1) {
+  if (index3 == 2) {
+    continue;
+  }
+  System.out.println(index3);
 }
 ```
 
-* ❔ 문제: `초기문`, `조건문`, `증감문`을 이용하여 `1`부터 `10` 사이에 `홀수`만 `실행문`에서 `console.log`로 찍어 보기
+* ❔ 문제: `초기문`, `조건문`, `증감문`을 이용하여 `1`부터 `10` 사이에 `홀수`만 `실행문`에서 `System.out.println`로 찍어 보기
 * <details><summary>정답</summary>
 
   ```java
-  for (let index4 = 1; index4 <= 10; index4 += 2) {
-    console.log(index4);
+  for (int index4 = 1; index4 <= 10; index4 += 2) {
+    System.out.println(index4);
   }
    ```
 </details>
 
-* ❔ 문제: `초기문`, `조건문`, `증감문`을 이용하여 `2`부터 `10` 사이에 `짝수`만 `실행문`에서 `console.log`로 찍어 보기
+* ❔ 문제: `초기문`, `조건문`, `증감문`을 이용하여 `2`부터 `10` 사이에 `짝수`만 `실행문`에서 `System.out.println`로 찍어 보기
 * <details><summary>정답</summary>
 
   ```java
-  for (let index5 = 2; index5 <= 10; index5 += 2) {
-    console.log(index5);
+  for (int index5 = 2; index5 <= 10; index5 += 2) {
+    System.out.println(index5);
   }
   ```
 </details>
 
-### for문의 범위(Scope), Script 변수와 Block(Local) 변수의 차이
+### for문의 범위(Scope), 로컬(Local) 변수와 블록(Block) 변수의 차이
 1. 초기문 사용하지 않기
 ```java
-let index6 = 0;
+int index6 = 0;
 for (; index6 < 3; index6++) {
-  const blockConst = index6;
-  console.log(blockConst);
+  final int blockInt = index6;
+  System.out.println(blockInt);
 }
-console.log(index6);
+System.out.println(index6);
 ```
-* ❕ 결과적으로 `Script 변수 index6`은 for문이 반복된 횟수가 된다.
-* ❔ `let index6 = 0;` `초기문`에 추가해 보기 (에러가 발생할지 생각해 보기)
-* 가림 현상 설명 (VSCode에서 `index6` 마우스 오버해보기, Ctrl(또는 command) 키를 눌러서 해당 변수 이동)
-* Block(Local) 변수 설명
-* ❔ 문제: `Script 변수 total1`에 `0`을 넣고, `for문`을 이용해 `total1`에 1부터 5까지 더하고, `total1`을 `for문` 밖에서 `console.log`로 찍어 보기
+* ❕ 결과적으로 `로컬 변수 index6`은 for문이 반복된 횟수가 된다.
+* ❔ `int index6 = 0;`을 잘라서 `초기문`에 붙여넣어 보기 (에러가 발생할지 생각해 보기)
+* Ctrl(또는 command) 키를 눌러서 해당 변수 이동
+* 블록 변수 설명
+* ❔ 문제: `로컬 변수 total1`에 `0`을 넣고, `for문`을 이용해 `total1`에 1부터 5까지 더하고, `total1`을 `for문` 밖에서 `console.log`로 찍어 보기
 * <details><summary>정답</summary>
 
   ```java
-  let total1 = 0;
-  for (let index7 = 1; index7 <= 5; index7++) {
+  int total1 = 0;
+  for (int index7 = 1; index7 <= 5; index7++) {
     total1 += index7;
   }
-  console.log(total1);
+  System.out.println(total1);
   ```
 </details>
 
