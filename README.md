@@ -128,9 +128,9 @@ System.out.println(c3);
 
 ## 연산자 (Operator)
 Operator.java
-### 1. 4칙 연산자 (`+, -, *, /`)
+### 1. 사칙 연산자 (`+, -, *, /`)
 
-#### 숫자형에 대한 4칙 연산자
+#### 숫자형에 대한 사칙 연산자
 ```java
 int int1 = 1;
 int int2 = 2;
@@ -160,7 +160,7 @@ int result4 = int1 + int2;
   ```
 </details>
 
-#### 문자형에 대한 4칙 연산자 (`+, -, *, /`)
+#### 문자형에 대한 사칙 연산자 (`+, -, *, /`)
 ```java
 String string1 = "a";
 String string2 = "b";
@@ -188,7 +188,7 @@ String result5 = string1 + string2;
   ```
 </details>
 
-#### boolean형에 대한 4칙 연산자 (`+, -, *, /`)
+#### boolean형에 대한 사칙 연산자 (`+, -, *, /`)
 ```java
 boolean boolean1 = true;
 boolean boolean2 = true;
@@ -232,7 +232,7 @@ int roundBracket1 = 1 + 2 * 3;
 int roundBracket2 = (1 + 2) * 3;
 int roundBracket3 = ((1 + 2) * 3);
 ```
-* ❕ `소괄호 연산자`는 `4칙 연산자`보다 우선 순위를 갖는다.
+* ❕ `소괄호 연산자`는 `사칙 연산자`보다 우선 순위를 갖는다.
 * ❔ 문제: `소괄호 연산자` 안에서 `true`와 `false`를 `동등 연산자`로 비교 후에 `boolean`형 변수 `y`에 넣고, `y`를 `System.out.println`로 찍어 보기
 * <details><summary>정답</summary>
 
@@ -515,14 +515,14 @@ System.out.println(index6);
 * <details><summary>정답</summary>
 
   ```java
-  let total1 = 0;
-  let index7 = 1;
+  int total1 = 0;
+  int index7 = 1;
   for (; index7 <= 5; index7++) {
     total1 += index7;
   }
-  const count = index7 - 1;
-  const avg1 = total1 / count;
-  console.log(avg1);
+  int count = index7 - 1;
+  int avg1 = total1 / count;
+  System.out.println(avg1);
   ```
   `total1 / 5 ` 이렇게 바로 나누었다면, 나중에 프로그램이 1에서 10까지로 변한다면, `5`값을 `2군데`에서 수정 해야 한다.
 </details>
