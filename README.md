@@ -425,3 +425,148 @@ int even1 = testArray1[1] + testArray1[3];
 </details>
 
 ## for문(제어문 > 반복문)
+For.java
+
+### for문을 사용하는 이유
+1. 반복 작업을 한곳으로 묶기 위해 사용함 (주로 배열이 사용 된다.)
+2. 주로 게시판에 목록을 보여줄때 주로 사용함
+
+### for문 문법
+1. 기본 구조
+```java
+for (초기문; 조건문; 증감문) {
+  실행문;
+  ...
+}
+```
+* 예제
+```java
+for (let index1 = 0; index1 < 3; index1++) {
+  console.log(index1);
+}
+```
+
+2. break
+```java
+for (let index2 = 1; index2 <= 3; index2++) {
+  console.log(index2);
+  break;
+}
+```
+
+3. continue
+```java
+for (let index3 = 1; index3 <= 3; index3 += 1) {
+  console.log(index3);
+  continue;
+  console.log(index3);
+}
+```
+
+* ❔ 문제: `초기문`, `조건문`, `증감문`을 이용하여 `1`부터 `10` 사이에 `홀수`만 `실행문`에서 `console.log`로 찍어 보기
+* <details><summary>정답</summary>
+
+  ```java
+  for (let index4 = 1; index4 <= 10; index4 += 2) {
+    console.log(index4);
+  }
+   ```
+</details>
+
+* ❔ 문제: `초기문`, `조건문`, `증감문`을 이용하여 `2`부터 `10` 사이에 `짝수`만 `실행문`에서 `console.log`로 찍어 보기
+* <details><summary>정답</summary>
+
+  ```java
+  for (let index5 = 2; index5 <= 10; index5 += 2) {
+    console.log(index5);
+  }
+  ```
+</details>
+
+### for문의 범위(Scope), Script 변수와 Block(Local) 변수의 차이
+1. 초기문 사용하지 않기
+```java
+let index6 = 0;
+for (; index6 < 3; index6++) {
+  const blockConst = index6;
+  console.log(blockConst);
+}
+console.log(index6);
+```
+* ❕ 결과적으로 `Script 변수 index6`은 for문이 반복된 횟수가 된다.
+* ❔ `let index6 = 0;` `초기문`에 추가해 보기 (에러가 발생할지 생각해 보기)
+* 가림 현상 설명 (VSCode에서 `index6` 마우스 오버해보기, Ctrl(또는 command) 키를 눌러서 해당 변수 이동)
+* Block(Local) 변수 설명
+* ❔ 문제: `Script 변수 total1`에 `0`을 넣고, `for문`을 이용해 `total1`에 1부터 5까지 더하고, `total1`을 `for문` 밖에서 `console.log`로 찍어 보기
+* <details><summary>정답</summary>
+
+  ```java
+  let total1 = 0;
+  for (let index7 = 1; index7 <= 5; index7++) {
+    total1 += index7;
+  }
+  console.log(total1);
+  ```
+</details>
+
+* ❔ 문제: `total1`의 `평균` 값을 구해 `avg1` 상수에 넣고, `avg1`을 `console.log`로 찍어 보기
+* ❕ 힌트: 평균으로 나눌 `5`값을 얻는 과정이 중요 (변수 또는 상수를 여러개 사용해도 무관, 사직연산 가능)
+* <details><summary>정답</summary>
+
+  ```java
+  let total1 = 0;
+  let index7 = 1;
+  for (; index7 <= 5; index7++) {
+    total1 += index7;
+  }
+  const count = index7 - 1;
+  const avg1 = total1 / count;
+  console.log(avg1);
+  ```
+  `total1 / 5 ` 이렇게 바로 나누었다면, 나중에 프로그램이 1에서 10까지로 변한다면, `5`값을 `2군데`에서 수정 해야 한다.
+</details>
+
+### for문에서 배열 사용하기
+```java
+const array1 = [1, 2, 3];
+for (let index8 = 0; index8 < array1.length; index8++) {
+  console.log(array1[index8]);
+}
+```
+* ❔ 문제: `array2` 상수에 `빈 배열`을 넣고, 위에 for문을 이용해 `array2` 배열을 `[1, 2, 3]`으로 만들고, `array2`를 for문 밖에서 `console.log`로 찍어 보기
+* <details><summary>정답</summary>
+
+  ```java
+  const array1 = [1, 2, 3];
+  const array2 = [];
+  for (let index8 = 0; index8 < array1.length; index8++) {
+    array2.push(array1[index8]);
+  }
+  console.log(array2);
+  ```
+</details>
+
+* ❕ 결과적으로 `array2`는 `array1`을 복사하였다.
+* ❔ `array1 === array2` 참일까요?
+* ❕ 메모리 설명
+```java
+let array3 = [1, 2, 3];
+let array4 = array3;
+```
+* ❔ `array3 === array4` 참일까?
+```java
+array3 = 3;
+array4 = 4;
+```
+* ❔ 문제: `array3`에서 사용하던 배열에 다시 접근할 수 있을까?
+* <details><summary>정답</summary>
+
+  없다. (따라서 배열은 `const`로 사용 해야한다.)
+</details>
+
+### index++와 ++index의 차이
+```java
+let index = 0;
+const diff1 = index++;
+const diff2 = ++index;
+```
