@@ -529,21 +529,21 @@ System.out.println(index6);
 
 ### for문에서 배열 사용하기
 ```java
-const array1 = [1, 2, 3];
-for (let index8 = 0; index8 < array1.length; index8++) {
-  console.log(array1[index8]);
+int[] array1 = {1, 2, 3};
+for (int index8 = 0; index8 < array1.length; index8++) {
+  System.out.println(array1[index8]);
 }
 ```
-* ❔ 문제: `array2` 상수에 `빈 배열`을 넣고, 위에 for문을 이용해 `array2` 배열을 `[1, 2, 3]`으로 만들고, `array2`를 for문 밖에서 `console.log`로 찍어 보기
+* ❔ 문제: `array2` 배열 변수에 `new int[3]`을 이용해 3개짜리 배열을 만들고, 위에 for문을 이용해 `array2` 배열을 `[1, 2, 3]`으로 만들고, `array2`를 for문 밖에서 `System.out.println`로 찍어 보기
 * <details><summary>정답</summary>
 
   ```java
-  const array1 = [1, 2, 3];
-  const array2 = [];
-  for (let index8 = 0; index8 < array1.length; index8++) {
-    array2.push(array1[index8]);
+  int[] array1 = {1, 2, 3};
+  int[] array2 = new int[3];
+  for (int index8 = 0; index8 < array1.length; index8++) {
+    array2[index8] = array1[index8];
   }
-  console.log(array2);
+  System.out.println(array2);
   ```
 </details>
 
@@ -551,23 +551,25 @@ for (let index8 = 0; index8 < array1.length; index8++) {
 * ❔ `array1 === array2` 참일까요?
 * ❕ 메모리 설명
 ```java
-let array3 = [1, 2, 3];
-let array4 = array3;
+int[] array3 = {1, 2, 3};
+int[] array4 = array3;
 ```
 * ❔ `array3 === array4` 참일까?
 ```java
-array3 = 3;
-array4 = 4;
+array3 = new int[3];
+array4 = new int[3];
 ```
 * ❔ 문제: `array3`에서 사용하던 배열에 다시 접근할 수 있을까?
 * <details><summary>정답</summary>
 
-  없다. (따라서 배열은 `const`로 사용 해야한다.)
+  없다. (따라서 배열은 `상수(final)`로 사용 해야한다.)
 </details>
 
 ### index++와 ++index의 차이
 ```java
-let index = 0;
-const diff1 = index++;
-const diff2 = ++index;
+int index = 0;
+int diff1 = index++;
+System.out.println(index);
+int diff2 = ++index;
+System.out.println(index);
 ```
