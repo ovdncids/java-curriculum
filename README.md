@@ -586,3 +586,52 @@ System.out.println(index);
 int diff2 = ++index;
 System.out.println(index);
 ```
+
+## 함수
+Function.java
+
+### 함수를 사용하는 이유
+1. 여러줄에 걸쳐 실행되던 동일한 작업을, 함수 호출 한줄로 동일한 결과를 만들어 낼 수 있다. DRY: (Don't repeat yourself)
+2. 반복됐던 만큼 코드양이 줄어 가독성을 높일 수 있다.
+
+### 함수 문법
+1. 기본 구조
+```java
+// 선언부
+접근권한 [static 유무] 반환자료형 함수명(자료형 인자1, 자료형 인자2, ...) {
+  실행문;
+  ...
+  return 반환값;
+}
+
+// 실행부
+리턴받을형식 반환받는변수 = 함수명(인수1, 인수2, ...);
+```
+
+* 예제
+```java
+const func1 = function(argument1, argument2) {
+  const sum1 = argument1 + argument2;
+  return sum1;
+};
+const returned1 = func1('parameter1', 'parameter2');
+```
+* Console 창에서 `func1`, `returned1` 찍어 보기
+* `breakpoint`로 진행 확인
+* `func1(1, 2)` 실행해 보기
+* ❔ 함수 안에 `return`이 없다면 `returned1`의 값은?
+* ❔ `parameter2`를 넘기지 않는다면 `sum1`의 값은?
+* ❔ `parameter1`, `parameter2` 둘다 넘기지 않는다면 `sum1`의 값은?
+* `argument1`은 함수 내부적으로 `let argument1 = 인수1` 이렇게 작동 한다.
+* ❔ `argument2`를 지운다면 `sum1`의 값은?
+* ❔ `argument1`, `argument2` 둘다 지운다면 `sum1`의 값은?
+* ❔ 문제: `console.log('함수 실행');`이라는 실행문을 가진 `함수`를 상수 `f1`에 넣고, 해당 `함수` 실행 시키기
+* <details><summary>정답</summary>
+
+  ```java
+  const f1 = function() {
+    console.log('함수 실행');
+  };
+  f();
+  ```
+</details>
