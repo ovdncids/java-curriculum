@@ -597,41 +597,49 @@ Function.java
 ### 함수 문법
 1. 기본 구조
 ```java
-// 선언부
+// 함수 선언부
 접근권한 [static 유무] 반환자료형 함수명(자료형 인자1, 자료형 인자2, ...) {
   실행문;
   ...
   return 반환값;
 }
 
-// 실행부
+// 함수 호출부
 리턴받을형식 반환받는변수 = 함수명(인수1, 인수2, ...);
 ```
 
 * 예제
+
+public class Function {
 ```java
-const func1 = function(argument1, argument2) {
-  const sum1 = argument1 + argument2;
-  return sum1;
-};
-const returned1 = func1('parameter1', 'parameter2');
+public static int func1(int argument1, int argument2) {
+    int sum1 = argument1 + argument2;
+    return sum1;
+}
 ```
-* Console 창에서 `func1`, `returned1` 찍어 보기
+public static void main(String[] args) {
+```java
+int returned1 = func1(1, 2);
+```
+
+* `System.out.println`으로 `func1`, `returned1` 찍어 보기
 * `breakpoint`로 진행 확인
-* `func1(1, 2)` 실행해 보기
-* ❔ 함수 안에 `return`이 없다면 `returned1`의 값은?
-* ❔ `parameter2`를 넘기지 않는다면 `sum1`의 값은?
-* ❔ `parameter1`, `parameter2` 둘다 넘기지 않는다면 `sum1`의 값은?
-* `argument1`은 함수 내부적으로 `let argument1 = 인수1` 이렇게 작동 한다.
-* ❔ `argument2`를 지운다면 `sum1`의 값은?
-* ❔ `argument1`, `argument2` 둘다 지운다면 `sum1`의 값은?
-* ❔ 문제: `console.log('함수 실행');`이라는 실행문을 가진 `함수`를 상수 `f1`에 넣고, 해당 `함수` 실행 시키기
+* `실행`과 `호출`의 차이 설명하기
+* `func1(1, 2);`을 `returned1`위에 넣어서 호출 해 보기
+* ❔ 함수 안에 `return`을 주석처리 한다면?
+* ❔ `func1(1);` 이렇게 인수를 하나만 넘긴다면?
+* ❔ `int argument2`를 지워서 인자를 하나만 받는다면?
+* `argument1`은 함수 내부적으로 `int argument1 = 인수1` 이렇게 작동 한다.
+* ❔ `int argument1`의 자료형을 `String`으로 바꾼다면?
+* ❔ 문제: `System.out.println("함수 호출");`이라는 실행문을 가진 `함수`를 `f1`이라고 선언하고, 해당 `함수` 호출 시키기
 * <details><summary>정답</summary>
 
   ```java
-  const f1 = function() {
-    console.log('함수 실행');
-  };
-  f();
+  public static void f1() {
+      System.out.println("함수 호출");
+  }
+  ```
+  ```java
+  f1();
   ```
 </details>
