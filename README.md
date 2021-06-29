@@ -643,3 +643,46 @@ int returned1 = func1(1, 2);
   f1();
   ```
 </details>
+
+2. 인수에 자료형 데어터 넘기기
+
+public class Function {
+```java
+public static void func2(String argument1, String argument2) {
+    boolean compare1 = argument1 == argument2;
+    argument1 = "b";
+    boolean compare2 = argument1 == argument2;
+}
+```
+public static void main(String[] args) {
+```java
+String strVar1 = "a";
+String strVar2 = "a";
+func2(strVar1, strVar2);
+System.out.println(strVar1);
+```
+* ❔ `compare2`는 `참`일까, `거짓`일까?
+* ❔ 호출 완료 후에 `System.out.println(strVar1);`의 값은?
+* ❔ `func2(strVar1, strVar1);` 이렇게 실행 한다면?
+
+3. 인수에 배열 넘기기
+
+public class Function {
+```java
+public static void func3(int[] argument1, int[] argument2) {
+    boolean compare1 = argument1 == argument2;
+    argument1[0] = 4;
+    boolean compare2 = argument1 == argument2;
+}
+```
+public static void main(String[] args) {
+```java
+int[] arrVar1 = {1, 2, 3};
+int[] arrVar2 = {1, 2, 3};
+func3(arrVar1, arrVar2);
+System.out.println(arrVar1);
+```
+
+* ❔ `compare2`는 `참`일까, `거짓`일까?
+* ❔ 호출 완료 후에 `System.out.println(arrVar1);`의 값은?
+* ❔ `func3(arrVar1, arrVar1);` 이렇게 실행 한다면?
