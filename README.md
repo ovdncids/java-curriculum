@@ -682,7 +682,17 @@ int[] arrVar2 = {1, 2, 3};
 func3(arrVar1, arrVar2);
 System.out.println(arrVar1);
 ```
-
 * ❔ `compare2`는 `참`일까, `거짓`일까?
-* ❔ 호출 완료 후에 `System.out.println(arrVar1);`의 값은?
+* ❔ 호출 완료 후에 `System.out.println(arrVar1[0]);`의 값은?
 * ❔ `func3(arrVar1, arrVar1);` 이렇게 실행 한다면?
+
+4. 라이브러리: 특정 함수들의 모음 (Math, Date)
+```java
+import java.lang.Math;
+import java.util.Date;
+```
+public static void main(String[] args) {
+```java
+System.out.println(Math.random());
+System.out.println(new Date());
+```
