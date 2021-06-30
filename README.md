@@ -511,7 +511,7 @@ System.out.println(index7);
 * ❔ `int index7 = 0;`을 잘라서 `초기문`에 붙여넣어 보기 (에러가 발생할지 생각해 보기)
 * Ctrl(또는 command) 키를 눌러서 해당 변수 이동
 * 블록 변수 설명
-* ❔ 문제: `로컬 변수 total1`에 `0`을 넣고, `for문`을 이용해 `total1`에 1부터 5까지 더하고, `total1`을 `for문` 밖에서 `console.log`로 찍어 보기
+* ❔ 문제: `로컬 int 변수 total1`에 `0`을 넣고, `for문`을 이용해 `total1`에 1부터 5까지 더하고, `total1`을 `for문` 밖에서 `System.out.println`로 찍어 보기
 * <details><summary>정답</summary>
 
   ```java
@@ -523,7 +523,7 @@ System.out.println(index7);
   ```
 </details>
 
-* ❔ 문제: `total1`의 `평균` 값을 구해 `avg1` 상수에 넣고, `avg1`을 `console.log`로 찍어 보기
+* ❔ 문제: `total1`의 `평균` 값을 구해 `avg1` 상수에 넣고, `avg1`을 `System.out.println`로 찍어 보기
 * ❕ 힌트: 평균으로 나눌 `5`값을 얻는 과정이 중요 (변수 또는 상수를 여러개 사용해도 무관, 사직연산 가능)
 * <details><summary>정답</summary>
 
