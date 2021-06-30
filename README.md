@@ -696,3 +696,61 @@ public static void main(String[] args) {
 System.out.println(Math.random());
 System.out.println(new Date());
 ```
+
+### 함수 실습 (회원 CRUD 만들기)
+MembersFunction.java
+
+1. Create
+
+public class MembersFunction {
+```java
+public static ArrayList<String> members = new ArrayList<String>();
+public static void membersCreate(String member) {
+    members.add(member);
+}
+```
+public static void main(String[] args) {
+```java
+membersCreate("홍길동");
+membersCreate("홍길동2");
+```
+
+2. Read
+public class MembersFunction {
+```java
+public static void membersRead() {
+    System.out.println(members);
+}
+```
+public static void main(String[] args) {
+```java
+membersRead();
+```
+
+3. Delete
+public class MembersFunction {
+```java
+public static void membersDelete(int index) {
+    members.remove(index);
+}
+```
+public static void main(String[] args) {
+```java
+membersDelete(0);
+membersRead();
+```
+
+4. Update
+public class MembersFunction {
+```java
+public static void membersUpdate(int index, String member) {
+    members.set(index, member);
+}
+```
+public static void main(String[] args) {
+```java
+membersUpdate(0, "길동이");
+membersRead();
+```
+
+* `MembersFunction2.java` 파일을 생성하고, 처음 부터 코딩 해보기
