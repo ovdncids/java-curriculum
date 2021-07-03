@@ -612,8 +612,8 @@ Function.java
 
 public class Function {
 ```java
-public static int func1(int argument1, int argument2) {
-    int sum1 = argument1 + argument2;
+public static int func1(int parameter1, int parameter2) {
+    int sum1 = parameter1 + parameter2;
     return sum1;
 }
 ```
@@ -628,9 +628,9 @@ int returned1 = func1(1, 2);
 * `func1(1, 2);`을 `returned1`위에 넣어서 호출 해 보기
 * ❔ 함수 안에 `return`을 주석처리 한다면?
 * ❔ `func1(1);` 이렇게 인수를 하나만 넘긴다면?
-* ❔ `int argument2`를 지워서 인자를 하나만 받는다면?
-* `argument1`은 함수 내부적으로 `int argument1 = 인수1` 이렇게 작동 한다.
-* ❔ `int argument1`의 자료형을 `String`으로 바꾼다면?
+* ❔ `int parameter2`를 지워서 인자를 하나만 받는다면?
+* `parameter1`은 함수 내부적으로 `int parameter1 = 인수1` 이렇게 작동 한다.
+* ❔ `int parameter1`의 자료형을 `String`으로 바꾼다면?
 * ❔ 문제: `System.out.println("함수 호출");`이라는 실행문을 가진 `함수`를 `f1`이라고 선언하고, 해당 `함수` 호출 시키기
 * <details><summary>정답</summary>
 
@@ -648,10 +648,10 @@ int returned1 = func1(1, 2);
 
 public class Function {
 ```java
-public static void func2(String argument1, String argument2) {
-    boolean compare1 = argument1 == argument2;
-    argument1 = "b";
-    boolean compare2 = argument1 == argument2;
+public static void func2(String parameter1, String parameter2) {
+    boolean compare1 = parameter1 == parameter2;
+    parameter1 = "b";
+    boolean compare2 = parameter1 == parameter2;
 }
 ```
 public static void main(String[] args) {
@@ -669,10 +669,10 @@ System.out.println(strVar1);
 
 public class Function {
 ```java
-public static void func3(int[] argument1, int[] argument2) {
-    boolean compare1 = argument1 == argument2;
-    argument1[0] = 4;
-    boolean compare2 = argument1 == argument2;
+public static void func3(int[] parameter1, int[] parameter2) {
+    boolean compare1 = parameter1 == parameter2;
+    parameter1[0] = 4;
+    boolean compare2 = parameter1 == parameter2;
 }
 ```
 public static void main(String[] args) {
