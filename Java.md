@@ -1,4 +1,4 @@
-# JAVA
+# Java
 ## 설치
 * https://www.oracle.com/kr/java/technologies/javase-downloads.html
 ```sh
