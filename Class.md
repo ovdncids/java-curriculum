@@ -2,7 +2,7 @@
 ## Model형 Class
 배열은 변수의 집합으로 숫자(index) 기준으로 변수에 접근 하지만, Model형 Class로 만든 객체(Object)는 문자를 기준으로 변수에 접근 한다.
 
-src/com/company/model/Model.java
+src/com/company/model/Model1.java
 ```java
 package com.company.model;
 
@@ -25,6 +25,8 @@ public class Class {
         System.out.println(model1.v1);
         System.out.println(model1.v2);
         System.out.println(model1.v3);
+        model1.v1 = false;
+        System.out.println(model1.v1);
     }
 }
 ```
@@ -36,4 +38,34 @@ public class Class {
 ```diff
 - public boolean v1 = true;
 + private boolean v1 = true;
+```
+* ❕ 멤버변수의 접근권한을 `public`에서 `private`으로 바꾸면 `model1.v1` 접근이 막히게 된다. `get`, `set` 메서드를 만들어서 간접 접근 해야한다.
+
+### get, set 메서드 만들기
+* Model형 Class -> 멤버변수로 커서 이동 -> Generate... -> Getter and Setter -> 멤버변수 선택
+
+src/com/company/model/Model1.java
+```diff
+- public int v2 = 100;
+- public String v3 = "abc";
++ private int v2 = 100;
++ private String v3 = "abc";
+```
+
+src/com/company/Class.java
+```diff
+- model1.v1
++ model1.isV1()
+```
+```diff
+- model1.v2
++ model1.getV2()
+```
+```diff
+- model1.v3
++ model1.getV3()
+```
+```diff
+- model1.v1 = false;
++ model1.setV1(false);
 ```
