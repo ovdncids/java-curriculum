@@ -658,12 +658,13 @@ public static void main(String[] args) {
 ```java
 String strVar1 = "a";
 String strVar2 = "a";
+System.out.println(strVar1);
 func2(strVar1, strVar2);
 System.out.println(strVar1);
 ```
 * ❔ `compare2`는 `참`일까, `거짓`일까?
 * ❔ 호출 완료 후에 `System.out.println(strVar1);`의 값은?
-* ❔ `func2(strVar1, strVar1);` 이렇게 실행 한다면?
+* ❔ `func2(strVar1, strVar1);` 이렇게 실행 한다면 `System.out.println(strVar1);`의 값은?
 
 3. 인수에 배열 넘기기
 
@@ -679,12 +680,13 @@ public static void main(String[] args) {
 ```java
 int[] arrVar1 = {1, 2, 3};
 int[] arrVar2 = {1, 2, 3};
+System.out.println(arrVar1[0]);
 func3(arrVar1, arrVar2);
-System.out.println(arrVar1);
+System.out.println(arrVar1[0]);
 ```
 * ❔ `compare2`는 `참`일까, `거짓`일까?
 * ❔ 호출 완료 후에 `System.out.println(arrVar1[0]);`의 값은?
-* ❔ `func3(arrVar1, arrVar1);` 이렇게 실행 한다면?
+* ❔ `func3(arrVar1, arrVar1);` 이렇게 실행 한다면 `System.out.println(arrVar1[0]);`의 값은?
 
 4. 라이브러리: 특정 함수들의 모음 (Math, Date)
 ```java
