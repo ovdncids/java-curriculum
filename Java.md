@@ -582,10 +582,26 @@ array4 = new int[3];
 ```java
 int index = 0;
 int diff1 = index++;
+System.out.println(diff1);
 System.out.println(index);
+
 int diff2 = ++index;
+System.out.println(diff2);
 System.out.println(index);
 ```
+* <details><summary>동작</summary>
+
+  ```java
+  int index = 0;
+  // int diff1 = index++;
+  int diff1 = index;
+  index += 1;
+
+  // int diff2 = ++index;
+  index += 1;
+  int diff2 = index;
+  ```
+</details>
 
 ## 함수
 Function.java
