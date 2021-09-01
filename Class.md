@@ -7,8 +7,8 @@ src/com/company/model/Model1.java
 package com.company.model;
 
 public class Model1 {
-    public boolean v1 = true;
-    public int v2 = 100;
+    public Boolean v1 = true;
+    public Integer v2 = 100;
     public String v3 = "abc";
 }
 ```
@@ -20,24 +20,37 @@ import com.company.model.Model1;
 
 public class Class {
     public static void main(String[] args) {
+        // 오브젝트 Create
         Model1 model1 = new Model1();
         System.out.println(model1);
-        System.out.println(model1.v1);
-        System.out.println(model1.v2);
-        System.out.println(model1.v3);
+
+        // 오브젝트 Read
+        boolean v1 = model1.v1;
+        int v2 = model1.v2;
+        String v3 = model1.v3;
+
+        // 오브젝트 Update
         model1.v1 = false;
-        System.out.println(model1.v1);
+        model1.v2 = -10;
+        model1.v3 = "def";
+
+        // 오브젝트 Delete
+        model1.v1 = null;
+        model1.v2 = null;
+        model1.v3 = null;
     }
 }
 ```
-* ❕ `new` 키워드 설명
+* ❕ boolean(기본 자료형)과 Boolean(참조형) 차이 설명
+* `new` 키워드 설명
 * ❔`new` 키워드를 뺀다면
 * `System.out.println(Model1);` 실행해 보기
+* `System.out.println(Model1.class);` 실행해 보기
 
 ## 캡슐화
 ```diff
-- public boolean v1 = true;
-+ private boolean v1 = true;
+- public Boolean v1 = true;
++ private Boolean v1 = true;
 ```
 * ❕ 멤버변수의 접근권한을 `public`에서 `private`으로 바꾸면 `model1.v1` 접근이 막히게 된다. `get`, `set` 메서드를 만들어서 간접 접근 해야한다.
 
@@ -46,9 +59,9 @@ public class Class {
 
 src/com/company/model/Model1.java
 ```diff
-- public int v2 = 100;
+- public Integer v2 = 100;
 - public String v3 = "abc";
-+ private int v2 = 100;
++ private Integer v2 = 100;
 + private String v3 = "abc";
 ```
 
@@ -73,7 +86,7 @@ src/com/company/Class.java
 ### set 메서드에서 Validation 적용
 * 상황: `model1`객체의 멤버변수 `v2`는 양수만 받아야 하고, 음수를 받을 경우 0으로 대치 하려한다.
 ```java
-public void setV2(int v2) {
+public void setV2(Integer v2) {
     if (v2 < 0) v2 = 0;
     this.v2 = v2;
 }
