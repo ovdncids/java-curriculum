@@ -93,3 +93,23 @@ public void setV2(Integer v2) {
 ```
 
 * ❔ `model1`객체의 멤버변수 `v2`는 음수만 받아야 하고, 양수를 받을 경우 0으로 대치 하려면
+
+## 외부 라이브러리 불러오기
+### Gson
+* Object를 JSON 형식으로 쉽게 변경 가능
+* https://search.maven.org/artifact/com.google.code.gson/gson/2.8.8/jar
+* `lib/gson-2.8.8.jar` 이동하기
+* File -> Project Structure -> Project Settings -> Libraies -> + -> `lib/gson-2.8.8.jar` 선택
+
+```java
+// Gson 객체 생성
+Gson gson = new Gson();
+
+// Object에서 JSON문자형으로 변경
+String model1String = gson.toJson(model1);
+System.out.println(model1String);
+
+// JSON문자형에서 Object로 변경
+Model1 model1New = gson.fromJson(model1String, Model1.class);
+System.out.println(model1New);
+```
