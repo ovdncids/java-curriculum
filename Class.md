@@ -67,20 +67,20 @@ src/com/company/model/Model1.java
 
 src/com/company/Class.java
 ```diff
-- model1.v1
-+ model1.isV1()
-```
-```diff
-- model1.v2
-+ model1.getV2()
-```
-```diff
-- model1.v3
-+ model1.getV3()
-```
-```diff
-- model1.v1 = false;
-+ model1.setV1(false);
+// 오브젝트 Read
+boolean v1 = model1.getV1();
+int v2 = model1.getV2();
+String v3 = model1.getV3();
+
+// 오브젝트 Update
+model1.setV1(false);
+model1.setV2(-10);
+model1.setV3("def");
+
+// 오브젝트 Delete
+model1.setV1(null);
+model1.setV2(null);
+model1.setV3(null);
 ```
 
 ### set 메서드에서 Validation 적용
@@ -113,3 +113,4 @@ System.out.println(model1String);
 Model1 model1New = gson.fromJson(model1String, Model1.class);
 System.out.println(model1New);
 ```
+* API에서 JSON 설명
