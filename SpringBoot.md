@@ -79,7 +79,7 @@ src/main/java/com/example/SpringBootStudy/api/v1/Members.java
 @RequestMapping("api/v1/members")
 public class Members {
     private static ArrayList<Member> init() {
-        ArrayList<Member> members = new ArrayList<Member>();
+        ArrayList<Member> members = new ArrayList<>();
         members.add(new Member("홍길동", 39));
         members.add(new Member("김삼순", 33));
         members.add(new Member("홍명보", 44));
@@ -87,25 +87,21 @@ public class Members {
         members.add(new Member("권명순", 10));
         return members;
     }
-    private static ArrayList<Member> members = init();
+    private static final ArrayList<Member> members = init();
 
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public MembersResponse membersCreate(
-            @RequestBody Member member
-    ) throws Exception {
+    public MembersResponse membersCreate(@RequestBody Member member) {
         members.add(member);
         return new MembersResponse("created");
     }
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    public MembersResponse membersRead() throws Exception {
+    public MembersResponse membersRead() {
         return new MembersResponse("read", members);
     }
 
     @RequestMapping(path = "/{index}", method = RequestMethod.DELETE)
-    public MembersResponse membersDelete(
-            @PathVariable("index") int index
-    ) throws Exception {
+    public MembersResponse membersDelete(@PathVariable("index") int index) {
         members.remove(index);
         return new MembersResponse("deleted");
     }
@@ -114,7 +110,7 @@ public class Members {
     public MembersResponse membersUpdate(
             @PathVariable("index") int index,
             @RequestBody Member member
-    ) throws Exception {
+    ) {
         members.set(index, member);
         return new MembersResponse("updated");
     }
