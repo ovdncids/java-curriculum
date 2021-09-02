@@ -2,9 +2,9 @@
 ## Model형 Class
 배열은 변수의 집합으로 숫자(index) 기준으로 변수에 접근 하지만, Model형 Class로 만든 객체(Object)는 문자를 기준으로 변수에 접근 한다.
 
-src/com/company/model/Model1.java
+src/com/company/models/Model1.java
 ```java
-package com.company.model;
+package com.company.models;
 
 public class Model1 {
     public Boolean v1 = true;
@@ -16,7 +16,7 @@ public class Model1 {
 src/com/company/Class.java
 ```java
 package com.company;
-import com.company.model.Model1;
+import com.company.models.Model1;
 
 public class Class {
     public static void main(String[] args) {
@@ -57,7 +57,7 @@ public class Class {
 ### get, set 메서드 만들기
 * Model형 Class -> 멤버변수로 커서 이동 -> Generate... -> Getter and Setter -> 멤버변수 선택
 
-src/com/company/model/Model1.java
+src/com/company/models/Model1.java
 ```diff
 - public Integer v2 = 100;
 - public String v3 = "abc";
