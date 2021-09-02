@@ -1,7 +1,8 @@
 # Spring Boot
 
 ## 설치
-https://start.spring.io
+* https://start.spring.io
+* https://sidepower.tistory.com/352
 ```sh
 Project: Maven Project
 Language: Java
