@@ -722,7 +722,7 @@ MembersFunction.java
 
 public class MembersFunction {
 ```java
-public static ArrayList<String> members = new ArrayList<String>();
+public static ArrayList<String> members = new ArrayList<>();
 public static void membersCreate(String member) {
     members.add(member);
 }
