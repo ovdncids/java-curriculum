@@ -116,3 +116,19 @@ public class Members {
     }
 }
 ```
+
+<!--
+### Global CORS configuration
+src/main/java/com/example/SpringBootStudy/SpringBootStudyApplication.java
+```java
+  @Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/api/v1/*").allowedOrigins("*");
+			}
+		};
+	}
+```
+-->
