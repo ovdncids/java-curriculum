@@ -119,6 +119,8 @@ public class Members {
 
 <!--
 ### Global CORS configuration
+https://spring.io/guides/gs/rest-service-cors/#global-cors-configuration
+
 src/main/java/com/example/SpringBootStudy/SpringBootStudyApplication.java
 ```java
   @Bean
