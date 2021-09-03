@@ -134,3 +134,32 @@ src/main/java/com/example/SpringBootStudy/SpringBootStudyApplication.java
 	}
 ```
 -->
+
+## Swagger UI 설정
+pom.xml
+```xml
+<dependency>
+	<groupId>io.springfox</groupId>
+	<artifactId>springfox-swagger2</artifactId>
+	<version>2.9.2</version>
+</dependency>
+<dependency>
+	<groupId>io.springfox</groupId>
+	<artifactId>springfox-swagger-ui</artifactId>
+	<version>2.9.2</version>
+</dependency>
+```
+
+src/main/java/com/example/SpringBootStudy/SpringBootStudyApplication.java
+```java
+@Configuration
+@EnableSwagger2
+public class SwaggerConfig {
+	@Bean
+	public Docket api() {
+		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
+				.paths(PathSelectors.any()).build();
+	}
+}
+```
+* http://localhost:8080/swagger-ui.html
