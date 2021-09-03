@@ -163,3 +163,5 @@ public class SwaggerConfig {
 }
 ```
 * http://localhost:8080/swagger-ui.html
+
+<!-- pom.xml 파일에서 문제가 있을경우 2.9.2 -> 2.6.1 변경 후 다시 2.9.2 버전으로 돌아 온다. -->
