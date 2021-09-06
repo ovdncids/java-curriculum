@@ -133,6 +133,9 @@ final String c3 = "abc";
 System.out.println(c1);
 System.out.println(c2);
 System.out.println(c3);
+
+// 상수 Update
+// 상수 Delete
 ```
 * ❔ c1 상수에 final을 2번 선언 한다면
 * ❔ c1 상수에 값을 변경해 보기
