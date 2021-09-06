@@ -43,18 +43,27 @@ Variable.java
 ```java
 public class Variable {
     public static void main(String[] args) {
+        // 변수 Create
         boolean v1 = true;
         int v2 = 100;
         String v3 = "abc";
+
+        // 변수 Read
         System.out.println(v1);
         System.out.println(v2);
         System.out.println(v3);
+
+        // 변수 Update
         v1 = false;
         v2 = -10;
         v3 = "def";
+
+        // 변수 Read
         System.out.println(v1);
         System.out.println(v2);
         System.out.println(v3);
+
+        // 변수 Delete
     }
 }
 ```
@@ -115,9 +124,12 @@ Constant.java
 ### 상수를 사용하는 이유
 1. 한번 선언된 값의 변경을 막기 위해 사용 한다.
 ```java
+// 상수 Create
 final boolean c1 = true;
 final int c2 = 100;
 final String c3 = "abc";
+
+// 상수 Read
 System.out.println(c1);
 System.out.println(c2);
 System.out.println(c3);
