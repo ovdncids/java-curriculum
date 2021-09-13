@@ -68,6 +68,59 @@ public class Search {
 }
 ```
 
+## .jsp 파일 읽기
+src/main/webapp/test.jsp
+```jsp
+<%="test"%>
+```
+* http://localhost:8080/test.jsp
+* pom.xml 설정 없이도 webapp 경로의 파일은 접근 가능하다. 하지만 jsp를 컴파일 하지 못한다.
+
+### .jsp 파일 컴파일 하기
+pom.xml
+```xml
+<dependency>
+	<groupId>org.apache.tomcat.embed</groupId>
+	<artifactId>tomcat-embed-jasper</artifactId>
+</dependency>
+<dependency>
+	<groupId>javax.servlet</groupId>
+	<artifactId>jstl</artifactId>
+</dependency>
+```
+* pom.xml <- Maven <- Download Sources
+* IntelliJ 재시작
+* http://localhost:8080/test.jsp
+
+## View 만들기
+src/main/webapp/WEB-INF/jsp/members.jsp
+```jsp
+<%="members.jsp"%>
+```
+
+src/main/java/com/example/SpringBootMvcStudy/controllers/Members.java
+```diff
+- String membersRead() {
+-     return "membersRead";
+- }
+```
+```java
+ModelAndView membersRead() {
+    return new ModelAndView("members");
+}
+```
+
+src/main/resources/application.properties
+```properties
+spring.mvc.view.prefix=/WEB-INF/jsp/
+spring.mvc.view.suffix=.jsp
+```
+<!--
+# 컨테이너에 기본 서블릭을 등록한다. Spring boot 2.4 버전 부터는 기본이 false이다. (무슨 차이인지 ...)
+server.servlet.register-default-servlet=true
+-->
+* ❔ `Search.java` 적용해 보기
+
 ## Model 만들기 - 회원(Members)
 * Model은 데이터 구조 또는 스키마라고 한다.
 
