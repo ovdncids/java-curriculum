@@ -93,7 +93,7 @@ pom.xml
 * http://localhost:8080/test.jsp
 
 ## View 만들기
-src/main/webapp/WEB-INF/jsp/members.jsp
+src/main/webapp/WEB-INF/views/members.jsp
 ```jsp
 <%="members.jsp"%>
 ```
@@ -112,7 +112,7 @@ ModelAndView membersRead() {
 
 src/main/resources/application.properties
 ```properties
-spring.mvc.view.prefix=/WEB-INF/jsp/
+spring.mvc.view.prefix=/WEB-INF/views/
 spring.mvc.view.suffix=.jsp
 ```
 <!--
@@ -120,6 +120,138 @@ spring.mvc.view.suffix=.jsp
 server.servlet.register-default-servlet=true
 -->
 * ❔ `Search.java` 적용해 보기
+
+### Members 페이지 Markup 적용
+src/main/webapp/WEB-INF/views/members.jsp
+```jsp
+<%@ page language="java" contentType="text/html;charset=UTF-8" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="./css/app.css" rel="stylesheet">
+</head>
+<body>
+    <div>
+        <header>
+            <h1>Spring Boot MVC study</h1>
+        </header>
+        <hr />
+        <div class="container">
+            <nav class="nav">
+                <ul>
+                    <li><h2>Members</h2></li>
+                    <li><h2>Search</h2></li>
+                </ul>
+            </nav>
+            <hr />
+            <section class="contents">
+                <div>
+                    <h3>Members</h3>
+                    <hr class="d-block" />
+                    <div>
+                        <h4>Read</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Modify</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>홍길동</td>
+                                    <td>20</td>
+                                    <td>
+                                        <button>Update</button>
+                                        <button>Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr class="d-block" />
+                    <div>
+                        <h4>Create</h4>
+                        <input type="text" placeholder="Name" v-model="member.name" />
+                        <input type="text" placeholder="Age" v-model="member.age" />
+                        <button @click="membersCreate()">Create</button>
+                    </div>
+                </div>
+            </section>
+            <hr />
+        </div>
+        <footer>Copyright</footer>
+    </div>
+</body>
+</html>
+```
+
+src/main/webapp/css/app.css
+```css
+* {
+  margin: 0;
+  font-family: -apple-system,BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+a:link, a:visited {
+  text-decoration: none;
+  color: black;
+}
+a.active {
+  color: white;
+}
+h1, footer, .nav ul {
+  padding: 0.5rem;
+}
+h4, li {
+  margin: 0.5rem 0;
+}
+hr {
+  display: none;
+  margin: 1rem 0;
+  border: 0;
+  border-top: 1px solid #ccc;
+}
+input[type=text] {
+  width: 120px;
+}
+
+.d-block {
+  display: block;
+}
+.container {
+  display: flex;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.nav {
+  min-height: 300px;
+  background-color: #4285F4;
+}
+.nav ul {
+  list-style: none;
+}
+.contents {
+  flex: 1;
+  padding: 1rem;
+}
+
+.table-search {
+  border: 1px solid rgb(118, 118, 118);
+  border-collapse: collapse;
+  text-align: center;
+}
+.table-search th, .table-search td {
+  padding: 0.2rem;
+}
+.table-search td {
+  border-top: 1px solid rgb(118, 118, 118);
+  min-width: 100px;
+}
+```
 
 ## Model 만들기 - 회원(Members)
 * Model은 데이터 구조 또는 스키마라고 한다.
