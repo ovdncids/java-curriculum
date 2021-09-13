@@ -253,9 +253,10 @@ input[type=text] {
 }
 ```
 
-## Model 만들기 - 회원(Members)
+## Model 만들기
 * Model은 데이터 구조 또는 스키마라고 한다.
 
+### 회원(Members) Model
 src/main/java/com/example/SpringBootMvcStudy/models/Member.java
 ```java
 public class Member {
