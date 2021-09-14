@@ -116,6 +116,7 @@ public class Members {
     }
 }
 ```
+* http://localhost:8080/api/v1/members
 
 <!--
 ### Global CORS configuration
@@ -162,6 +163,9 @@ public class SwaggerConfig {
     }
 }
 ```
+* pom.xml <- Maven <- Reload project
+* SpringBoot 재시작
 * http://localhost:8080/swagger-ui.html
+* ❕ 안될 경우: IntelliJ 재시작
 
 <!-- pom.xml 파일에서 문제가 있을경우 2.9.2 -> 2.6.1 변경 후 다시 2.9.2 버전으로 돌아 온다. -->
