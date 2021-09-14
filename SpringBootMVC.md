@@ -560,7 +560,7 @@ src/main/java/com/example/SpringBootMvcStudy/controllers/Search.java
 ArrayList<Member> members = new ArrayList<>();
 for (int index = 0; index < Members.members.size(); index++) {
     Member member = Members.members.get(index);
-    if (q == null || member.getName().indexOf(q) >= 0) {
+    if (q == null || member.getName().contains(q)) {
         members.add(member);
     }
 }
