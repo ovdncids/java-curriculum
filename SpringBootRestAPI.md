@@ -87,7 +87,7 @@ public class Members {
         members.add(new Member("권명순", 10));
         return members;
     }
-    private static final ArrayList<Member> members = init();
+    public static final ArrayList<Member> members = init();
 
     @RequestMapping(path = "", method = RequestMethod.POST)
     public MembersResponse membersCreate(@RequestBody Member member) {
