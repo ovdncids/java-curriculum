@@ -4,4 +4,6 @@
 
 * [Class](Class.md)
 
-* [Spring Boot](SpringBoot.md)
+* [Spring Boot - Rest API](SpringBootRestApi.md)
+
+* [Spring Boot - MVC](SpringBootMvc.md)
