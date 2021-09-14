@@ -1,4 +1,4 @@
-# Spring Boot
+# Spring Boot - Rest API
 
 ## 설치
 * https://start.spring.io
@@ -8,23 +8,23 @@ Project: Maven Project
 Language: Java
 Spring Boot: 2.5.4 (현재)
 Project Metadata
-  Artifact: SpringBootStudy
+  Artifact: SpringBootRestApiStudy
 Packaging: Jar
 Java: 8
 Dependencies: Spring Web
 
-GENERATE <- SpringBootStudy.zip 다운받기
+GENERATE <- SpringBootRestApiStudy.zip 다운받기
 압축 풀고 해당 경로를 Intellij에서 Open
 ```
 
 ## Spring Boot Tomcat 서버 실행
-src/main/java/com/example/SpringBootStudy/SpringBootStudyApplication.java
+src/main/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplication.java
 ```sh
-public class SpringBootStudyApplication <- RUN 버튼 누르기
+public class SpringBootRestApiStudyApplication <- RUN 버튼 누르기
 ```
 
 ## 회원(Members) Rest API
-src/main/java/com/example/SpringBootStudy/models/Member.java
+src/main/java/com/example/SpringBootRestApiStudy/models/Member.java
 ```java
 public class Member {
     private String name;
@@ -53,7 +53,7 @@ public class Member {
 }
 ```
 
-src/main/java/com/example/SpringBootStudy/models/MembersResponse.java
+src/main/java/com/example/SpringBootRestApiStudy/models/MembersResponse.java
 ```java
 public class MembersResponse {
     public String result;
@@ -72,7 +72,7 @@ public class MembersResponse {
 
 * ❕ 접근권한을 private로 만든 경우는 `Getter and Setter`가 필수 이지만, 접근권한을 public으로 만든 경우는 없어도 된다.
 
-src/main/java/com/example/SpringBootStudy/api/v1/Members.java
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/Members.java
 ```java
 @RestController
 @CrossOrigin(origins = "*")
@@ -121,17 +121,17 @@ public class Members {
 ### Global CORS configuration
 https://spring.io/guides/gs/rest-service-cors/#global-cors-configuration
 
-src/main/java/com/example/SpringBootStudy/SpringBootStudyApplication.java
+src/main/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplication.java
 ```java
-  @Bean
-	public WebMvcConfigurer corsConfigurer() {
-		return new WebMvcConfigurer() {
-			@Override
-			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/v1/*").allowedOrigins("*");
-			}
-		};
-	}
+@Bean
+public WebMvcConfigurer corsConfigurer() {
+    return new WebMvcConfigurer() {
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+	    registry.addMapping("/api/v1/*").allowedOrigins("*");
+        }
+    };
+}
 ```
 -->
 
@@ -139,27 +139,27 @@ src/main/java/com/example/SpringBootStudy/SpringBootStudyApplication.java
 pom.xml
 ```xml
 <dependency>
-	<groupId>io.springfox</groupId>
-	<artifactId>springfox-swagger2</artifactId>
-	<version>2.9.2</version>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger2</artifactId>
+    <version>2.9.2</version>
 </dependency>
 <dependency>
-	<groupId>io.springfox</groupId>
-	<artifactId>springfox-swagger-ui</artifactId>
-	<version>2.9.2</version>
+    <groupId>io.springfox</groupId>
+    <artifactId>springfox-swagger-ui</artifactId>
+    <version>2.9.2</version>
 </dependency>
 ```
 
-src/main/java/com/example/SpringBootStudy/SpringBootStudyApplication.java
+src/main/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplication.java
 ```java
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-	@Bean
-	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.any()).build();
-	}
+    @Bean
+    public Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
+                   .paths(PathSelectors.any()).build();
+    }
 }
 ```
 * http://localhost:8080/swagger-ui.html
