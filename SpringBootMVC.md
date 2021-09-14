@@ -89,7 +89,7 @@ pom.xml
 </dependency>
 ```
 * pom.xml <- Maven <- Reload project
-* SpringBoot 재시작
+* Spring Boot(Tomcat) 재시작
 * http://localhost:8080/test.jsp
 * ❕ 안될 경우: IntelliJ 재시작
 
