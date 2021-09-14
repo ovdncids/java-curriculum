@@ -48,7 +48,7 @@ src/main/java/com/example/SpringBootMvcStudy/controllers/Members.java
 ```java
 @Controller
 public class Members {
-    @RequestMapping("/membersRead")
+    @RequestMapping(value = "/membersRead", method = RequestMethod.GET)
     @ResponseBody
     String membersRead() {
         return "membersRead";
@@ -60,7 +60,7 @@ src/main/java/com/example/SpringBootMvcStudy/controllers/Search.java
 ```java
 @Controller
 public class Search {
-    @RequestMapping("/search")
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ResponseBody
     String search() {
         return "search";
@@ -305,8 +305,7 @@ public class Members {
     }
     private static final ArrayList<Member> members = init();
     
-    @RequestMapping("/membersRead")
-    @ResponseBody
+    @RequestMapping(value = "/membersRead", method = RequestMethod.GET)
     ModelAndView membersRead() {
         Member member = members.get(0);
         System.out.println(member.getName());
@@ -314,6 +313,7 @@ public class Members {
         return new ModelAndView("members");
     }
 ```
+* ❕ `ModelAndView`을 사용하면 `@ResponseBody` 어노테이션은 사용하지 않아도 된다.
 
 ## Model과 Controller와 View 연결
 ```diff
@@ -350,7 +350,8 @@ src/main/webapp/WEB-INF/views/members.jsp
 - </tr>
 ```
 ```jsp
-<c:forEach items="${members}" var="member" varStatus="index">
+<c:forEach items="${members}" var="member" varStatus="status">
+    <form method="POST">
     <tr>
         <td>${member.name}</td>
         <td>${member.age}</td>
@@ -359,6 +360,7 @@ src/main/webapp/WEB-INF/views/members.jsp
             <button>Delete</button>
         </td>
     </tr>
+    </form>
 </c:forEach>
 ```
 
@@ -369,6 +371,49 @@ src/main/java/com/example/SpringBootMvcStudy/controllers/Members.java
 @ResponseBody
 String membersCreate(Member member) {
     members.add(member);
+    return "<script>document.location.href = '/membersRead';</script>";
+}
+```
+
+### 회원(Members) Delete
+src/main/webapp/WEB-INF/views/members.jsp
+```diff
+- <button>Delete</button>
++ <button onclick="this.form.action = '/membersDelete/${status.index}';">Delete</button>
+```
+
+src/main/java/com/example/SpringBootMvcStudy/controllers/Members.java
+```java
+@RequestMapping(value = "/membersDelete/{index}", method = RequestMethod.POST)
+@ResponseBody
+    String membersDelete(@PathVariable("index") int index) {
+    members.remove(index);
+    return "<script>document.location.href = '/membersRead';</script>";
+}
+```
+
+### 회원(Members) Update
+src/main/webapp/WEB-INF/views/members.jsp
+```diff
+- <td>${member.name}</td>
+- <td>${member.age}</td>
++ <td><input type="text" name="name" placeholder="Name" value="${member.name}" /></td>
++ <td><input type="text" name="age" placeholder="Age" value="${member.age}" /></td>
+```
+```diff
+- <button>Update</button>
++ <button onclick="this.form.action = '/membersUpdate/${status.index}';">Update</button>
+```
+
+src/main/java/com/example/SpringBootMvcStudy/controllers/Members.java
+```java
+@RequestMapping(value = "/membersUpdate/{index}", method = RequestMethod.POST)
+@ResponseBody
+String membersUpdate(
+        @PathVariable("index") int index,
+        Member member
+) {
+    members.set(index, member);
     return "<script>document.location.href = '/membersRead';</script>";
 }
 ```
