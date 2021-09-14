@@ -255,6 +255,50 @@ input[type=text] {
 }
 ```
 
+<!--
+## View - Thymeleaf
+pom.xml
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+</dependency>
+```
+
+src/main/resources/application.properties
+```properties
+spring.thymeleaf.prefix=classpath:/templates/
+spring.thymeleaf.suffix=.html
+spring.thymeleaf.cache=false
+spring.thymeleaf.enabled=true
+```
+
+src/main/java/com/example/SpringBootMvcStudy/controllers/Members.java
+```java
+@RequestMapping("/membersRead")
+ModelAndView membersRead(Model model) {
+    ModelAndView modelAndView = new ModelAndView("members");
+    modelAndView.addObject("result", "read");
+    return modelAndView;
+}
+```
+
+src/main/resources/templates/members.html
+```html
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p th:text="${result}"></p>
+</body>
+</html>
+```
+-->
+
 ## Model 만들기
 * Model은 데이터 구조 또는 스키마라고 한다.
 
