@@ -121,7 +121,7 @@ server.servlet.register-default-servlet=true
 -->
 * ❔ `Search.java` 적용해 보기
 
-### Members 페이지 Markup 적용
+### View Members 페이지 Markup 적용
 src/main/webapp/WEB-INF/views/members.jsp
 ```jsp
 <%@ page language="java" contentType="text/html;charset=UTF-8" %>
@@ -284,4 +284,51 @@ public class Member {
         this.age = age;
     }
 }
+```
+
+## Model과 Controller 연결
+src/main/java/com/example/SpringBootMvcStudy/controllers/Members.java
+
+public class Members {
+
+```java
+    private static ArrayList<Member> init() {
+        ArrayList<Member> members = new ArrayList<>();
+        members.add(new Member("홍길동", 39));
+        members.add(new Member("김삼순", 33));
+        members.add(new Member("홍명보", 44));
+        members.add(new Member("박지삼", 22));
+        members.add(new Member("권명순", 10));
+        return members;
+    }
+    private static final ArrayList<Member> members = init();
+    
+    @RequestMapping("/membersRead")
+    @ResponseBody
+    ModelAndView membersRead() {
+        Member member = members.get(0);
+        System.out.println(member.getName());
+        System.out.println(member.getAge());
+        return new ModelAndView("members");
+    }
+```
+
+## Model과 Controller와 View 연결
+```diff
+    ModelAndView membersRead() {
+-       Member member = members.get(0);
+-       System.out.println(member.getName());
+-       System.out.println(member.getAge());
+-       return new ModelAndView("members");
+	ModelAndView modelAndView = new ModelAndView("members");
+        modelAndView.addObject("result", "read");
+        modelAndView.addObject("members", "members");
+        return modelAndView;
+```
+
+### View Members 페이지에서 Model 활용
+src/main/webapp/WEB-INF/views/members.jsp
+```diff
+- <h4>Read</h4>
++ <h4>${result}</h4>
 ```
