@@ -130,7 +130,7 @@ src/main/webapp/WEB-INF/views/members.jsp
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Members</title>
     <link href="./css/app.css" rel="stylesheet">
 </head>
 <body>
@@ -142,8 +142,8 @@ src/main/webapp/WEB-INF/views/members.jsp
         <div class="container">
             <nav class="nav">
                 <ul>
-                    <li><h2>Members</h2></li>
-                    <li><h2>Search</h2></li>
+                    <li><h2><a href="/membersRead" class="active">Members</a></h2></li>
+                    <li><h2><a href="/search">Search</a></h2></li>
                 </ul>
             </nav>
             <hr />
@@ -290,7 +290,7 @@ src/main/resources/templates/members.html
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Members</title>
 </head>
 <body>
     <p th:text="${result}"></p>
@@ -347,7 +347,7 @@ public class Members {
         members.add(new Member("권명순", 10));
         return members;
     }
-    private static final ArrayList<Member> members = init();
+    public static final ArrayList<Member> members = init();
     
     @RequestMapping(value = "/membersRead", method = RequestMethod.GET)
     ModelAndView membersRead() {
@@ -379,6 +379,7 @@ src/main/webapp/WEB-INF/views/members.jsp
 + <h4>${result}</h4>
 ```
 
+## 회원(Members) CRUD
 ### 회원(Members) Read
 ```jsp
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -460,4 +461,111 @@ String membersUpdate(
     members.set(index, member);
     return "<script>document.location.href = '/membersRead';</script>";
 }
+```
+
+## 검색(Search) 
+### Search 페이지 Markup 적용
+src/main/webapp/WEB-INF/views/search.jsp
+```jsp
+<%@ page language="java" contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <link href="./css/app.css" rel="stylesheet">
+</head>
+<body>
+    <div>
+        <header>
+            <h1>Spring Boot MVC study</h1>
+        </header>
+        <hr />
+        <div class="container">
+            <nav class="nav">
+                <ul>
+                    <li><h2><a href="/membersRead">Members</a></h2></li>
+                    <li><h2><a href="/search" class="active">Search</a></h2></li>
+                </ul>
+            </nav>
+            <hr />
+            <section class="contents">
+                <div>
+                    <h3>${result}</h3>
+                    <hr class="d-block" />
+                    <div>
+                        <form>
+                            <input type="text" placeholder="Search" name="q" />
+                            <button>Search</button>
+                        </form>
+                    </div>
+                    <hr class="d-block" />
+                    <div>
+                        <table class="table-search">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${members}" var="member" varStatus="status">
+                                <tr>
+                                    <td>${member.name}</td>
+                                    <td>${member.age}</td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            <hr />
+        </div>
+        <footer>Copyright</footer>
+    </div>
+</body>
+</html>
+```
+
+src/main/java/com/example/SpringBootMvcStudy/controllers/Search.java
+```java
+@Controller
+public class Search {
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    ModelAndView search() {
+        ModelAndView modelAndView = new ModelAndView("search");
+        modelAndView.addObject("result", "search");
+        modelAndView.addObject("members", Members.members);
+        return modelAndView;
+    }
+}
+```
+
+### Search 검색 기능 적용
+src/main/webapp/WEB-INF/views/search.jsp
+```diff
+- <input type="text" placeholder="Search" name="q" />
++ <input type="text" placeholder="Search" name="q" value="${param.q}" />
+```
+
+src/main/java/com/example/SpringBootMvcStudy/controllers/Search.java
+```diff
+- ModelAndView search() {
++ ModelAndView search(@RequestParam(required = false) String q) {
+```
+```java
+ArrayList<Member> members = new ArrayList<>();
+for (int index = 0; index < Members.members.size(); index++) {
+    Member member = Members.members.get(index);
+    if (q == null || member.getName().indexOf(q) >= 0) {
+        members.add(member);
+    }
+}
+```
+```diff
+- modelAndView.addObject("members", Members.members);
++ modelAndView.addObject("members", members);
 ```
