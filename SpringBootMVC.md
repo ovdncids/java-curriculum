@@ -88,9 +88,9 @@ pom.xml
 	<artifactId>jstl</artifactId>
 </dependency>
 ```
-* pom.xml <- Maven <- Download Sources
 * IntelliJ 재시작
 * http://localhost:8080/test.jsp
+* ❕ 안될 경우: pom.xml <- Maven <- Download Sources, IntelliJ 재시작
 
 ## View 만들기
 src/main/webapp/WEB-INF/views/members.jsp
