@@ -176,9 +176,11 @@ src/main/webapp/WEB-INF/views/members.jsp
                     <hr class="d-block" />
                     <div>
                         <h4>Create</h4>
-                        <input type="text" placeholder="Name" v-model="member.name" />
-                        <input type="text" placeholder="Age" v-model="member.age" />
-                        <button @click="membersCreate()">Create</button>
+                        <form method="POST" actino="/membersCreate">
+                            <input type="text" name="name" placeholder="Name" />
+                            <input type="text" name="age" placeholder="Age" />
+                            <button>Create</button>
+                        </form>
                     </div>
                 </div>
             </section>
@@ -322,7 +324,7 @@ public class Members {
 -       return new ModelAndView("members");
 	ModelAndView modelAndView = new ModelAndView("members");
         modelAndView.addObject("result", "read");
-        modelAndView.addObject("members", "members");
+        modelAndView.addObject("members", members);
         return modelAndView;
 ```
 
@@ -332,3 +334,32 @@ src/main/webapp/WEB-INF/views/members.jsp
 - <h4>Read</h4>
 + <h4>${result}</h4>
 ```
+
+### 회원(Members) Read
+```jsp
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+```
+```diff
+- <tr>
+-     <td>홍길동</td>
+-     <td>20</td>
+-     <td>
+-         <button>Update</button>
+-         <button>Delete</button>
+-     </td>
+- </tr>
+```
+```jsp
+<c:forEach items="${members}" var="member" varStatus="index">
+    <tr>
+        <td>${member.name}</td>
+        <td>${member.age}</td>
+        <td>
+            <button>Update</button>
+            <button>Delete</button>
+        </td>
+    </tr>
+</c:forEach>
+```
+
+### 회원(Members) Create
