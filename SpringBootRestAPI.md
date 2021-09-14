@@ -164,7 +164,7 @@ public class SwaggerConfig {
 }
 ```
 * pom.xml <- Maven <- Reload project
-* SpringBoot 재시작
+* Spring Boot(Tomcat) 재시작
 * http://localhost:8080/swagger-ui.html
 * ❕ 안될 경우: IntelliJ 재시작
 
