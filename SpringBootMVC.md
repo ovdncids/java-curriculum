@@ -176,7 +176,7 @@ src/main/webapp/WEB-INF/views/members.jsp
                     <hr class="d-block" />
                     <div>
                         <h4>Create</h4>
-                        <form method="POST" actino="/membersCreate">
+                        <form method="POST" action="/membersCreate">
                             <input type="text" name="name" placeholder="Name" />
                             <input type="text" name="age" placeholder="Age" />
                             <button>Create</button>
@@ -363,3 +363,12 @@ src/main/webapp/WEB-INF/views/members.jsp
 ```
 
 ### 회원(Members) Create
+src/main/java/com/example/SpringBootMvcStudy/controllers/Members.java
+```java
+@RequestMapping(value = "/membersCreate", method = RequestMethod.POST)
+@ResponseBody
+String membersCreate(Member member) {
+    members.add(member);
+    return "<script>document.location.href = '/membersRead';</script>";
+}
+```
