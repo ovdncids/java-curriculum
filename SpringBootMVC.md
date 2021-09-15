@@ -44,7 +44,7 @@ public class SpringBootMvcStudyApplication {
 + return "<script>document.location.href = '/membersRead';</script>";
 ```
 
-src/main/java/com/example/SpringBootMvcStudy/controllers/Members.java
+src/main/java/com/example/SpringBootMvcStudy/controllers/MembersController.java
 ```java
 @Controller
 public class Members {
@@ -99,7 +99,7 @@ src/main/webapp/WEB-INF/views/members.jsp
 <%="members.jsp"%>
 ```
 
-src/main/java/com/example/SpringBootMvcStudy/controllers/Members.java
+src/main/java/com/example/SpringBootMvcStudy/controllers/MembersController.java
 ```diff
 - String membersRead() {
 -     return "membersRead";
@@ -274,7 +274,7 @@ spring.thymeleaf.cache=false
 spring.thymeleaf.enabled=true
 ```
 
-src/main/java/com/example/SpringBootMvcStudy/controllers/Members.java
+src/main/java/com/example/SpringBootMvcStudy/controllers/MembersController.java
 ```java
 @RequestMapping("/membersRead")
 ModelAndView membersRead(Model model) {
@@ -334,7 +334,7 @@ public class Member {
 ```
 
 ## Model과 Controller 연결
-src/main/java/com/example/SpringBootMvcStudy/controllers/Members.java
+src/main/java/com/example/SpringBootMvcStudy/controllers/MembersController.java
 
 public class Members {
 
@@ -411,7 +411,7 @@ src/main/webapp/WEB-INF/views/members.jsp
 ```
 
 ### 회원(Members) Create
-src/main/java/com/example/SpringBootMvcStudy/controllers/Members.java
+src/main/java/com/example/SpringBootMvcStudy/controllers/MembersController.java
 ```java
 @RequestMapping(value = "/membersCreate", method = RequestMethod.POST)
 @ResponseBody
@@ -428,7 +428,7 @@ src/main/webapp/WEB-INF/views/members.jsp
 + <button onclick="this.form.action = '/membersDelete/${status.index}';">Delete</button>
 ```
 
-src/main/java/com/example/SpringBootMvcStudy/controllers/Members.java
+src/main/java/com/example/SpringBootMvcStudy/controllers/MembersController.java
 ```java
 @RequestMapping(value = "/membersDelete/{index}", method = RequestMethod.POST)
 @ResponseBody
@@ -451,7 +451,7 @@ src/main/webapp/WEB-INF/views/members.jsp
 + <button onclick="this.form.action = '/membersUpdate/${status.index}';">Update</button>
 ```
 
-src/main/java/com/example/SpringBootMvcStudy/controllers/Members.java
+src/main/java/com/example/SpringBootMvcStudy/controllers/MembersController.java
 ```java
 @RequestMapping(value = "/membersUpdate/{index}", method = RequestMethod.POST)
 @ResponseBody
