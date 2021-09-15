@@ -339,8 +339,8 @@ src/main/java/com/example/SpringBootMvcStudy/controllers/Members.java
 public class Members {
 
 ```java
-    private static ArrayList<Member> init() {
-        ArrayList<Member> members = new ArrayList<>();
+    private static List<Member> init() {
+        List<Member> members = new ArrayList<>();
         members.add(new Member("홍길동", 39));
         members.add(new Member("김삼순", 33));
         members.add(new Member("홍명보", 44));
@@ -348,7 +348,7 @@ public class Members {
         members.add(new Member("권명순", 10));
         return members;
     }
-    public static final ArrayList<Member> members = init();
+    public static final List<Member> members = init();
     
     @RequestMapping(value = "/membersRead", method = RequestMethod.GET)
     ModelAndView membersRead() {
@@ -558,7 +558,7 @@ src/main/java/com/example/SpringBootMvcStudy/controllers/Search.java
 + ModelAndView search(@RequestParam(required = false) String q) {
 ```
 ```java
-ArrayList<Member> members = new ArrayList<>();
+List<Member> members = new ArrayList<>();
 for (int index = 0; index < Members.members.size(); index++) {
     Member member = Members.members.get(index);
     if (q == null || member.getName().contains(q)) {
