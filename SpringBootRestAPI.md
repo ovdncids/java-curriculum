@@ -72,7 +72,7 @@ public class MembersResponse {
 
 * ❕ 접근권한을 private로 만든 경우는 `Getter and Setter`가 필수 이지만, 접근권한을 public으로 만든 경우는 없어도 된다.
 
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/Members.java
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 ```java
 @RestController
 @CrossOrigin(origins = "*")
@@ -173,7 +173,7 @@ public class SwaggerConfig {
 # MySQL 연동
 * Spring Boot 2.0 부터 HikariCP가 기본 Datasource로 사용 된다.
 
-application.properties
+src/main/resources/application.properties
 ```properties
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.datasource.url=jdbc:mysql://127.0.0.1:3306/DB명
@@ -215,7 +215,7 @@ public void setMemberPk(Integer memberPk) {
 }
 ```
 
-## 1. JDBC 연동
+## 1. JDBC 연동 모듈
 pom.xml
 ```xml
 <dependency>
@@ -225,7 +225,7 @@ pom.xml
 ```
 
 ### 회원(Members) Read
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/Members.java
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 ```java
 @Autowired
 JdbcTemplate jdbcTemplate;
@@ -266,4 +266,74 @@ jdbcTemplate.update(query, index);
 ```java
 String query = "update members set name = ?, age = ? where member_pk = ?";
 jdbcTemplate.update(query, member.getName(),member.getAge(), index);
+```
+
+## 2. MyBatis 모듈
+https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure
+
+pom.xml
+```xml
+<dependency>
+    <groupId>org.mybatis.spring.boot</groupId>
+    <artifactId>mybatis-spring-boot-starter</artifactId>
+    <version>2.2.0</version>
+</dependency>
+```
+* ❕ Spring Boot 버전에 맞는 MyBatis를 넣어야 한다.
+
+src/main/resources/application.properties
+```properties
+mybatis.type-aliases-package=com.example.SpringBootRestApiStudy.models
+mybatis.mapper-locations=classpath:mappers/*.xml
+```
+
+### 회원(Members) Create
+src/main/resources/mappers/members.xml
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.SpringBootRestApiStudy.api.v1.MembersMapper.read">
+    <select id="read" resultType="Member">
+        select * from members
+    </select>
+</mapper>
+```
+
+#### MySQL 접속 테스트
+src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
+```java
+@Autowired
+private SqlSessionFactory sqlSessionFactory;
+
+@Test
+void contextLoads() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    List<Member> members = sqlSession.selectList("com.example.SpringBootRestApiStudy.api.v1.MembersMapper.read");
+    System.out.println(members);
+}
+```
+
+#### Mapper 인터페이스 생성
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersMapper.java
+```java
+@Mapper
+public interface MembersMapper {
+    List<Member> read();
+}
+```
+* ❕ Mapper 인터페이스 생성하는 이유는 Controller 마다 SqlSessionFactory, SqlSession을 부르지 않고 바로 매핑하게 해준다.
+
+#### MembersController에서 Mapper 사용하기
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
+```java
+@Autowired
+private MembersMapper membersMapper;
+```
+```diff
+- public MembersResponse membersRead() {
+```
+```java
+public MembersResponse membersRead() {
+    List<Member> members = membersMapper.read();
 ```
