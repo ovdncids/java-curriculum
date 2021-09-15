@@ -190,6 +190,13 @@ pom.xml
 ```
 
 src/main/java/com/example/SpringBootRestApiStudy/models/Member.java
+```diff
+- public Member(String name, Integer age) {
+-     this.name = name;
+-     this.age = age;
+- }
+```
+
 ```java
 private Integer memberPk;
 
@@ -232,4 +239,31 @@ public MembersResponse membersRead() {
     List<Member> members = jdbcTemplate.query(query, (rs, rowNum) ->
         new Member(rs.getInt("member_pk"), rs.getString("name"), (Integer) rs.getObject("age"))
     );
+```
+
+### 회원(Members) Create
+```diff
+- members.add(member);
+```
+```java
+String query = "insert into members(name, age) values(?, ?)";
+jdbcTemplate.update(query, member.getName(),member.getAge());
+```
+
+### 회원(Members) Delete
+```diff
+- members.remove(index);
+```
+```java
+String query = "delete from members where member_pk = ?";
+jdbcTemplate.update(query, index);
+```
+
+### 회원(Members) Update
+```diff
+- members.set(index, member);
+```
+```java
+String query = "update members set name = ?, age = ? where member_pk = ?";
+jdbcTemplate.update(query, member.getName(),member.getAge(), index);
 ```
