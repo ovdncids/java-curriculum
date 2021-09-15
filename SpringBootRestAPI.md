@@ -57,13 +57,13 @@ src/main/java/com/example/SpringBootRestApiStudy/models/MembersResponse.java
 ```java
 public class MembersResponse {
     public String result;
-    public ArrayList<Member> members;
+    public List<Member> members;
 
     public MembersResponse(String result) {
         this.result = result;
     }
 
-    public MembersResponse(String result, ArrayList<Member> members) {
+    public MembersResponse(String result, List<Member> members) {
         this.result = result;
         this.members = members;
     }
@@ -78,8 +78,8 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/Members.java
 @CrossOrigin(origins = "*")
 @RequestMapping("api/v1/members")
 public class Members {
-    private static ArrayList<Member> init() {
-        ArrayList<Member> members = new ArrayList<>();
+    private static List<Member> init() {
+        List<Member> members = new ArrayList<>();
         members.add(new Member("홍길동", 39));
         members.add(new Member("김삼순", 33));
         members.add(new Member("홍명보", 44));
@@ -87,7 +87,7 @@ public class Members {
         members.add(new Member("권명순", 10));
         return members;
     }
-    public static final ArrayList<Member> members = init();
+    public static final List<Member> members = init();
 
     @RequestMapping(path = "", method = RequestMethod.POST)
     public MembersResponse membersCreate(@RequestBody Member member) {
@@ -169,3 +169,67 @@ public class SwaggerConfig {
 * ❕ 안될 경우: IntelliJ 재시작
 
 <!-- pom.xml 파일에서 문제가 있을경우 2.9.2 -> 2.6.1 변경 후 다시 2.9.2 버전으로 돌아 온다. -->
+
+# MySQL 연동
+* Spring Boot 2.0 부터 HikariCP가 기본 Datasource로 사용 된다.
+
+application.properties
+```properties
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://127.0.0.1:3306/DB명
+spring.datasource.username=계정
+spring.datasource.password=비밀번호
+```
+
+pom.xml
+```xml
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+</dependency>
+```
+
+src/main/java/com/example/SpringBootRestApiStudy/models/Member.java
+```java
+private Integer memberPk;
+
+public Member(Integer memberPk, String name, Integer age) {
+    this.memberPk = memberPk;
+    this.name = name;
+    this.age = age;
+}
+
+public Integer getMemberPk() {
+    return memberPk;
+}
+
+public void setMemberPk(Integer memberPk) {
+    this.memberPk = memberPk;
+}
+```
+
+## 1. JDBC 연동
+pom.xml
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-jdbc</artifactId>
+</dependency>
+```
+
+### 회원(Members) Read
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/Members.java
+```java
+@Autowired
+JdbcTemplate jdbcTemplate;
+```
+```diff
+- public MembersResponse membersRead() {
+```
+```java
+public MembersResponse membersRead() {
+    String query = "select * from members";
+    List<Member> members = jdbcTemplate.query(query, (rs, rowNum) ->
+        new Member(rs.getInt("member_pk"), rs.getString("name"), (Integer) rs.getObject("age"))
+    );
+```
