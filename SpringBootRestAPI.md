@@ -241,6 +241,11 @@ public MembersResponse membersRead() {
     );
 ```
 
+* @Autowired 관련 문서
+* https://laycoder.tistory.com/109
+* https://multifrontgarden.tistory.com/97
+* https://medium.com/@jang.wangsu/di-dependency-injection-%EC%9D%B4%EB%9E%80-1b12fdefec4f
+
 ### 회원(Members) Create
 ```diff
 - members.add(member);
@@ -283,11 +288,12 @@ pom.xml
 
 src/main/resources/application.properties
 ```properties
+# mybatis.configuration.map-underscore-to-camel-case=true
 mybatis.type-aliases-package=com.example.SpringBootRestApiStudy.models
 mybatis.mapper-locations=classpath:mappers/*.xml
 ```
 
-### 회원(Members) Create
+### 회원(Members) Read
 src/main/resources/mappers/members.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -307,12 +313,13 @@ src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicati
 private SqlSessionFactory sqlSessionFactory;
 
 @Test
-void contextLoads() {
+void membersRead() {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     List<Member> members = sqlSession.selectList("com.example.SpringBootRestApiStudy.api.v1.MembersMapper.read");
     System.out.println(members);
 }
 ```
+* 테스트를 사용하는 이유 (테스트 하고 싶은 부분만 바로 실행 할 수 있다.)
 
 #### Mapper 인터페이스 생성
 src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersMapper.java
@@ -322,7 +329,7 @@ public interface MembersMapper {
     List<Member> read();
 }
 ```
-* ❕ Mapper 인터페이스 생성하는 이유는 Controller 마다 SqlSessionFactory, SqlSession을 부르지 않고 바로 매핑하게 해준다.
+* ❕ Mapper 인터페이스 생성하는 이유 (Controller 마다 SqlSessionFactory, SqlSession을 호출 하지 않고, 바로 매핑 해준다.)
 
 #### MembersController에서 Mapper 사용하기
 src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
@@ -337,3 +344,28 @@ private MembersMapper membersMapper;
 public MembersResponse membersRead() {
     List<Member> members = membersMapper.read();
 ```
+
+### 회원(Members) Create
+src/main/resources/mappers/members.xml
+```xml
+<select id="create" parameterType="Member" resultType="Integer">
+    insert into members(name, age) values(#{name}, #{age})
+</select>
+```
+
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersMapper.java
+```java
+Integer create(Member member);
+```
+
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
+```diff
+- members.add(member);
+```
+```java
+membersMapper.create(member);
+```
+
+# Log
+https://atoz-develop.tistory.com/entry/Spring-Boot-MyBatis-%EC%84%A4%EC%A0%95-%EB%B0%A9%EB%B2%95
+
