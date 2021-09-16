@@ -414,7 +414,7 @@ membersMapper.update(memberPk, member);
 * `membersMapper.update(memberPk, member);` 수정된 Member의 수를 반환한다.
 
 <!--
-VO
+DAO, VO
 # Log
 https://atoz-develop.tistory.com/entry/Spring-Boot-MyBatis-%EC%84%A4%EC%A0%95-%EB%B0%A9%EB%B2%95
 -->
@@ -469,4 +469,24 @@ void members() {
 }
 ```
 * ❕ 테스트에서도 Service를 자유롭게 사용 할 수 있다.
- 
+
+<!--
+#### Mapper에서 바로 쿼리문 사용하기
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersMapper.java
+```java
+@Select("select * from members")
+List<Member> select();
+```
+
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersService.java
+```java
+public List<Member> select() {
+    return membersMapper.select();
+}
+```
+
+src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
+```java
+members = membersService.select();
+```
+-->
