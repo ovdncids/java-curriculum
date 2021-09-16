@@ -324,6 +324,23 @@ void membersRead() {
 ```
 * 테스트를 사용하는 이유 (테스트 하고 싶은 부분만 바로 실행 할 수 있다.)
 
+<!--
+##### @Slf4j log
+```java
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@SpringBootTest
+class SpringBootRestApiStudyApplicationTests {
+    @Test
+    void contextLoads() {
+        log.info("@Slf4j");
+    }
+}
+```
+* ❕ `@Slf4j`는 Test에서만 사용 가능하다. `log` 함수를 바로 사용하게 해준다. `@Slf4j` 임포트가 잘 안되면 타이핑 해보자.
+-->
+
 #### DAO(Data Access Object) 인터페이스 생성
 src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersDAO.java
 ```java
@@ -522,3 +539,5 @@ public class MembersServiceImpl implements MembersService {
 * https://multifrontgarden.tistory.com/97
 
 <!-- APO: 쉽게 미들웨어라고 생각하면 쉽다. -->
+
+property
