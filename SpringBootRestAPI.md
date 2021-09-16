@@ -338,7 +338,17 @@ class SpringBootRestApiStudyApplicationTests {
     }
 }
 ```
-* ❕ `@Slf4j`는 Test에서만 사용 가능하다. `log` 함수를 바로 사용하게 해준다. `@Slf4j` 임포트가 잘 안되면 타이핑 해보자.
+* ❕ `@Slf4j`는 Test에서는 기본으로 사용 가능하다. `log` 함수를 바로 사용하게 해준다. `@Slf4j` 임포트가 잘 안되면 타이핑 해보자.
+* Test 외에는 `pom.xml`에서 dependency 등록 후 사용 가능하다.
+
+pom.xml
+```xml
+<dependency>
+    <groupId>org.projectlombok</groupId>
+    <artifactId>lombok</artifactId>
+    <optional>true</optional>
+</dependency>
+```
 -->
 
 #### DAO(Data Access Object) 인터페이스 생성
