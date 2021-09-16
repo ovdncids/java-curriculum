@@ -611,3 +611,5 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 ```java
 log.info(d1);
 ```
+
+* Run -> Edit Configurations... -> Environment variables: spring.profiles.active=local,db-local
