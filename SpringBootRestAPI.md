@@ -290,6 +290,7 @@ src/main/resources/application.properties
 # mybatis.configuration.map-underscore-to-camel-case=true
 mybatis.type-aliases-package=com.example.SpringBootRestApiStudy.models
 mybatis.mapper-locations=classpath:mappers/*.xml
+logging.level.com.example.SpringBootRestApiStudy=TRACE
 ```
 
 ### 회원(Members) Read
@@ -308,6 +309,8 @@ src/main/resources/mappers/members.xml
 #### MySQL 접속 테스트
 src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
 ```java
+private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 @Autowired
 private SqlSessionFactory sqlSessionFactory;
 
@@ -315,7 +318,7 @@ private SqlSessionFactory sqlSessionFactory;
 void membersRead() {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     List<Member> members = sqlSession.selectList("com.example.SpringBootRestApiStudy.api.v1.MembersMapper.read");
-    System.out.println(members);
+    logger.info("Done: MembersMapper.read");
 }
 ```
 * 테스트를 사용하는 이유 (테스트 하고 싶은 부분만 바로 실행 할 수 있다.)
@@ -411,12 +414,6 @@ membersMapper.update(memberPk, member);
 ```
 + index <- memberPk 수정
 * `membersMapper.update(memberPk, member);` 수정된 Member의 수를 반환한다.
-
-<!--
-DAO, VO
-# Log
-https://atoz-develop.tistory.com/entry/Spring-Boot-MyBatis-%EC%84%A4%EC%A0%95-%EB%B0%A9%EB%B2%95
--->
 
 ### 회원(Members) Service 만들기
 * ❕ Service를 생성하는 이유 (여러 Controller에서 사용 되거나, 또는 Test에서 사용될 비지니스 로직을 담을때 사용한다.)
@@ -522,3 +519,8 @@ public class MembersServiceImpl implements MembersService {
 * 1:N 관계가 된다면 생각해 보자 (하지만 아직 1:N 상황을 만난적 없음)
 * https://elvis-note.tistory.com/entry/9-Spring-MVC-2-Service%EC%99%80-ServiceImpl
 * https://multifrontgarden.tistory.com/97
+
+<!--
+DAO, VO
+https://atoz-develop.tistory.com/entry/Spring-Boot-MyBatis-%EC%84%A4%EC%A0%95-%EB%B0%A9%EB%B2%95
+-->
