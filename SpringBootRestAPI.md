@@ -601,7 +601,7 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 log.info(c1);
 ```
 * Run -> Edit Configurations... -> Environment variables: `spring.profiles.active=local`
-<!-- Command line: spring-boot:run -Dspring.profiles.active=local,db-dev -->
+* Command line인 경우: spring-boot:run -Dspring.profiles.active=local,db-dev
 
 #### Environment variables 여러개 사용
 src/main/resources/application-db-local.properties
@@ -622,6 +622,16 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 log.info(d1);
 ```
 * Run -> Edit Configurations... -> Environment variables: `spring.profiles.active=local,db-local`
+
+#### properties 우선 순위
+src/main/resources/application.properties
+```properties
+a1=1
+b1.b2=b2
+property.c1=c1
+property.d1=d1
+```
+* https://www.whiteship.me/spring-boot-external-config
 
 ## 서버 포트 바꾸기
 src/main/resources/application.properties
