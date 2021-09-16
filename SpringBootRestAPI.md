@@ -385,9 +385,10 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 - members.remove(index);
 ```
 ```java
-membersMapper.delete(index);
+membersMapper.delete(memberPk);
 ```
-* `membersMapper.delete(index);` 삭제된 Member의 수를 반환한다.
++ index <- memberPk 수정
+* `membersMapper.delete(memberPk);` 삭제된 Member의 수를 반환한다.
 
 ### 회원(Members) Update
 src/main/resources/mappers/members.xml
@@ -407,11 +408,48 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 - members.set(index, member);
 ```
 ```java
-membersMapper.update(index, member);
+membersMapper.update(memberPk, member);
 ```
-* `membersMapper.update(index, member);` 수정된 Member의 수를 반환한다.
++ index <- memberPk 수정
+* `membersMapper.update(memberPk, member);` 수정된 Member의 수를 반환한다.
 
 <!--
+VO
 # Log
 https://atoz-develop.tistory.com/entry/Spring-Boot-MyBatis-%EC%84%A4%EC%A0%95-%EB%B0%A9%EB%B2%95
 -->
+
+## 회원(Members) Service 만들기
+* ❕ Service를 생성하는 이유 (여러 Controller에서 사용 되거나, 또는 Test에서 사용될 비지니스 로직을 담을때 사용한다.)
+
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersService.java
+```java
+@Service
+public class MembersService {
+    @Autowired
+    private MembersMapper membersMapper;
+
+    public List<Member> read() {
+        return membersMapper.read();
+    }
+
+    Integer create(Member member) {
+        return membersMapper.create(member);
+    }
+
+    Integer delete(Integer memberPk) {
+        return membersMapper.delete(memberPk);
+    }
+
+    Integer update(@Param("memberPk") Integer memberPk, @Param("member") Member member) {
+        return membersMapper.update(memberPk, member);
+    }
+}
+```
+
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
+```diff
+- private MembersMapper membersMapper;
++ private MembersService membersService;
+```
+* membersMapper <- membersService
