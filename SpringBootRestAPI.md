@@ -329,7 +329,7 @@ public interface MembersMapper {
     List<Member> read();
 }
 ```
-* ❕ Mapper 인터페이스 생성하는 이유 (Controller 마다 SqlSessionFactory, SqlSession을 호출 하지 않고, 바로 매핑 해준다.)
+* ❕ Mapper 인터페이스 생성하는 이유 (Controller 마다 SqlSessionFactory, SqlSession을 호출할 필요 없고, 바로 매핑까지 해준다.)
 
 #### MembersController에서 Mapper 사용하기
 src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
@@ -388,6 +388,28 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 membersMapper.delete(index);
 ```
 * `membersMapper.delete(index);` 삭제된 Member의 수를 반환한다.
+
+### 회원(Members) Update
+src/main/resources/mappers/members.xml
+```xml
+<update id="update">
+    update members set name = #{member.name}, age = #{member.age} where member_pk = #{memberPk}
+</update>
+```
+
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersMapper.java
+```java
+Integer update(@Param("memberPk") Integer memberPk, @Param("member") Member member);
+```
+
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
+```diff
+- members.set(index, member);
+```
+```java
+membersMapper.update(index, member);
+```
+* `membersMapper.update(index, member);` 수정된 Member의 수를 반환한다.
 
 <!--
 # Log
