@@ -571,6 +571,17 @@ log.info(a1.toString());
 log.info(b2);
 ```
 
+<!--
+#### @TestPropertySource(value = "classpath:custom.properties") encoding 없는 문제
+src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
+```java
+@TestPropertySource(value = "classpath:custom.properties")
+@Value("${b1.b2}") private String b2;
+log.info(b2);
+```
+* Run -> Edit Configurations... -> Environment variables: `file.encoding=UTF-8`
+-->
+
 ### local, production 나누기
 src/main/resources/application-local.properties
 ```properties
@@ -589,7 +600,6 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 ```java
 log.info(c1);
 ```
-
 * Run -> Edit Configurations... -> Environment variables: `spring.profiles.active=local`
 <!-- Command line: spring-boot:run -Dspring.profiles.active=local,db-dev -->
 
@@ -611,5 +621,4 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 ```java
 log.info(d1);
 ```
-
 * Run -> Edit Configurations... -> Environment variables: `spring.profiles.active=local,db-local`
