@@ -622,3 +622,13 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 log.info(d1);
 ```
 * Run -> Edit Configurations... -> Environment variables: `spring.profiles.active=local,db-local`
+
+## 서버 포트 바꾸기
+src/main/resources/application.properties
+```properties
+server.port=18080
+```
+
+or
+
+* Run -> Edit Configurations... -> Environment variables: `server.port=18080`
