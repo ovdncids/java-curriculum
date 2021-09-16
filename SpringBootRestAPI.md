@@ -243,7 +243,6 @@ public MembersResponse membersRead() {
 
 * @Autowired 관련 문서
 * https://laycoder.tistory.com/109
-* https://multifrontgarden.tistory.com/97
 * https://medium.com/@jang.wangsu/di-dependency-injection-%EC%9D%B4%EB%9E%80-1b12fdefec4f
 
 ### 회원(Members) Create
@@ -490,3 +489,39 @@ src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicati
 members = membersService.select();
 ```
 -->
+
+### Service와 ServiceImpl
+* 관습적으로 Service를 만들때 Service와 ServiceImpl로 나누어서 개발하는 곳이 많다.
+
+MembersService.java 복사해서 MembersServiceImpl.java
+
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersService.java
+```diff
+- @Service
+```
+```java
+public interface MembersService {
+    public List<Member> read();
+
+    public Integer create(Member member);
+
+    public Integer delete(Integer memberPk);
+
+    public Integer update(@Param("memberPk") Integer memberPk, @Param("member") Member member);
+}
+```
+
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersServiceImpl.java
+```diff
+- @Service
+- public class MembersService {
+```
+```java
+@Service("MembersService")
+public class MembersServiceImpl implements MembersService {
+```
+
+* ❕ 결론 Service와 ServiceImpl의 관계가 1:1인 경우는 service와 serviceImpl로 따로 나눌 필요 없다.
+* 1:N 관계가 된다면 생각해 보자 (하지만 아직 1:N 상황을 만난적 없음)
+* https://elvis-note.tistory.com/entry/9-Spring-MVC-2-Service%EC%99%80-ServiceImpl
+* https://multifrontgarden.tistory.com/97
