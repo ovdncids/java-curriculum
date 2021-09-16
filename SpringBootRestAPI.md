@@ -552,23 +552,62 @@ pom.xml
 
 ## Properties
 ### 커스텀 Properties 읽기
-src/main/resources/test.properties
+src/main/resources/custom.properties
 ```properties
 a1=123
 b1.b2=한글 사랑
 ```
 
-src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 ```java
-@PropertySource(value = "classpath:test.properties", encoding="UTF-8")
-class SpringBootRestApiStudyApplicationTests {
-    @Value("${a1}") private Integer a1;
-    @Value("${b1.b2}") private String b2;
+@PropertySource(value = "classpath:custom.properties", encoding="UTF-8")
+```
+```java
+@Value("${a1}") private Integer a1;
+@Value("${b1.b2}") private String b2;
+```
+```java
+log.info(a1.toString());
+log.info(b2);
+```
 
-    @Test
-    void contextLoads() {
-        log.info(a1.toString());
-        log.info(b2);
-    }
-}
+### local, production 나누기
+src/main/resources/application-local.properties
+```properties
+property.c1=local
+```
+
+src/main/resources/application-production.properties
+```properties
+property.c1=production
+```
+
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
+```java
+@Value("${property.c1}") private String c1;
+```
+```java
+log.info(c1);
+```
+
+* Run -> Edit Configurations... -> Environment variables: spring.profiles.active=local
+<!-- Command line: spring-boot:run -Dspring.profiles.active=local,db-dev -->
+
+#### Environment variables 여러개 사용
+src/main/resources/application-db-local.properties
+```properties
+property.d1=db-local
+```
+
+src/main/resources/application-db-production.properties
+```properties
+property.d1=db-production
+```
+
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
+```java
+@Value("${property.d1}") private String d1;
+```
+```java
+log.info(d1);
 ```
