@@ -501,13 +501,10 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersService.java
 ```
 ```java
 public interface MembersService {
-    public List<Member> read();
-
-    public Integer create(Member member);
-
-    public Integer delete(Integer memberPk);
-
-    public Integer update(@Param("memberPk") Integer memberPk, @Param("member") Member member);
+    List<Member> read();
+    Integer create(Member member);
+    Integer delete(Integer memberPk);
+    Integer update(@Param("memberPk") Integer memberPk, @Param("member") Member member);
 }
 ```
 
