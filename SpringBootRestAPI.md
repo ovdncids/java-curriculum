@@ -348,9 +348,9 @@ public MembersResponse membersRead() {
 ### 회원(Members) Create
 src/main/resources/mappers/members.xml
 ```xml
-<select id="create" parameterType="Member" resultType="Integer">
+<insert id="create" parameterType="Member">
     insert into members(name, age) values(#{name}, #{age})
-</select>
+</insert>
 ```
 
 src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersMapper.java
@@ -365,7 +365,31 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 ```java
 membersMapper.create(member);
 ```
+* `membersMapper.create(member);` 생성된 Member의 수를 반환한다.
 
+### 회원(Members) Delete
+src/main/resources/mappers/members.xml
+```xml
+<delete id="delete" parameterType="Integer">
+    delete from members where member_pk = #{memberPk}
+</delete>
+```
+
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersMapper.java
+```java
+Integer delete(Integer memberPk);
+```
+
+src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
+```diff
+- members.remove(index);
+```
+```java
+membersMapper.delete(index);
+```
+* `membersMapper.delete(index);` 삭제된 Member의 수를 반환한다.
+
+<!--
 # Log
 https://atoz-develop.tistory.com/entry/Spring-Boot-MyBatis-%EC%84%A4%EC%A0%95-%EB%B0%A9%EB%B2%95
-
+-->
