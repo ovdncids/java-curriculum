@@ -25,6 +25,7 @@ public class SpringBootRestApiStudyApplication <- RUN 버튼 누르기
 
 ## 회원(Members) Rest API
 src/main/java/com/example/SpringBootRestApiStudy/models/Member.java
+* Model, VO(Value Object), DTO(Data Transfer Object) 상황에 따라서 달리 불려진다.
 ```java
 public class Member {
     private String name;
@@ -520,7 +521,4 @@ public class MembersServiceImpl implements MembersService {
 * https://elvis-note.tistory.com/entry/9-Spring-MVC-2-Service%EC%99%80-ServiceImpl
 * https://multifrontgarden.tistory.com/97
 
-<!--
-DAO, VO
-https://atoz-develop.tistory.com/entry/Spring-Boot-MyBatis-%EC%84%A4%EC%A0%95-%EB%B0%A9%EB%B2%95
--->
+<!-- APO: 쉽게 미들웨어라고 생각하면 쉽다. -->
