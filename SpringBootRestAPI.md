@@ -590,7 +590,7 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 log.info(c1);
 ```
 
-* Run -> Edit Configurations... -> Environment variables: spring.profiles.active=local
+* Run -> Edit Configurations... -> Environment variables: `spring.profiles.active=local`
 <!-- Command line: spring-boot:run -Dspring.profiles.active=local,db-dev -->
 
 #### Environment variables 여러개 사용
@@ -612,4 +612,4 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 log.info(d1);
 ```
 
-* Run -> Edit Configurations... -> Environment variables: spring.profiles.active=local,db-local
+* Run -> Edit Configurations... -> Environment variables: `spring.profiles.active=local,db-local`
