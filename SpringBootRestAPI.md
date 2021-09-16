@@ -419,7 +419,7 @@ VO
 https://atoz-develop.tistory.com/entry/Spring-Boot-MyBatis-%EC%84%A4%EC%A0%95-%EB%B0%A9%EB%B2%95
 -->
 
-## 회원(Members) Service 만들기
+### 회원(Members) Service 만들기
 * ❕ Service를 생성하는 이유 (여러 Controller에서 사용 되거나, 또는 Test에서 사용될 비지니스 로직을 담을때 사용한다.)
 
 src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersService.java
@@ -433,15 +433,15 @@ public class MembersService {
         return membersMapper.read();
     }
 
-    Integer create(Member member) {
+    public Integer create(Member member) {
         return membersMapper.create(member);
     }
 
-    Integer delete(Integer memberPk) {
+    public Integer delete(Integer memberPk) {
         return membersMapper.delete(memberPk);
     }
 
-    Integer update(@Param("memberPk") Integer memberPk, @Param("member") Member member) {
+    public Integer update(@Param("memberPk") Integer memberPk, @Param("member") Member member) {
         return membersMapper.update(memberPk, member);
     }
 }
@@ -453,3 +453,20 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 + private MembersService membersService;
 ```
 * membersMapper <- membersService
+
+#### 회원(Members) Service 테스트에서 호출 하기
+src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
+```java
+@Autowired
+private MembersService membersService;
+
+@Test
+void members() {
+    List<Member> members = membersService.read();
+    membersService.create(new Member(null, "semin", 20));
+    membersService.delete(0);
+    membersService.update(0, new Member(null, "min", 30));
+}
+```
+* ❕ 테스트에서도 Service를 자유롭게 사용 할 수 있다.
+ 
