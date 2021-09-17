@@ -108,6 +108,7 @@ pom.xml
 ### 회원(Members) Read
 src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 ```java
+// @SuppressWarnings("unchecked")
 public List<Member> read() throws Exception {
     HttpGet httpGet = new HttpGet("http://localhost:8080/api/v1/members");
     httpGet.addHeader("Content-Type", "application/json");
@@ -183,3 +184,30 @@ public Integer update(int index, Member member) throws Exception {
     return null;
 }
 ```
+
+<!--
+### Query string 받아서 넘기기
+src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersController.java
+```java
+public MembersResponse membersRead(@ModelAttribute Member member) throws Exception {
+    return new MembersResponse("read", membersService.read(member));
+}
+```
+
+src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+```diff
+- public List<Member> read() throws Exception {
+-   HttpGet httpGet = new HttpGet("http://localhost:8080/api/v1/members");
+```
+```java
+public List<Member> read(Member member) throws Exception {
+    URIBuilder uriBuilder = new URIBuilder("http://localhost:8080/api/v1/members");
+    Gson gson = new Gson();
+    JsonObject jsonObject = gson.toJsonTree(member).getAsJsonObject();
+    for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+        System.out.println("Key = " + entry.getKey() + " Value = " + entry.getValue() );
+        uriBuilder.addParameter(entry.getKey(), entry.getValue().toString());
+    }
+    HttpGet httpGet = new HttpGet(uriBuilder.build());
+```
+-->
