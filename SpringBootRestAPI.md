@@ -624,13 +624,3 @@ property.c1=c1
 property.d1=d1
 ```
 * https://www.whiteship.me/spring-boot-external-config
-
-## 서버 포트 바꾸기
-src/main/resources/application.properties
-```properties
-server.port=18080
-```
-
-or
-
-* Run -> Edit Configurations... -> Environment variables: `server.port=18080`
