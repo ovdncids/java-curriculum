@@ -538,7 +538,8 @@ class SpringBootRestApiStudyApplicationTests {
     }
 }
 ```
-* ❕ `@Slf4j`는 Test에서는 기본으로 사용 가능하다. `log` 함수를 바로 사용하게 해준다. `@Slf4j` 임포트가 잘 안되면 (Add library 'Maven ... lombok' 선택)
+* ❕ `@Slf4j`는 `log` 함수를 바로 사용하게 해준다.
+* `@Slf4j` 임포트가 잘 안되면 (Add library 'Maven ... lombok' 선택)
 
 ## Properties
 ### 커스텀 Properties 읽기
