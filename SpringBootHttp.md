@@ -104,3 +104,82 @@ pom.xml
     <artifactId>httpclient5</artifactId>
 </dependency>
 ```
+
+### 회원(Members) Read
+src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+```java
+public List<Member> read() throws Exception {
+    HttpGet httpGet = new HttpGet("http://localhost:8080/api/v1/members");
+    httpGet.addHeader("Content-Type", "application/json");
+    CloseableHttpClient httpClient = HttpClients.createDefault();
+    CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
+    System.out.println(httpResponse.getCode());
+    String json = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
+    System.out.println(json);
+    JSONParser jsonParser = new JSONParser(json);
+    LinkedHashMap<String, Object> linkedHashMap = jsonParser.object();
+    System.out.println(linkedHashMap.get("members"));
+    httpClient.close();
+    return (List<Member>)linkedHashMap.get("members");
+}
+```
+
+### 회원(Members) Create
+```java
+public Integer create(Member member) throws Exception {
+    HttpPost httpPost = new HttpPost("http://localhost:8080/api/v1/members");
+    httpPost.addHeader("Content-Type", "application/json");
+    Gson gson = new Gson();
+    StringEntity stringEntity = new StringEntity(gson.toJson(member), StandardCharsets.UTF_8);
+    httpPost.setEntity(stringEntity);
+    CloseableHttpClient httpClient = HttpClients.createDefault();
+    CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
+    System.out.println(httpResponse.getCode());
+    String json = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
+    System.out.println(json);
+    JSONParser jsonParser = new JSONParser(json);
+    LinkedHashMap<String, Object> linkedHashMap = jsonParser.object();
+    System.out.println(linkedHashMap.get("result"));
+    httpClient.close();
+    return null;
+}
+```
+
+### 회원(Members) Delete
+```java
+public Integer delete(int index) throws Exception {
+    HttpDelete httpDelete = new HttpDelete("http://localhost:8080/api/v1/members/" + index);
+    httpDelete.addHeader("Content-Type", "application/json");
+    CloseableHttpClient httpClient = HttpClients.createDefault();
+    CloseableHttpResponse httpResponse = httpClient.execute(httpDelete);
+    System.out.println(httpResponse.getCode());
+    String json = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
+    System.out.println(json);
+    JSONParser jsonParser = new JSONParser(json);
+    LinkedHashMap<String, Object> linkedHashMap = jsonParser.object();
+    System.out.println(linkedHashMap.get("result"));
+    httpClient.close();
+    return null;
+}
+```
+
+### 회원(Members) Update
+```java
+public Integer update(int index, Member member) throws Exception {
+    HttpPatch httpPatch = new HttpPatch("http://localhost:8080/api/v1/members/" + index);
+    httpPatch.addHeader("Content-Type", "application/json");
+    Gson gson = new Gson();
+    StringEntity stringEntity = new StringEntity(gson.toJson(member), StandardCharsets.UTF_8);
+    httpPatch.setEntity(stringEntity);
+    CloseableHttpClient httpClient = HttpClients.createDefault();
+    CloseableHttpResponse httpResponse = httpClient.execute(httpPatch);
+    System.out.println(httpResponse.getCode());
+    String json = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
+    System.out.println(json);
+    JSONParser jsonParser = new JSONParser(json);
+    LinkedHashMap<String, Object> linkedHashMap = jsonParser.object();
+    System.out.println(linkedHashMap.get("result"));
+    httpClient.close();
+    return null;
+}
+```
