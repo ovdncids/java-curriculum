@@ -94,3 +94,13 @@ void members() {
 }
 ```
 * ❕ 테스트에서도 Service를 자유롭게 사용 할 수 있다.
+
+## httpclient5
+### 설치
+pom.xml
+```xml
+<dependency>
+    <groupId>org.apache.httpcomponents.client5</groupId>
+    <artifactId>httpclient5</artifactId>
+</dependency>
+```
