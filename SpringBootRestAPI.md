@@ -78,7 +78,7 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("api/v1/members")
-public class Members {
+public class MembersController {
     private static List<Member> init() {
         List<Member> members = new ArrayList<>();
         members.add(new Member("홍길동", 39));
@@ -216,7 +216,7 @@ public void setMemberPk(Integer memberPk) {
 }
 ```
 
-## 1. JDBC 연동 모듈
+## 1. JDBC(Java Database Connectivity) 연동 모듈
 pom.xml
 ```xml
 <dependency>
@@ -300,14 +300,14 @@ src/main/resources/mappers/members.xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.SpringBootRestApiStudy.api.v1.MembersDAO.read">
+<mapper namespace="com.example.SpringBootRestApiStudy.api.v1.MembersDAO">
     <select id="read" resultType="Member">
         select * from members
     </select>
 </mapper>
 ```
 
-#### MySQL 접속 테스트
+#### MySQL 접속 테스트 (JUnit)
 src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
 ```java
 private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -417,7 +417,7 @@ membersDAO.update(memberPk, member);
 * `membersDAO.update(memberPk, member);` 수정된 Member의 수를 반환한다.
 
 ### 회원(Members) Service 만들기
-* ❕ Service를 생성하는 이유 (여러 Controller에서 사용 되거나, 또는 Test에서 사용될 비지니스 로직을 담을때 사용한다.)
+* ❕ Service를 생성하는 이유 (여러 Controller에서 사용 되거나, 또는 Test(JUnit)에서 사용될 비지니스 로직(DB의 CRUD등등)을 담을때 사용한다.)
 
 src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersService.java
 ```java
@@ -451,7 +451,7 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 ```
 * membersDAO <- membersService
 
-#### 회원(Members) Service 테스트에서 호출 하기
+#### 회원(Members) Service 테스트(JUnit)에서 호출 하기
 src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
 ```java
 @Autowired
@@ -517,7 +517,7 @@ public class MembersServiceImpl implements MembersService {
 ```
 
 * ❕ 결론 Service와 ServiceImpl의 관계가 1:1인 경우는 service와 serviceImpl로 따로 나눌 필요 없다.
-* 1:N 관계가 된다면 생각해 보자 (하지만 아직 1:N 상황을 만난적 없음)
+* 1:N 관계가 된다면 그때 생각해 보자 (하지만 아직 1:N 상황을 만난적 없음)
 * https://elvis-note.tistory.com/entry/9-Spring-MVC-2-Service%EC%99%80-ServiceImpl
 * https://multifrontgarden.tistory.com/97
 
@@ -538,17 +538,7 @@ class SpringBootRestApiStudyApplicationTests {
     }
 }
 ```
-* ❕ `@Slf4j`는 Test에서는 기본으로 사용 가능하다. `log` 함수를 바로 사용하게 해준다. `@Slf4j` 임포트가 잘 안되면 타이핑 해보자.
-* Test 외에는 `pom.xml`에서 dependency 등록 후 사용 가능하다.
-
-pom.xml
-```xml
-<dependency>
-    <groupId>org.projectlombok</groupId>
-    <artifactId>lombok</artifactId>
-    <optional>true</optional>
-</dependency>
-```
+* ❕ `@Slf4j`는 Test에서는 기본으로 사용 가능하다. `log` 함수를 바로 사용하게 해준다. `@Slf4j` 임포트가 잘 안되면 (Add library 'Maven ... lombok' 선택)
 
 ## Properties
 ### 커스텀 Properties 읽기
@@ -560,6 +550,7 @@ b1.b2=한글 사랑
 
 src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 ```java
+@Slf4j
 @PropertySource(value = "classpath:custom.properties", encoding="UTF-8")
 ```
 ```java
@@ -582,7 +573,7 @@ log.info(b2);
 * Run -> Edit Configurations... -> Environment variables: `file.encoding=UTF-8`
 -->
 
-### local, production 나누기
+### local, production Properties 나누기
 src/main/resources/application-local.properties
 ```properties
 property.c1=local
