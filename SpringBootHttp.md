@@ -41,12 +41,12 @@ public class MembersService {
         return members.size();
     }
 
-    public Integer delete(Integer index) {
+    public Integer delete(int index) {
         members.remove(index);
         return members.size();
     }
 
-    public Integer update(Integer index, Member member) {
+    public Integer update(int index, Member member) {
         members.set(index, member);
         return members.size();
     }
@@ -76,3 +76,21 @@ MembersService membersService;
 - members.set(index, member);
 + membersService.update(index, member);
 ```
+
+### 회원(Members) Service 테스트(JUnit)에서 호출 하기
+* 테스트를 사용하는 이유 (테스트 하고 싶은 부분만 바로 실행 할 수 있다.)
+
+src/test/java/com/example/SpringBootHttpStudy/SpringBootHttpStudyApplicationTests.java
+```java
+@Autowired
+private MembersService membersService;
+
+@Test
+void members() {
+    List<Member> members = membersService.read();
+    membersService.create(new Member("semin", 20));
+    membersService.delete(0);
+    membersService.update(0, new Member("min", 30));
+}
+```
+* ❕ 테스트에서도 Service를 자유롭게 사용 할 수 있다.
