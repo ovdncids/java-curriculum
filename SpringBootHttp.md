@@ -277,15 +277,48 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 - return null;
 ```
 ```java
-Httpclient5Response httpclient5Response = Httpclient5.connect("GET", "http://localhost:8080/api/v1/members");
+String url = "http://localhost:8080/api/v1/members";
+Httpclient5Response httpclient5Response = Httpclient5.connect("GET", url);
 return (List<Member>) httpclient5Response.getResponseMap().get("members");
 ```
 
-### 회원(Members) Delete Service
+### 회원(Members) Service Delete
 ```java
 public Integer delete(int index) throws Exception {
     String url = "http://localhost:8080/api/v1/members/" + index;
-    Httpclient5Response httpclient5Response = Httpclient5.connect("DELETE", url);
+    Httpclient5.connect("DELETE", url);
     return null;
 }
 ```
+
+### 회원(Members) Service Create, Update
+```java
+public Integer create(Member member) throws Exception {
+    String url = "http://localhost:8080/api/v1/members";
+    Httpclient5.connect("POST", url, member);
+    return null;
+}
+```
+* ❔ 아래 부분을 `Httpclient5.connect` 함수에 적용해 보기
+```java
+Gson gson = new Gson();
+StringEntity stringEntity = new StringEntity(gson.toJson(member), StandardCharsets.UTF_8);
+httpPost.setEntity(stringEntity);
+```
+* <details><summary>정답</summary>
+
+  ```diff
+  - public static Httpclient5Response connect(String method, String url) throws Exception {
+  + public static Httpclient5Response connect(String method, String url, Object entity) throws Exception {
+  ```
+  ```java
+  if (entity != null) {
+      Gson gson = new Gson();
+      StringEntity stringEntity = new StringEntity(gson.toJson(entity), StandardCharsets.UTF_8);
+      httpUriRequestBase.setEntity(stringEntity);
+  }
+  ```
+</details>
+
+* ❔ `update` 함수도 적용해 보기
+* ❔ `String url` 멤버 변수로 빼기
