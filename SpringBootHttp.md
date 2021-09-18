@@ -364,3 +364,8 @@ public static Httpclient5Response getQuery(String url, Object query) throws Exce
 ```
 
 * ❔ postQuery, patchQuery, deleteQuery 함수 만들기
+
+<!--
+프로퍼티 객체로 받기
+예외 처리
+-->
