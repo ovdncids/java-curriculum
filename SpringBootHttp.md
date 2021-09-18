@@ -185,34 +185,7 @@ public Integer update(int index, Member member) throws Exception {
 }
 ```
 
-<!--
-## Query string 받아서 넘기기
-src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersController.java
-```java
-public MembersResponse membersRead(@ModelAttribute Member member) throws Exception {
-    return new MembersResponse("read", membersService.read(member));
-}
-```
-
-src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
-```diff
-- public List<Member> read() throws Exception {
--   HttpGet httpGet = new HttpGet("http://localhost:8080/api/v1/members");
-```
-```java
-public List<Member> read(Member member) throws Exception {
-    URIBuilder uriBuilder = new URIBuilder("http://localhost:8080/api/v1/members");
-    Gson gson = new Gson();
-    JsonObject jsonObject = gson.toJsonTree(member).getAsJsonObject();
-    for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
-        System.out.println("Key = " + entry.getKey() + " Value = " + entry.getValue() );
-        uriBuilder.addParameter(entry.getKey(), entry.getValue().toString());
-    }
-    HttpGet httpGet = new HttpGet(uriBuilder.build());
-```
--->
-
-## httpclient5 Service 또는 공용 함수 만들기
+## Httpclient5 Service 또는 공용 함수 만들기
 src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
 ```java
 public class Httpclient5 {
@@ -322,3 +295,72 @@ httpPost.setEntity(stringEntity);
 
 * ❔ `update` 함수도 적용해 보기
 * ❔ `String url` 멤버 변수로 빼기
+
+## Httpclient5 get, post, patch, delete 함수 만들기
+src/main/java/com/example/SpringBootHttpStudy/api/v1/models/Httpclient5Response.java
+```java
+public static Httpclient5Response get(String url) throws Exception {
+    HttpUriRequestBase httpUriRequestBase = new HttpGet(url);
+    return connect(httpUriRequestBase, null);
+}
+
+public static Httpclient5Response post(String url, Object entity) throws Exception {
+    HttpUriRequestBase httpUriRequestBase = new HttpPost(url);
+    return connect(httpUriRequestBase, entity);
+}
+
+public static Httpclient5Response delete(String url) throws Exception {
+    HttpUriRequestBase httpUriRequestBase = new HttpDelete(url);
+    return connect(httpUriRequestBase, null);
+}
+
+public static Httpclient5Response patch(String url, Object entity) throws Exception {
+    HttpUriRequestBase httpUriRequestBase = new HttpPatch(url);
+    return connect(httpUriRequestBase, entity);
+}
+```
+* ❔ Httpclient5Response 함수 수정 하기
+* ❔ Service 수정 하기
+
+## Query string 받아서 넘기기
+src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersController.java
+```java
+public MembersResponse membersRead(@ModelAttribute Member member) throws Exception {
+    return new MembersResponse("read", membersService.read(member));
+}
+```
+
+src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+```diff
+- public List<Member> read() throws Exception {
++ public List<Member> read(Member member) throws Exception {
+```
+* ❕ Problem이 발생 하면 Problems 탭에서 확인
+* Swagger에서 확인
+
+### Httpclient5에서 Query string을 받을 수 있는 함수 만들기
+```diff
+- Httpclient5Response httpclient5Response = Httpclient5.get(url);
++ Httpclient5Response httpclient5Response = Httpclient5.getQuery(url);
+```
+
+src/main/java/com/example/SpringBootHttpStudy/api/v1/models/Httpclient5Response.java
+```java
+public static String uriBuilder(String url, Object query) throws Exception {
+    URIBuilder uriBuilder = new URIBuilder(url);
+    Gson gson = new Gson();
+    JsonObject jsonObject = gson.toJsonTree(query).getAsJsonObject();
+    for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+        System.out.println("Key = " + entry.getKey() + " Value = " + entry.getValue() );
+        uriBuilder.addParameter(entry.getKey(), entry.getValue().toString());
+    }
+    return uriBuilder.build().toString();
+}
+
+public static Httpclient5Response getQuery(String url, Object query) throws Exception {
+    url = uriBuilder(url, query);
+    return get(url);
+}
+```
+
+* ❔ postQuery, patchQuery, deleteQuery 함수 만들기
