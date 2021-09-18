@@ -284,7 +284,8 @@ return (List<Member>) httpclient5Response.getResponseMap().get("members");
 ### 회원(Members) Delete Service
 ```java
 public Integer delete(int index) throws Exception {
-    Httpclient5Response httpclient5Response = Httpclient5.connect("DELETE", "http://localhost:8080/api/v1/members/" + index);
+    String url = "http://localhost:8080/api/v1/members/" + index;
+    Httpclient5Response httpclient5Response = Httpclient5.connect("DELETE", url);
     return null;
 }
 ```
