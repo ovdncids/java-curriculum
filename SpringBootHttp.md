@@ -95,8 +95,8 @@ void members() {
 ```
 * ❕ 테스트에서도 Service를 자유롭게 사용 할 수 있다.
 
-## httpclient5
-### 설치
+# httpclient5
+## 설치
 pom.xml
 ```xml
 <dependency>
@@ -105,7 +105,7 @@ pom.xml
 </dependency>
 ```
 
-### 회원(Members) Read
+## 회원(Members) Read
 src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 ```java
 // @SuppressWarnings("unchecked")
@@ -115,17 +115,17 @@ public List<Member> read() throws Exception {
     CloseableHttpClient httpClient = HttpClients.createDefault();
     CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
     System.out.println(httpResponse.getCode());
-    String json = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
-    System.out.println(json);
-    JSONParser jsonParser = new JSONParser(json);
+    String jsonString = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
+    System.out.println(jsonString);
+    JSONParser jsonParser = new JSONParser(jsonString);
     LinkedHashMap<String, Object> linkedHashMap = jsonParser.object();
     System.out.println(linkedHashMap.get("members"));
     httpClient.close();
-    return (List<Member>)linkedHashMap.get("members");
+    return (List<Member>) linkedHashMap.get("members");
 }
 ```
 
-### 회원(Members) Create
+## 회원(Members) Create
 ```java
 public Integer create(Member member) throws Exception {
     HttpPost httpPost = new HttpPost("http://localhost:8080/api/v1/members");
@@ -136,9 +136,9 @@ public Integer create(Member member) throws Exception {
     CloseableHttpClient httpClient = HttpClients.createDefault();
     CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
     System.out.println(httpResponse.getCode());
-    String json = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
-    System.out.println(json);
-    JSONParser jsonParser = new JSONParser(json);
+    String jsonString = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
+    System.out.println(jsonString);
+    JSONParser jsonParser = new JSONParser(jsonString);
     LinkedHashMap<String, Object> linkedHashMap = jsonParser.object();
     System.out.println(linkedHashMap.get("result"));
     httpClient.close();
@@ -146,7 +146,7 @@ public Integer create(Member member) throws Exception {
 }
 ```
 
-### 회원(Members) Delete
+## 회원(Members) Delete
 ```java
 public Integer delete(int index) throws Exception {
     HttpDelete httpDelete = new HttpDelete("http://localhost:8080/api/v1/members/" + index);
@@ -154,9 +154,9 @@ public Integer delete(int index) throws Exception {
     CloseableHttpClient httpClient = HttpClients.createDefault();
     CloseableHttpResponse httpResponse = httpClient.execute(httpDelete);
     System.out.println(httpResponse.getCode());
-    String json = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
-    System.out.println(json);
-    JSONParser jsonParser = new JSONParser(json);
+    String jsonString = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
+    System.out.println(jsonString);
+    JSONParser jsonParser = new JSONParser(jsonString);
     LinkedHashMap<String, Object> linkedHashMap = jsonParser.object();
     System.out.println(linkedHashMap.get("result"));
     httpClient.close();
@@ -164,7 +164,7 @@ public Integer delete(int index) throws Exception {
 }
 ```
 
-### 회원(Members) Update
+## 회원(Members) Update
 ```java
 public Integer update(int index, Member member) throws Exception {
     HttpPatch httpPatch = new HttpPatch("http://localhost:8080/api/v1/members/" + index);
@@ -175,9 +175,9 @@ public Integer update(int index, Member member) throws Exception {
     CloseableHttpClient httpClient = HttpClients.createDefault();
     CloseableHttpResponse httpResponse = httpClient.execute(httpPatch);
     System.out.println(httpResponse.getCode());
-    String json = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
-    System.out.println(json);
-    JSONParser jsonParser = new JSONParser(json);
+    String jsonString = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
+    System.out.println(jsonString);
+    JSONParser jsonParser = new JSONParser(jsonString);
     LinkedHashMap<String, Object> linkedHashMap = jsonParser.object();
     System.out.println(linkedHashMap.get("result"));
     httpClient.close();
@@ -186,7 +186,7 @@ public Integer update(int index, Member member) throws Exception {
 ```
 
 <!--
-### Query string 받아서 넘기기
+## Query string 받아서 넘기기
 src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersController.java
 ```java
 public MembersResponse membersRead(@ModelAttribute Member member) throws Exception {
@@ -211,3 +211,80 @@ public List<Member> read(Member member) throws Exception {
     HttpGet httpGet = new HttpGet(uriBuilder.build());
 ```
 -->
+
+## httpclient5 Service 또는 공용 함수 만들기
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
+```java
+public class Httpclient5 {
+    public static void connect(String method, String url) throws Exception {
+        HttpUriRequestBase httpUriRequestBase;
+        if ("POST".equals(method)) {
+            httpUriRequestBase = new HttpPost(url);
+        } else if ("PATCH".equals(method)) {
+            httpUriRequestBase = new HttpPatch(url);
+        } else if ("DELETE".equals(method)) {
+            httpUriRequestBase = new HttpDelete(url);
+        } else {
+            httpUriRequestBase = new HttpGet(url);
+        }
+        httpUriRequestBase.addHeader("Content-Type", "application/json");
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpResponse httpResponse = httpClient.execute(httpUriRequestBase);
+        System.out.println(httpResponse.getCode());
+        String jsonString = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
+        System.out.println(jsonString);
+        JSONParser jsonParser = new JSONParser(jsonString);
+        LinkedHashMap<String, Object> linkedHashMap = jsonParser.object();
+        httpClient.close();
+    }
+}
+```
+
+src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+```java
+public List<Member> read() throws Exception {
+    Httpclient5.connect("GET", "http://localhost:8080/api/v1/members");
+    return null;
+}
+```
+
+### 통신 후에 결과를 담을 model 생성 
+src/main/java/com/example/SpringBootHttpStudy/api/v1/models/Httpclient5Response.java
+```java
+public class Httpclient5Response {
+    private int code = 0;
+    private String responseJsonString;
+    private LinkedHashMap<String, Object> responseMap;
+}
+```
+* Generate... -> Getter and Setter -> 생성
+
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
+```java
+public static Httpclient5Response connect(String method, String url) throws Exception {
+    Httpclient5Response httpclient5Response = new Httpclient5Response();
+    ...
+    httpclient5Response.setCode(httpResponse.getCode());
+    httpclient5Response.setResponseJsonString(jsonString);
+    httpclient5Response.setResponseMap(linkedHashMap);
+    return httpclient5Response;
+}
+```
+
+src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+```diff
+- Httpclient5.connect("GET", "http://localhost:8080/api/v1/members");
+- return null;
+```
+```java
+Httpclient5Response httpclient5Response = Httpclient5.connect("GET", "http://localhost:8080/api/v1/members");
+return (List<Member>) httpclient5Response.getResponseMap().get("members");
+```
+
+### 회원(Members) Delete Service
+```java
+public Integer delete(int index) throws Exception {
+    Httpclient5Response httpclient5Response = Httpclient5.connect("DELETE", "http://localhost:8080/api/v1/members/" + index);
+    return null;
+}
+```
