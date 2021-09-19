@@ -354,7 +354,9 @@ public static String uriBuilder(String url, Object query) throws Exception {
         System.out.println("Key = " + entry.getKey() + " Value = " + entry.getValue() );
         uriBuilder.addParameter(entry.getKey(), entry.getValue().toString());
     }
-    return uriBuilder.build().toString();
+    url = uriBuilder.build().toString();
+    System.out.println(url);
+    return url;
 }
 
 public static Httpclient5Response getQuery(String url, Object query) throws Exception {
@@ -365,7 +367,50 @@ public static Httpclient5Response getQuery(String url, Object query) throws Exce
 
 * ❔ postQuery, patchQuery, deleteQuery 함수 만들기
 
+## 커스텀 Properties Model로 받기
+src/main/resources/custom.properties
+```properties
+a1=123
+b1.b2=한글
+```
+
+src/main/java/com/example/SpringBootHttpStudy/api/v1/models/CustomProperties.java
+```java
+@Component
+@PropertySource(value="classpath:custom.properties", encoding="UTF-8")
+public class CustomProperties {
+    @Value("${a1}")
+    private Integer a1;
+    @Value("${b1.b2}")
+    private String b2;
+
+    private static Integer _a1;
+    private static String _b2;
+
+    private CustomProperties() {}
+
+    @PostConstruct
+    private void init() {
+        _a1 = this.a1;
+        _b2 = this.b2;
+    }
+
+    public static CustomProperties getAll() {
+        CustomProperties properties = new CustomProperties();
+        properties.a1 = _a1;
+        properties.b2 = _b2;
+        return properties;
+    }
+}
+```
+
+src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+```diff
+- Httpclient5Response httpclient5Response = Httpclient5.getQuery(url, member);
++ Httpclient5Response httpclient5Response = Httpclient5.getQuery(url, CustomProperties.getAll());
+```
+* `@Component`와 `@PostConstruct` 동작 설명
+
 <!--
-프로퍼티 객체로 받기
 예외 처리
 -->
