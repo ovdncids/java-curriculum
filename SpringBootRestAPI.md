@@ -546,7 +546,7 @@ class SpringBootRestApiStudyApplicationTests {
 src/main/resources/custom.properties
 ```properties
 a1=123
-b1.b2=한글 사랑
+b1.b2=한글
 ```
 
 src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
