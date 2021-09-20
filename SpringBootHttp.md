@@ -435,7 +435,16 @@ Object[] object = {member, CustomProperties.getAll()};
 - Httpclient5Response httpclient5Response = Httpclient5.getQuery(url, CustomProperties.getAll());
 + Httpclient5Response httpclient5Response = Httpclient5.getQuery(url, Httpclient5.gsonMerge(object));
 ```
+* ❔ `member.name`만 빼고 넘기려면
 
-<!--
-예외 처리
--->
+## 예외 처리
+* https://cheese10yun.github.io/spring-guide-exception
+* https://supawer0728.github.io/2019/04/04/spring-error-handling
+* https://www.baeldung.com/exception-handling-for-rest-with-spring
+
+src/main/resources/application.properties
+```properties
+server.error.include-message=ALWAYS
+server.error.include-exception=TRUE
+#server.error.include-stacktrace=ALWAYS
+```
