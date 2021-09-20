@@ -297,7 +297,7 @@ httpPost.setEntity(stringEntity);
 * ❔ `String url` 멤버 변수로 빼기
 
 ## Httpclient5 get, post, patch, delete 함수 만들기
-src/main/java/com/example/SpringBootHttpStudy/api/v1/models/Httpclient5Response.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
 ```java
 public static Httpclient5Response get(String url) throws Exception {
     HttpUriRequestBase httpUriRequestBase = new HttpGet(url);
@@ -344,7 +344,7 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 + Httpclient5Response httpclient5Response = Httpclient5.getQuery(url);
 ```
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/models/Httpclient5Response.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
 ```java
 public static String uriBuilder(String url, Object query) throws Exception {
     URIBuilder uriBuilder = new URIBuilder(url);
@@ -412,7 +412,7 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 * `@Component`와 `@PostConstruct` 동작 설명
 
 ## 객체 Merge 해주는 함수 만들기
-src/main/java/com/example/SpringBootHttpStudy/api/v1/models/Httpclient5Response.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
 ```java
 public static Map<String, Object> gsonMerge(Object[] objects) {
     Map<String, Object> map = new HashMap<>();
@@ -440,11 +440,55 @@ Object[] object = {member, CustomProperties.getAll()};
 ## 예외 처리
 * https://cheese10yun.github.io/spring-guide-exception
 * https://supawer0728.github.io/2019/04/04/spring-error-handling
-* https://www.baeldung.com/exception-handling-for-rest-with-spring
 
 src/main/resources/application.properties
 ```properties
 server.error.include-message=ALWAYS
 server.error.include-exception=TRUE
 #server.error.include-stacktrace=ALWAYS
+```
+
+### Custom 예외 처리
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/CustomErrorAttributes.java
+```java
+public class CustomErrorAttributes extends DefaultErrorAttributes {
+    @Override
+    public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
+        Map<String, Object> result = super.getErrorAttributes(webRequest, options);
+        return result;
+    }
+}
+```
+
+src/main/java/com/example/SpringBootHttpStudy/api/v1/ExceptionController.java
+```java
+@ControllerAdvice
+@Slf4j
+public class ExceptionController {
+    @Value("${server.error.include-message}")
+    private String message;
+    @Value("${server.error.include-exception}")
+    private Boolean exception;
+
+    @ExceptionHandler({ Exception.class })
+    public ResponseEntity handleAll(final Exception ex, WebRequest request) {
+        log.error("Exception", ex);
+        Map<String, Object> map = getErrorAttributes(request);
+        map.put("custom", "value");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
+    }
+
+    private Map<String, Object> getErrorAttributes(WebRequest request) {
+        List<ErrorAttributeOptions.Include> includes = new ArrayList<>();
+        if ("ALWAYS".equals(message)) {
+            includes.add(ErrorAttributeOptions.Include.MESSAGE);
+        }
+        if (exception) {
+            includes.add(ErrorAttributeOptions.Include.EXCEPTION);
+        }
+        ErrorAttributeOptions errorAttributeOptions = ErrorAttributeOptions.of(includes);
+        CustomErrorAttributes customErrorAttributes = new CustomErrorAttributes();
+        return customErrorAttributes.getErrorAttributes(request, errorAttributeOptions);
+    }
+}
 ```
