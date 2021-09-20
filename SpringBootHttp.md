@@ -411,6 +411,31 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 ```
 * `@Component`와 `@PostConstruct` 동작 설명
 
+## 객체 Merge 해주는 함수 만들기
+src/main/java/com/example/SpringBootHttpStudy/api/v1/models/Httpclient5Response.java
+```java
+public static Map<String, Object> gsonMerge(Object[] object) {
+    Map<String, Object> map = new HashMap<>();
+    for (int index = 0; index < object.length; index++) {
+        Gson gson = new Gson();
+        JsonObject jsonObject = gson.toJsonTree(object[index]).getAsJsonObject();
+        for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+            map.put(entry.getKey(), entry.getValue());
+        }
+    }
+    return map;
+}
+```
+
+src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+```java
+Object[] object = {member, CustomProperties.getAll()};
+```
+```diff
+- Httpclient5Response httpclient5Response = Httpclient5.getQuery(url, CustomProperties.getAll());
++ Httpclient5Response httpclient5Response = Httpclient5.getQuery(url, Httpclient5.gsonMerge(object));
+```
+
 <!--
 예외 처리
 -->
