@@ -447,6 +447,7 @@ server.error.include-message=ALWAYS
 server.error.include-exception=TRUE
 #server.error.include-stacktrace=ALWAYS
 ```
+* 예외 만들어 보기 `int a = 1 / 0;`
 
 ### Custom 예외 처리
 src/main/java/com/example/SpringBootHttpStudy/api/v1/common/CustomErrorAttributes.java
@@ -502,4 +503,3 @@ public class ExceptionController {
     }
 }
 ```
-* 예외 만들어 보기 `int a = 1 / 0;`
