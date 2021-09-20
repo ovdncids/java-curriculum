@@ -414,11 +414,11 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 ## 객체 Merge 해주는 함수 만들기
 src/main/java/com/example/SpringBootHttpStudy/api/v1/models/Httpclient5Response.java
 ```java
-public static Map<String, Object> gsonMerge(Object[] object) {
+public static Map<String, Object> gsonMerge(Object[] objects) {
     Map<String, Object> map = new HashMap<>();
-    for (int index = 0; index < object.length; index++) {
+    for (Object object : objects) {
         Gson gson = new Gson();
-        JsonObject jsonObject = gson.toJsonTree(object[index]).getAsJsonObject();
+        JsonObject jsonObject = gson.toJsonTree(object).getAsJsonObject();
         for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
             map.put(entry.getKey(), entry.getValue());
         }
