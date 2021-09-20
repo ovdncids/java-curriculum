@@ -452,6 +452,8 @@ server.error.include-exception=TRUE
 ### Custom 예외 처리
 src/main/java/com/example/SpringBootHttpStudy/api/v1/common/CustomErrorAttributes.java
 ```java
+import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
+
 @Component
 public class CustomErrorAttributes extends DefaultErrorAttributes {
     @Value("${server.error.include-message}")
@@ -468,12 +470,6 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
         exception = this._exception;
     }
 
-    @Override
-    public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
-        Map<String, Object> result = super.getErrorAttributes(webRequest, options);
-        return result;
-    }
-
     public static Map<String, Object> getErrorAttributes(WebRequest request) {
         List<ErrorAttributeOptions.Include> includes = new ArrayList<>();
         if ("ALWAYS".equals(message)) {
@@ -488,6 +484,12 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
     }
 }
 ```
+<!--
+    @Override
+    public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
+        return super.getErrorAttributes(webRequest, options);
+    }
+-->
 
 src/main/java/com/example/SpringBootHttpStudy/api/v1/ExceptionController.java
 ```java
@@ -495,7 +497,7 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/ExceptionController.java
 @Slf4j
 public class ExceptionController {
     @ExceptionHandler({ Exception.class })
-    public ResponseEntity handleAll(final Exception ex, WebRequest request) {
+    public ResponseEntity<Map<String, Object>> handleAll(final Exception ex, WebRequest request) {
         log.error("Exception", ex);
         Map<String, Object> map = CustomErrorAttributes.getErrorAttributes(request);
         map.put("key", "value");
