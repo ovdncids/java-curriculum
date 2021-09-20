@@ -451,34 +451,29 @@ server.error.include-exception=TRUE
 ### Custom 예외 처리
 src/main/java/com/example/SpringBootHttpStudy/api/v1/common/CustomErrorAttributes.java
 ```java
+@Component
 public class CustomErrorAttributes extends DefaultErrorAttributes {
+    @Value("${server.error.include-message}")
+    private String _message;
+    @Value("${server.error.include-exception}")
+    private Boolean _exception;
+
+    private static String message;
+    private static Boolean exception;
+
+    @PostConstruct
+    private void init() {
+        message = this._message;
+        exception = this._exception;
+    }
+
     @Override
     public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
         Map<String, Object> result = super.getErrorAttributes(webRequest, options);
         return result;
     }
-}
-```
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/ExceptionController.java
-```java
-@ControllerAdvice
-@Slf4j
-public class ExceptionController {
-    @Value("${server.error.include-message}")
-    private String message;
-    @Value("${server.error.include-exception}")
-    private Boolean exception;
-
-    @ExceptionHandler({ Exception.class })
-    public ResponseEntity handleAll(final Exception ex, WebRequest request) {
-        log.error("Exception", ex);
-        Map<String, Object> map = getErrorAttributes(request);
-        map.put("custom", "value");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
-    }
-
-    private Map<String, Object> getErrorAttributes(WebRequest request) {
+    public static Map<String, Object> getErrorAttributes(WebRequest request) {
         List<ErrorAttributeOptions.Include> includes = new ArrayList<>();
         if ("ALWAYS".equals(message)) {
             includes.add(ErrorAttributeOptions.Include.MESSAGE);
@@ -492,3 +487,19 @@ public class ExceptionController {
     }
 }
 ```
+
+src/main/java/com/example/SpringBootHttpStudy/api/v1/ExceptionController.java
+```java
+@ControllerAdvice
+@Slf4j
+public class ExceptionController {
+    @ExceptionHandler({ Exception.class })
+    public ResponseEntity handleAll(final Exception ex, WebRequest request) {
+        log.error("Exception", ex);
+        Map<String, Object> map = CustomErrorAttributes.getErrorAttributes(request);
+        map.put("key", "value");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
+    }
+}
+```
+* 예외 만들어 보기 `int a = 1 / 0;`
