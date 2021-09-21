@@ -449,13 +449,13 @@ server.error.include-exception=TRUE
 ```
 * 예외 만들어 보기 `int a = 1 / 0;`
 
-### Custom 예외 처리
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/CustomErrorAttributes.java
+### 공용 예외 처리
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/ErrorAttributes.java
 ```java
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 
 @Component
-public class CustomErrorAttributes extends DefaultErrorAttributes {
+public class ErrorAttributes extends DefaultErrorAttributes {
     @Value("${server.error.include-message}")
     private String _message;
     @Value("${server.error.include-exception}")
@@ -479,8 +479,8 @@ public class CustomErrorAttributes extends DefaultErrorAttributes {
             includes.add(ErrorAttributeOptions.Include.EXCEPTION);
         }
         ErrorAttributeOptions errorAttributeOptions = ErrorAttributeOptions.of(includes);
-        CustomErrorAttributes customErrorAttributes = new CustomErrorAttributes();
-        return customErrorAttributes.getErrorAttributes(request, errorAttributeOptions);
+        ErrorAttributes ErrorAttributes = new ErrorAttributes();
+        return ErrorAttributes.getErrorAttributes(request, errorAttributeOptions);
     }
 }
 ```
@@ -497,10 +497,10 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/ExceptionController.java
 @Slf4j
 public class ExceptionController {
     @ExceptionHandler({ Exception.class })
-    public ResponseEntity<Map<String, Object>> handleAll(final Exception ex, WebRequest request) {
-        log.error("Exception", ex);
-        Map<String, Object> map = CustomErrorAttributes.getErrorAttributes(request);
-        map.put("customKey", "customValue");
+    public ResponseEntity<Map<String, Object>> handleException(final Exception exception, WebRequest request) {
+        log.error("Exception", exception);
+        Map<String, Object> map = ErrorAttributes.getErrorAttributes(request);
+        map.put("key", "value");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
     }
 }
@@ -509,10 +509,73 @@ public class ExceptionController {
 ### 예외 나누어 처리하기
 ```java
 @ExceptionHandler({ HttpHostConnectException.class })
-public ResponseEntity<Map<String, Object>> httpHostConnectException(final Exception ex, WebRequest request) {
-    log.error("HttpHostConnectException", ex);
-    Map<String, Object> map = CustomErrorAttributes.getErrorAttributes(request);
-    map.put("message", ex.getMessage());
+public ResponseEntity<Map<String, Object>> handleHttpHostConnectException(
+        final HttpHostConnectException httpHostConnectException,
+        WebRequest request
+) {
+    log.error("HttpHostConnectException", httpHostConnectException);
+    Map<String, Object> map = ErrorAttributes.getErrorAttributes(request);
+    map.put("message", httpHostConnectException.getMessage());
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
+}
+```
+
+### Custom 예외 처리
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/CustomException.java
+```java
+public class CustomException extends Exception {
+    private Httpclient5Response httpclient5Response;
+
+    public CustomException(Httpclient5Response httpclient5Response) {
+        this.httpclient5Response = httpclient5Response;
+    }
+
+    public Httpclient5Response getHttpclient5Response() {
+        return httpclient5Response;
+    }
+}
+```
+
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
+```diff
+- CloseableHttpResponse httpResponse = httpClient.execute(httpUriRequestBase);
+- System.out.println(httpResponse.getCode());
+- String jsonString = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
+- System.out.println(jsonString);
+- JSONParser jsonParser = new JSONParser(jsonString);
+- LinkedHashMap<String, Object> linkedHashMap = jsonParser.object();
+- httpClient.close();
+- httpclient5Response.setCode(httpResponse.getCode());
+- httpclient5Response.setResponseJsonString(jsonString);
+- httpclient5Response.setResponseMap(linkedHashMap);
+```
+```java
+try {
+    CloseableHttpResponse httpResponse = httpClient.execute(httpUriRequestBase);
+    System.out.println(httpResponse.getCode());
+    String jsonString = EntityUtils.toString(httpResponse.getEntity(), StandardCharsets.UTF_8);
+    System.out.println(jsonString);
+    JSONParser jsonParser = new JSONParser(jsonString);
+    LinkedHashMap<String, Object> linkedHashMap = jsonParser.object();
+    httpClient.close();
+    httpclient5Response.setCode(httpResponse.getCode());
+    httpclient5Response.setResponseJsonString(jsonString);
+    httpclient5Response.setResponseMap(linkedHashMap);
+} catch (HttpHostConnectException httpHostConnectException) {
+    throw new CustomException(httpclient5Response);
+}
+```
+
+src/main/java/com/example/SpringBootHttpStudy/api/v1/ExceptionController.java
+```java
+@ExceptionHandler({ CustomException.class })
+public ResponseEntity<Map<String, Object>> handleCustomException(
+        final CustomException customException,
+        WebRequest request
+) {
+    log.error("customException", customException);
+    Map<String, Object> map = ErrorAttributes.getErrorAttributes(request);
+    map.put("error", customException.getHttpclient5Response());
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
 }
 ```
