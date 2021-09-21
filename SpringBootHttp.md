@@ -450,10 +450,28 @@ server.error.include-exception=TRUE
 * 예외 만들어 보기 `int a = 1 / 0;`
 
 ### 공용 예외 처리
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/ErrorAttributes.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/ExceptionController.java
 ```java
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 
+@ControllerAdvice
+@Slf4j
+public class ExceptionController {
+    @ExceptionHandler({ Exception.class })
+    public ResponseEntity<Map<String, Object>> handleException(final Exception exception, WebRequest webRequest) {
+        log.error("Exception", exception);
+        DefaultErrorAttributes defaultErrorAttributes = new DefaultErrorAttributes();
+        Map<String, Object> map = defaultErrorAttributes.getErrorAttributes(webRequest, ErrorAttributeOptions.defaults());
+//        Map<String, Object> map = ErrorAttributes.getErrorAttributes(webRequest);
+        map.put("key", "value");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
+    }
+}
+```
+
+#### application.properties 설정에한 에러 레벨 적용한
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/ErrorAttributes.java
+```java
 @Component
 public class ErrorAttributes extends DefaultErrorAttributes {
     @Value("${server.error.include-message}")
@@ -491,30 +509,16 @@ public class ErrorAttributes extends DefaultErrorAttributes {
     }
 -->
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/ExceptionController.java
-```java
-@ControllerAdvice
-@Slf4j
-public class ExceptionController {
-    @ExceptionHandler({ Exception.class })
-    public ResponseEntity<Map<String, Object>> handleException(final Exception exception, WebRequest request) {
-        log.error("Exception", exception);
-        Map<String, Object> map = ErrorAttributes.getErrorAttributes(request);
-        map.put("key", "value");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
-    }
-}
-```
-
 ### 예외 나누어 처리하기
+src/main/java/com/example/SpringBootHttpStudy/api/v1/ExceptionController.java
 ```java
 @ExceptionHandler({ HttpHostConnectException.class })
 public ResponseEntity<Map<String, Object>> handleHttpHostConnectException(
         final HttpHostConnectException httpHostConnectException,
-        WebRequest request
+        WebRequest webRequest
 ) {
     log.error("HttpHostConnectException", httpHostConnectException);
-    Map<String, Object> map = ErrorAttributes.getErrorAttributes(request);
+    Map<String, Object> map = ErrorAttributes.getErrorAttributes(webRequest);
     map.put("message", httpHostConnectException.getMessage());
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
 }
@@ -524,10 +528,16 @@ public ResponseEntity<Map<String, Object>> handleHttpHostConnectException(
 src/main/java/com/example/SpringBootHttpStudy/api/v1/common/CustomException.java
 ```java
 public class CustomException extends Exception {
+    private boolean isFromException;
     private Httpclient5Response httpclient5Response;
 
-    public CustomException(Httpclient5Response httpclient5Response) {
+    public CustomException(boolean isFromException, Httpclient5Response httpclient5Response) {
+        this.isFromException = isFromException;
         this.httpclient5Response = httpclient5Response;
+    }
+
+    public boolean isFromException() {
+        return isFromException;
     }
 
     public Httpclient5Response getHttpclient5Response() {
@@ -562,7 +572,9 @@ try {
     httpclient5Response.setResponseJsonString(jsonString);
     httpclient5Response.setResponseMap(linkedHashMap);
 } catch (HttpHostConnectException httpHostConnectException) {
-    throw new CustomException(httpclient5Response);
+    throw new CustomException(false, httpclient5Response);
+} catch (Exception exception) {
+    throw new CustomException(true, httpclient5Response);
 }
 ```
 
@@ -571,11 +583,27 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/ExceptionController.java
 @ExceptionHandler({ CustomException.class })
 public ResponseEntity<Map<String, Object>> handleCustomException(
         final CustomException customException,
-        WebRequest request
+        WebRequest webRequest
 ) {
     log.error("customException", customException);
-    Map<String, Object> map = ErrorAttributes.getErrorAttributes(request);
-    map.put("error", customException.getHttpclient5Response());
+    Map<String, Object> map = ErrorAttributes.getErrorAttributes(webRequest);
+    if (customException.isFromException()) {
+        map.put("fromException", customException.getHttpclient5Response());
+    } else {
+        map.put("error", customException.getHttpclient5Response());
+    }
     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
+}
+```
+
+### 임의로 예외 발생 시키기
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
+```diff
+- httpclient5Response.setResponseJsonString(jsonString);
+```
+```java
+httpclient5Response.setResponseJsonString(jsonString);
+if (httpclient5Response != null) {
+    throw new Exception();
 }
 ```
