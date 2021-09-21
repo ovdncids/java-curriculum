@@ -500,8 +500,19 @@ public class ExceptionController {
     public ResponseEntity<Map<String, Object>> handleAll(final Exception ex, WebRequest request) {
         log.error("Exception", ex);
         Map<String, Object> map = CustomErrorAttributes.getErrorAttributes(request);
-        map.put("key", "value");
+        map.put("customKey", "customValue");
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
     }
+}
+```
+
+### 예외 나누어 처리하기
+```java
+@ExceptionHandler({ HttpHostConnectException.class })
+public ResponseEntity<Map<String, Object>> httpHostConnectException(final Exception ex, WebRequest request) {
+    log.error("HttpHostConnectException", ex);
+    Map<String, Object> map = CustomErrorAttributes.getErrorAttributes(request);
+    map.put("message", ex.getMessage());
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
 }
 ```
