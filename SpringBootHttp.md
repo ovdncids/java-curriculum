@@ -92,9 +92,44 @@ void members() {
     membersService.create(new Member("semin", 20));
     membersService.delete(0);
     membersService.update(0, new Member("min", 30));
+    System.out.println(members);
 }
 ```
 * ❕ 테스트에서도 Service를 자유롭게 사용 할 수 있다.
+
+## Service와 ServiceImpl
+* 관습적으로 Service를 만들때 Service와 ServiceImpl로 나누어서 개발하는 곳이 많다.
+
+MembersService.java 복사해서 MembersServiceImpl.java
+
+src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+```diff
+- @Service
+- 밑으로 모두
+```
+```java
+public interface MembersService {
+    List<Member> read();
+    Integer create(Member member);
+    Integer delete(int index);
+    Integer update(int index, Member member);
+}
+```
+
+src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersServiceImpl.java
+```diff
+- @Service
+- public class MembersService {
+```
+```java
+@Service("MembersService")
+public class MembersServiceImpl implements MembersService {
+```
+
+* ❕ 결론 Service와 ServiceImpl의 관계가 1:1인 경우는 service와 serviceImpl로 따로 나눌 필요 없다.
+* 1:N 관계가 된다면 그때 생각해 보자 (하지만 필자는 아직 1:N 상황을 만난적 없음)
+* https://elvis-note.tistory.com/entry/9-Spring-MVC-2-Service%EC%99%80-ServiceImpl
+* https://multifrontgarden.tistory.com/97
 
 # httpclient5
 ## 설치
@@ -103,6 +138,7 @@ pom.xml
 <dependency>
     <groupId>org.apache.httpcomponents.client5</groupId>
     <artifactId>httpclient5</artifactId>
+    <version>5.1</version>
 </dependency>
 ```
 
