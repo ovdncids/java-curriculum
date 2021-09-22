@@ -13,6 +13,7 @@ server.port=18080
 또는
 
 * Run -> Edit Configurations... -> Environment variables: `server.port=18080`
+* http://localhost:18080/swagger-ui.html
 
 ## 회원(Members) Service 만들기
 * ❕ Service를 생성하는 이유 (여러 Controller에서 사용 되거나, 또는 Test(JUnit)에서 사용될 비지니스 로직(DB의 CRUD등등)을 담을때 사용한다.)
