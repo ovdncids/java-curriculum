@@ -500,7 +500,7 @@ public class MembersServiceImpl implements MembersService {
 ```
 
 * ❕ 결론 Service와 ServiceImpl의 관계가 1:1인 경우는 service와 serviceImpl로 따로 나눌 필요 없다.
-* 1:N 관계가 된다면 그때 생각해 보자 (하지만 아직 1:N 상황을 만난적 없음)
+* 1:N 관계가 된다면 그때 생각해 보자 (하지만 필자는 아직 1:N 상황을 만난적 없음)
 * https://elvis-note.tistory.com/entry/9-Spring-MVC-2-Service%EC%99%80-ServiceImpl
 * https://multifrontgarden.tistory.com/97
 
