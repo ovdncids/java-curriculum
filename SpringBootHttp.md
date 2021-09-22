@@ -399,8 +399,8 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 
 ### Httpclient5에서 Query string을 받을 수 있는 함수 만들기
 ```diff
-- Httpclient5Response httpclient5Response = Httpclient5.get(url);
-+ Httpclient5Response httpclient5Response = Httpclient5.getQuery(url, member);
+- Httpclient5Response httpclient5Response = Httpclient5.get(URL);
++ Httpclient5Response httpclient5Response = Httpclient5.getQuery(URL, member);
 ```
 
 src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
@@ -465,8 +465,8 @@ public class CustomProperties {
 
 src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 ```diff
-- Httpclient5Response httpclient5Response = Httpclient5.getQuery(url, member);
-+ Httpclient5Response httpclient5Response = Httpclient5.getQuery(url, CustomProperties.getAll());
+- Httpclient5Response httpclient5Response = Httpclient5.getQuery(URL, member);
++ Httpclient5Response httpclient5Response = Httpclient5.getQuery(URL, CustomProperties.getAll());
 ```
 * `@Component`와 `@PostConstruct` 동작 설명
 
@@ -491,8 +491,8 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 Object[] object = {member, CustomProperties.getAll()};
 ```
 ```diff
-- Httpclient5Response httpclient5Response = Httpclient5.getQuery(url, CustomProperties.getAll());
-+ Httpclient5Response httpclient5Response = Httpclient5.getQuery(url, Httpclient5.gsonMerge(object));
+- Httpclient5Response httpclient5Response = Httpclient5.getQuery(URL, CustomProperties.getAll());
++ Httpclient5Response httpclient5Response = Httpclient5.getQuery(URL, Httpclient5.gsonMerge(object));
 ```
 * ❔ `member.name`만 빼고 넘기려면
 
@@ -506,7 +506,15 @@ server.error.include-message=ALWAYS
 server.error.include-exception=TRUE
 #server.error.include-stacktrace=ALWAYS
 ```
-* 예외 만들어 보기 `int a = 1 / 0;`
+
+src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+```diff
+- return (List<Member>) httpclient5Response.getResponseMap().get("members");
+```
+```java
+int a = 1 / 0;
+return (List<Member>) httpclient5Response.getResponseMap().get("members");
+```
 
 ### 공용 예외 처리
 src/main/java/com/example/SpringBootHttpStudy/api/v1/ExceptionController.java
@@ -527,6 +535,8 @@ public class ExceptionController {
     }
 }
 ```
+* `@Slf4j` <- Add 'lombok' to classpath
+* pom.xml <- Reload project
 
 #### application.properties 설정에한 에러 레벨 적용한
 src/main/java/com/example/SpringBootHttpStudy/api/v1/common/ErrorAttributes.java
@@ -561,6 +571,8 @@ public class ErrorAttributes extends DefaultErrorAttributes {
     }
 }
 ```
+* `ExceptionController.java` <- 주석 풀기
+
 <!--
     @Override
     public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
@@ -582,6 +594,7 @@ public ResponseEntity<Map<String, Object>> handleHttpHostConnectException(
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
 }
 ```
+* 8080 서버 <- 끄기
 
 ### Custom 예외 처리
 src/main/java/com/example/SpringBootHttpStudy/api/v1/common/CustomException.java
@@ -667,3 +680,4 @@ if (httpclient5Response != null) {
     throw new Exception();
 }
 ```
+* 8080 서버 <- 커기
