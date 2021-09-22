@@ -140,11 +140,18 @@ pom.xml
     <artifactId>httpclient5</artifactId>
     <version>5.1</version>
 </dependency>
+
+<dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+</dependency>
 ```
 
 ## 회원(Members) Read
 src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 ```java
+import org.apache.tomcat.util.json.JSONParser;
+
 // @SuppressWarnings("unchecked")
 public List<Member> read() throws Exception {
     HttpGet httpGet = new HttpGet("http://localhost:8080/api/v1/members");
@@ -161,6 +168,7 @@ public List<Member> read() throws Exception {
     return (List<Member>) linkedHashMap.get("members");
 }
 ```
+* `Controller`와 `Test` 모두 예외를 회피 한다. (`throws Exception`)
 
 ## 회원(Members) Create
 ```java
