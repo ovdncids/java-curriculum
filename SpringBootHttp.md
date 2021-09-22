@@ -680,4 +680,4 @@ if (httpclient5Response != null) {
     throw new Exception();
 }
 ```
-* 8080 서버 <- 커기
+* 8080 서버 <- 켜기
