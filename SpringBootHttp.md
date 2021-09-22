@@ -78,6 +78,10 @@ MembersService membersService;
 + membersService.update(index, member);
 ```
 
+```diff
+-private static List<Member> init() {
+```
+
 ### 회원(Members) Service 테스트(JUnit)에서 호출 하기
 * 테스트를 사용하는 이유 (테스트 하고 싶은 부분만 바로 실행 할 수 있다.)
 
@@ -228,6 +232,9 @@ public Integer update(int index, Member member) throws Exception {
     httpClient.close();
     return null;
 }
+```
+```diff
+- private static List<Member> init() {
 ```
 
 ## Httpclient5 Service 또는 공용 함수 만들기
@@ -393,7 +400,7 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 ### Httpclient5에서 Query string을 받을 수 있는 함수 만들기
 ```diff
 - Httpclient5Response httpclient5Response = Httpclient5.get(url);
-+ Httpclient5Response httpclient5Response = Httpclient5.getQuery(url);
++ Httpclient5Response httpclient5Response = Httpclient5.getQuery(url, member);
 ```
 
 src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
@@ -403,7 +410,7 @@ public static String uriBuilder(String url, Object query) throws Exception {
     Gson gson = new Gson();
     JsonObject jsonObject = gson.toJsonTree(query).getAsJsonObject();
     for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
-        System.out.println("Key = " + entry.getKey() + " Value = " + entry.getValue() );
+        System.out.println("Key = " + entry.getKey() + " Value = " + entry.getValue());
         uriBuilder.addParameter(entry.getKey(), entry.getValue().toString());
     }
     url = uriBuilder.build().toString();
@@ -417,7 +424,7 @@ public static Httpclient5Response getQuery(String url, Object query) throws Exce
 }
 ```
 
-* ❔ postQuery, patchQuery, deleteQuery 함수 만들기
+* ❔ `deleteQuery`, `postQuery`, `patchQuery` 함수 만들기
 
 ## 커스텀 Properties Model로 받기
 src/main/resources/custom.properties
