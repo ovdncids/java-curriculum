@@ -464,7 +464,7 @@ public class ExceptionController {
         Map<String, Object> map = defaultErrorAttributes.getErrorAttributes(webRequest, ErrorAttributeOptions.defaults());
 //        Map<String, Object> map = ErrorAttributes.getErrorAttributes(webRequest);
         map.put("key", "value");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
     }
 }
 ```
@@ -520,7 +520,7 @@ public ResponseEntity<Map<String, Object>> handleHttpHostConnectException(
     log.error("HttpHostConnectException", httpHostConnectException);
     Map<String, Object> map = ErrorAttributes.getErrorAttributes(webRequest);
     map.put("message", httpHostConnectException.getMessage());
-    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
 }
 ```
 
@@ -591,8 +591,9 @@ public ResponseEntity<Map<String, Object>> handleCustomException(
         map.put("fromException", customException.getHttpclient5Response());
     } else {
         map.put("error", customException.getHttpclient5Response());
+        map.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
-    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(map);
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
 }
 ```
 
