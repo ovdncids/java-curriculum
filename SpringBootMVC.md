@@ -15,6 +15,7 @@ Dependencies: Spring Web
 
 GENERATE <- SpringBootMvcStudy.zip 다운받기
 압축 풀고 해당 경로를 Intellij에서 Open
+Terminal <- git init
 ```
 
 ## Spring Boot Tomcat 서버 실행
