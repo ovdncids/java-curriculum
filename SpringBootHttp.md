@@ -278,10 +278,14 @@ public class Httpclient5Response {
 * Generate... -> Getter and Setter -> 생성
 
 src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
+```diff
+- public static void connect(String method, String url) throws Exception {
+```
 ```java
 public static Httpclient5Response connect(String method, String url) throws Exception {
     Httpclient5Response httpclient5Response = new Httpclient5Response();
-    ...
+```
+```java
     httpclient5Response.setCode(httpResponse.getCode());
     httpclient5Response.setResponseJsonString(jsonString);
     httpclient5Response.setResponseMap(linkedHashMap);
@@ -318,17 +322,20 @@ public Integer create(Member member) throws Exception {
 }
 ```
 * ❔ 아래 부분을 `Httpclient5.connect` 함수에 적용해 보기
+```diff
+- public static Httpclient5Response connect(String method, String url) throws Exception {
+```
+```java
+public static Httpclient5Response connect(String method, String url, Object entry) throws Exception {
+```
 ```java
 Gson gson = new Gson();
 StringEntity stringEntity = new StringEntity(gson.toJson(member), StandardCharsets.UTF_8);
 httpPost.setEntity(stringEntity);
 ```
+* `오류` 모두 수정 하기
 * <details><summary>정답</summary>
 
-  ```diff
-  - public static Httpclient5Response connect(String method, String url) throws Exception {
-  + public static Httpclient5Response connect(String method, String url, Object entity) throws Exception {
-  ```
   ```java
   if (entity != null) {
       Gson gson = new Gson();
@@ -339,7 +346,7 @@ httpPost.setEntity(stringEntity);
 </details>
 
 * ❔ `update` 함수도 적용해 보기
-* ❔ `String url` 멤버 변수로 빼기
+* ❔ `String URL` private static 상수로 빼기
 
 ## Httpclient5 get, post, patch, delete 함수 만들기
 src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
