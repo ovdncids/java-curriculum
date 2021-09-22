@@ -479,6 +479,7 @@ MembersService.java 복사해서 MembersServiceImpl.java
 src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersService.java
 ```diff
 - @Service
+- 밑으로 모두
 ```
 ```java
 public interface MembersService {
