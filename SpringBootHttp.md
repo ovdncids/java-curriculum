@@ -79,7 +79,7 @@ MembersService membersService;
 ```
 
 ```diff
--private static List<Member> init() {
+- private static List<Member> init() {
 ```
 
 ### 회원(Members) Service 테스트(JUnit)에서 호출 하기
