@@ -31,13 +31,13 @@ src/main/java/com/example/SpringBootMvcStudy/SpringBootMvcStudyApplication.java
 ```java
 @Controller
 public class SpringBootMvcStudyApplication {
-  ...
-  
-  @RequestMapping("/")
-	@ResponseBody
-	String root() {
+    ...
+
+    @RequestMapping("/")
+        @ResponseBody
+        String root() {
     return "Hello world!";
-	}
+}
 ```
 
 ```diff
