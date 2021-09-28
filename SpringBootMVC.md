@@ -8,7 +8,7 @@ Project: Maven Project
 Language: Java
 Spring Boot: 2.5.4 (현재)
 Project Metadata
-  Artifact: SpringBootMvcStudy
+    Artifact: SpringBootMvcStudy
 Packaging: Jar
 Java: 8
 Dependencies: Spring Web
