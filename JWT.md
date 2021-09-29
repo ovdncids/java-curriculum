@@ -51,3 +51,45 @@ void tokenCheck() {
     System.out.println(member);
 }
 ```
+
+## 모든 서버 요청에 JwtRequestFilter 먼저 실행 시키기
+* 필터(Filter), 인터셉터(Interceptor), 미들웨어(Middleware) 상황에 따라서 달리 불려진다.
+
+src/main/java/패키지/common/JwtRequestFilter.java
+```java
+@Component
+public class JwtRequestFilter extends OncePerRequestFilter {
+    @Override
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain
+    ) throws IOException, ServletException {
+        filterChain.doFilter(request,response);
+    }
+}
+```
+
+src/main/java/패키지/WebSecurityConfig
+```java
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    }
+}
+```
+
+pom.xml
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+```
+* `디버깅 모드`에서 어떻게 동작 하는지 확인
