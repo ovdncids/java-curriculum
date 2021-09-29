@@ -240,10 +240,10 @@ public Integer update(int index, Member member) throws Exception {
 - private static List<Member> init() {
 ```
 
-## Httpclient5 Service 또는 공용 함수 만들기
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
+## HttpClient5 Service 또는 공용 함수 만들기
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/HttpClient5.java
 ```java
-public class Httpclient5 {
+public class HttpClient5 {
     public static void connect(String method, String url) throws Exception {
         HttpUriRequestBase httpUriRequestBase;
         if ("POST".equals(method)) {
@@ -271,15 +271,15 @@ public class Httpclient5 {
 src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 ```java
 public List<Member> read() throws Exception {
-    Httpclient5.connect("GET", "http://localhost:8080/api/v1/members");
+    HttpClient5.connect("GET", "http://localhost:8080/api/v1/members");
     return null;
 }
 ```
 
 ### 통신 후에 결과를 담을 model 생성 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/models/Httpclient5Response.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/models/HttpClient5Response.java
 ```java
-public class Httpclient5Response {
+public class HttpClient5Response {
     private int code = 0;
     private String responseJsonString;
     private LinkedHashMap<String, Object> responseMap;
@@ -287,38 +287,38 @@ public class Httpclient5Response {
 ```
 * Generate... -> Getter and Setter -> 생성
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/HttpClient5.java
 ```diff
 - public static void connect(String method, String url) throws Exception {
 ```
 ```java
-public static Httpclient5Response connect(String method, String url) throws Exception {
-    Httpclient5Response httpclient5Response = new Httpclient5Response();
+public static HttpClient5Response connect(String method, String url) throws Exception {
+    HttpClient5Response httpClient5Response = new HttpClient5Response();
 ```
 ```java
-    httpclient5Response.setCode(httpResponse.getCode());
-    httpclient5Response.setResponseJsonString(jsonString);
-    httpclient5Response.setResponseMap(linkedHashMap);
-    return httpclient5Response;
+    httpClient5Response.setCode(httpResponse.getCode());
+    httpClient5Response.setResponseJsonString(jsonString);
+    httpClient5Response.setResponseMap(linkedHashMap);
+    return httpClient5Response;
 }
 ```
 
 src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 ```diff
-- Httpclient5.connect("GET", "http://localhost:8080/api/v1/members");
+- HttpClient5.connect("GET", "http://localhost:8080/api/v1/members");
 - return null;
 ```
 ```java
 String url = "http://localhost:8080/api/v1/members";
-Httpclient5Response httpclient5Response = Httpclient5.connect("GET", url);
-return (List<Member>) httpclient5Response.getResponseMap().get("members");
+HttpClient5Response httpClient5Response = HttpClient5.connect("GET", url);
+return (List<Member>) httpClient5Response.getResponseMap().get("members");
 ```
 
 ### 회원(Members) Service Delete
 ```java
 public Integer delete(int index) throws Exception {
     String url = "http://localhost:8080/api/v1/members/" + index;
-    Httpclient5.connect("DELETE", url);
+    HttpClient5.connect("DELETE", url);
     return null;
 }
 ```
@@ -327,16 +327,16 @@ public Integer delete(int index) throws Exception {
 ```java
 public Integer create(Member member) throws Exception {
     String url = "http://localhost:8080/api/v1/members";
-    Httpclient5.connect("POST", url, member);
+    HttpClient5.connect("POST", url, member);
     return null;
 }
 ```
-* ❔ 아래 부분을 `Httpclient5.connect` 함수에 적용해 보기
+* ❔ 아래 부분을 `HttpClient5.connect` 함수에 적용해 보기
 ```diff
-- public static Httpclient5Response connect(String method, String url) throws Exception {
+- public static HttpClient5Response connect(String method, String url) throws Exception {
 ```
 ```java
-public static Httpclient5Response connect(String method, String url, Object entry) throws Exception {
+public static HttpClient5Response connect(String method, String url, Object entry) throws Exception {
 ```
 ```java
 Gson gson = new Gson();
@@ -358,30 +358,30 @@ httpPost.setEntity(stringEntity);
 * ❔ `update` 함수도 적용해 보기
 * ❔ `String URL` private static 상수로 빼기
 
-## Httpclient5 get, post, patch, delete 함수 만들기
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
+## HttpClient5 get, post, patch, delete 함수 만들기
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/HttpClient5.java
 ```java
-public static Httpclient5Response get(String url) throws Exception {
+public static HttpClient5Response get(String url) throws Exception {
     HttpUriRequestBase httpUriRequestBase = new HttpGet(url);
     return connect(httpUriRequestBase, null);
 }
 
-public static Httpclient5Response post(String url, Object entity) throws Exception {
+public static HttpClient5Response post(String url, Object entity) throws Exception {
     HttpUriRequestBase httpUriRequestBase = new HttpPost(url);
     return connect(httpUriRequestBase, entity);
 }
 
-public static Httpclient5Response delete(String url) throws Exception {
+public static HttpClient5Response delete(String url) throws Exception {
     HttpUriRequestBase httpUriRequestBase = new HttpDelete(url);
     return connect(httpUriRequestBase, null);
 }
 
-public static Httpclient5Response patch(String url, Object entity) throws Exception {
+public static HttpClient5Response patch(String url, Object entity) throws Exception {
     HttpUriRequestBase httpUriRequestBase = new HttpPatch(url);
     return connect(httpUriRequestBase, entity);
 }
 ```
-* ❔ Httpclient5Response 함수 수정 하기
+* ❔ HttpClient5Response 함수 수정 하기
 * ❔ Service 수정 하기
 
 ## Query string 받아서 넘기기
@@ -400,13 +400,13 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 * ❕ Problem이 발생 하면 Problems 탭에서 확인
 * Swagger에서 확인
 
-### Httpclient5에서 Query string을 받을 수 있는 함수 만들기
+### HttpClient5에서 Query string을 받을 수 있는 함수 만들기
 ```diff
-- Httpclient5Response httpclient5Response = Httpclient5.get(URL);
-+ Httpclient5Response httpclient5Response = Httpclient5.getQuery(URL, member);
+- HttpClient5Response httpClient5Response = HttpClient5.get(URL);
++ HttpClient5Response httpClient5Response = HttpClient5.getQuery(URL, member);
 ```
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/HttpClient5.java
 ```java
 public static String uriBuilder(String url, Object query) throws Exception {
     URIBuilder uriBuilder = new URIBuilder(url);
@@ -421,7 +421,7 @@ public static String uriBuilder(String url, Object query) throws Exception {
     return url;
 }
 
-public static Httpclient5Response getQuery(String url, Object query) throws Exception {
+public static HttpClient5Response getQuery(String url, Object query) throws Exception {
     url = uriBuilder(url, query);
     return get(url);
 }
@@ -468,13 +468,13 @@ public class CustomProperties {
 
 src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 ```diff
-- Httpclient5Response httpclient5Response = Httpclient5.getQuery(URL, member);
-+ Httpclient5Response httpclient5Response = Httpclient5.getQuery(URL, CustomProperties.getAll());
+- HttpClient5Response httpClient5Response = HttpClient5.getQuery(URL, member);
++ HttpClient5Response httpClient5Response = HttpClient5.getQuery(URL, CustomProperties.getAll());
 ```
 * `@Component`와 `@PostConstruct` 동작 설명
 
 ## 객체 Merge 해주는 함수 만들기
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/HttpClient5.java
 ```java
 public static Map<String, Object> gsonMerge(Object[] objects) {
     Map<String, Object> map = new HashMap<>();
@@ -494,8 +494,8 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 Object[] object = {member, CustomProperties.getAll()};
 ```
 ```diff
-- Httpclient5Response httpclient5Response = Httpclient5.getQuery(URL, CustomProperties.getAll());
-+ Httpclient5Response httpclient5Response = Httpclient5.getQuery(URL, Httpclient5.gsonMerge(object));
+- HttpClient5Response httpClient5Response = HttpClient5.getQuery(URL, CustomProperties.getAll());
++ HttpClient5Response httpClient5Response = HttpClient5.getQuery(URL, HttpClient5.gsonMerge(object));
 ```
 * ❔ `member.name`만 빼고 넘기려면
 
@@ -512,11 +512,11 @@ server.error.include-exception=TRUE
 
 src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 ```diff
-- return (List<Member>) httpclient5Response.getResponseMap().get("members");
+- return (List<Member>) httpClient5Response.getResponseMap().get("members");
 ```
 ```java
 int a = 1 / 0;
-return (List<Member>) httpclient5Response.getResponseMap().get("members");
+return (List<Member>) httpClient5Response.getResponseMap().get("members");
 ```
 
 ### 공용 예외 처리
@@ -604,24 +604,24 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/common/CustomException.java
 ```java
 public class CustomException extends Exception {
     private boolean isFromException;
-    private Httpclient5Response httpclient5Response;
+    private HttpClient5Response httpClient5Response;
 
-    public CustomException(boolean isFromException, Httpclient5Response httpclient5Response) {
+    public CustomException(boolean isFromException, HttpClient5Response httpClient5Response) {
         this.isFromException = isFromException;
-        this.httpclient5Response = httpclient5Response;
+        this.httpClient5Response = httpClient5Response;
     }
 
     public boolean isFromException() {
         return isFromException;
     }
 
-    public Httpclient5Response getHttpclient5Response() {
-        return httpclient5Response;
+    public HttpClient5Response getHttpClient5Response() {
+        return httpClient5Response;
     }
 }
 ```
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/HttpClient5.java
 ```diff
 - CloseableHttpResponse httpResponse = httpClient.execute(httpUriRequestBase);
 - System.out.println(httpResponse.getCode());
@@ -630,9 +630,9 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
 - JSONParser jsonParser = new JSONParser(jsonString);
 - LinkedHashMap<String, Object> linkedHashMap = jsonParser.object();
 - httpClient.close();
-- httpclient5Response.setCode(httpResponse.getCode());
-- httpclient5Response.setResponseJsonString(jsonString);
-- httpclient5Response.setResponseMap(linkedHashMap);
+- httpClient5Response.setCode(httpResponse.getCode());
+- httpClient5Response.setResponseJsonString(jsonString);
+- httpClient5Response.setResponseMap(linkedHashMap);
 ```
 ```java
 try {
@@ -643,13 +643,13 @@ try {
     JSONParser jsonParser = new JSONParser(jsonString);
     LinkedHashMap<String, Object> linkedHashMap = jsonParser.object();
     httpClient.close();
-    httpclient5Response.setCode(httpResponse.getCode());
-    httpclient5Response.setResponseJsonString(jsonString);
-    httpclient5Response.setResponseMap(linkedHashMap);
+    httpClient5Response.setCode(httpResponse.getCode());
+    httpClient5Response.setResponseJsonString(jsonString);
+    httpClient5Response.setResponseMap(linkedHashMap);
 } catch (HttpHostConnectException httpHostConnectException) {
-    throw new CustomException(false, httpclient5Response);
+    throw new CustomException(false, httpClient5Response);
 } catch (Exception exception) {
-    throw new CustomException(true, httpclient5Response);
+    throw new CustomException(true, httpClient5Response);
 }
 ```
 
@@ -663,9 +663,9 @@ public ResponseEntity<Map<String, Object>> handleCustomException(
     log.error("customException", customException);
     Map<String, Object> map = ErrorAttributes.getErrorAttributes(webRequest);
     if (customException.isFromException()) {
-        map.put("fromException", customException.getHttpclient5Response());
+        map.put("fromException", customException.getHttpClient5Response());
     } else {
-        map.put("error", customException.getHttpclient5Response());
+        map.put("error", customException.getHttpClient5Response());
         map.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
@@ -673,13 +673,13 @@ public ResponseEntity<Map<String, Object>> handleCustomException(
 ```
 
 ### 임의로 예외 발생 시키기
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/Httpclient5.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/common/HttpClient5.java
 ```diff
-- httpclient5Response.setResponseJsonString(jsonString);
+- httpClient5Response.setResponseJsonString(jsonString);
 ```
 ```java
-httpclient5Response.setResponseJsonString(jsonString);
-if (httpclient5Response != null) {
+httpClient5Response.setResponseJsonString(jsonString);
+if (httpClient5Response != null) {
     throw new Exception();
 }
 ```
