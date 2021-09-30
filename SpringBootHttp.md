@@ -241,7 +241,7 @@ public Integer update(int index, Member member) throws Exception {
 ```
 
 ## HttpClient5 Service 또는 공용 함수 만들기
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/HttpClient5.java
+src/main/java/com/example/SpringBootHttpStudy/common/HttpClient5.java
 ```java
 public class HttpClient5 {
     public static void connect(String method, String url) throws Exception {
@@ -287,7 +287,7 @@ public class HttpClient5Response {
 ```
 * Generate... -> Getter and Setter -> 생성
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/HttpClient5.java
+src/main/java/com/example/SpringBootHttpStudy/common/HttpClient5.java
 ```diff
 - public static void connect(String method, String url) throws Exception {
 ```
@@ -359,7 +359,7 @@ httpPost.setEntity(stringEntity);
 * ❔ `String URL` private static 상수로 빼기
 
 ## HttpClient5 get, post, patch, delete 함수 만들기
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/HttpClient5.java
+src/main/java/com/example/SpringBootHttpStudy/common/HttpClient5.java
 ```java
 public static HttpClient5Response get(String url) throws Exception {
     HttpUriRequestBase httpUriRequestBase = new HttpGet(url);
@@ -406,7 +406,7 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 + HttpClient5Response httpClient5Response = HttpClient5.getQuery(URL, member);
 ```
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/HttpClient5.java
+src/main/java/com/example/SpringBootHttpStudy/common/HttpClient5.java
 ```java
 public static String uriBuilder(String url, Object query) throws Exception {
     URIBuilder uriBuilder = new URIBuilder(url);
@@ -474,7 +474,7 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 * `@Component`와 `@PostConstruct` 동작 설명
 
 ## 객체 Merge 해주는 함수 만들기
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/HttpClient5.java
+src/main/java/com/example/SpringBootHttpStudy/common/HttpClient5.java
 ```java
 public static Map<String, Object> gsonMerge(Object[] objects) {
     Map<String, Object> map = new HashMap<>();
@@ -542,7 +542,7 @@ public class ExceptionController {
 * pom.xml <- Reload project
 
 #### application.properties 설정에한 에러 레벨 적용한
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/ErrorAttributes.java
+src/main/java/com/example/SpringBootHttpStudy/common/ErrorAttributes.java
 ```java
 @Component
 public class ErrorAttributes extends DefaultErrorAttributes {
@@ -600,7 +600,7 @@ public ResponseEntity<Map<String, Object>> handleHttpHostConnectException(
 * 8080 서버 <- 끄기
 
 ### Custom 예외 처리
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/CustomException.java
+src/main/java/com/example/SpringBootHttpStudy/common/CustomException.java
 ```java
 public class CustomException extends Exception {
     private boolean isFromException;
@@ -621,7 +621,7 @@ public class CustomException extends Exception {
 }
 ```
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/HttpClient5.java
+src/main/java/com/example/SpringBootHttpStudy/common/HttpClient5.java
 ```diff
 - CloseableHttpResponse httpResponse = httpClient.execute(httpUriRequestBase);
 - System.out.println(httpResponse.getCode());
@@ -673,7 +673,7 @@ public ResponseEntity<Map<String, Object>> handleCustomException(
 ```
 
 ### 임의로 예외 발생 시키기
-src/main/java/com/example/SpringBootHttpStudy/api/v1/common/HttpClient5.java
+src/main/java/com/example/SpringBootHttpStudy/common/HttpClient5.java
 ```diff
 - httpClient5Response.setResponseJsonString(jsonString);
 ```
