@@ -81,17 +81,18 @@ public class SwaggerConfig {
         ApiKey apikey = new ApiKey("x-jwt-token", "x-jwt-token", "header");
         AuthorizationScope[] authorizationScopes = {};
         SecurityReference securityReference = new SecurityReference("x-jwt-token", authorizationScopes);
-        SecurityContext securityContext = SecurityContext.builder().securityReferences(Arrays.asList(securityReference)).build();
+        SecurityContext securityContext = SecurityContext.builder().securityReferences(Collections.singletonList(securityReference)).build();
 
         return new Docket(DocumentationType.SWAGGER_2)
                 // 그룹을 생성해서 Swagger 페이지 우측 상단에서 이동 가능 
                 .groupName("jwt-token")
                 // Header에 x-jwt-token 받기
-                .securitySchemes(Arrays.asList(apikey))
+                .securitySchemes(Collections.singletonList(apikey))
                 // API가 Header에서 받은 x-jwt-token 읽기
+                .securityContexts(Collections.singletonList(securityContext))
                 .select()
                 .apis(RequestHandlerSelectors.any())
-                .paths(Predicates.or(ant("/api/v1/members/login"), ant("/api/v1/members/check")))
+                .paths(Predicates.or(PathSelectors.ant("/api/v1/members/login"), PathSelectors.ant("/api/v1/members/check")))
                 .build();
     }
 }
@@ -102,6 +103,10 @@ Predicates.and(
         Predicates.or(ant("/api/v1/members/login"), ant("/api/v1/members/check")),
         Predicates.not(ant("/error"))
 )
+
+```diff
+- .securityContexts(Arrays.asList(securityContext))
++ .securityContexts(Collections.singletonList(securityContext))
 -->
 
 src/main/java/패키지/api/v1/members/MembersController.java
