@@ -65,7 +65,8 @@ public String membersLogin(@RequestBody Member member) {
 
 @RequestMapping(path = "/check", method = RequestMethod.GET)
 public Map<String, Object> membersCheck(@RequestParam String token) {
-    return JwtAuth.tokenCheck(token);
+    Map<String, Object> member = JwtAuth.tokenCheck(token);
+    return member;
 }
 ```
 
@@ -137,6 +138,50 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 }
 ```
 
+### /api/v1/members/check 경로에만 Filter 적용
+```java
+@Override
+protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+    AntPathMatcher pathMatcher = new AntPathMatcher();
+    Collection<String> includeUrlPatterns = new ArrayList<>();
+    includeUrlPatterns.add("/api/v1/members/check");
+    boolean match = includeUrlPatterns
+            .stream()
+            .anyMatch(p -> pathMatcher.match(p, request.getServletPath()));
+    System.out.println(match + ", " + request.getServletPath());
+    return !match;
+}
+```
+
+### Filter에서 Header의 x-jwt-token 토큰 받아서 회원정보 받기
+```diff
+- filterChain.doFilter(request,response);
+```
+```java
+String token = request.getHeader("x-jwt-token");
+Map<String, Object> member = JwtAuth.tokenCheck(token);
+request.setAttribute("member", member);
+filterChain.doFilter(request,response);
+```
+
+src/main/java/패키지/api/v1/members/MembersController.java
+```diff
+- @RequestMapping(path = "/check", method = RequestMethod.GET)
+- public Map<String, Object> membersCheck(@RequestParam String token) {
+-     Map<String, Object> member = JwtAuth.tokenCheck(token);
+-     return member;
+- }
+```
+```java
+@RequestMapping(path = "/check", method = RequestMethod.GET)
+public Map<String, Object> membersCheck(
+        @ApiIgnore @RequestAttribute Map<String, Object> member
+) {
+    return member;
+}
+```
+
+## Security
 src/main/java/패키지/WebSecurityConfig
 ```java
 @Configuration
@@ -147,10 +192,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) {
+        // http.csrf().disable();
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }
 ```
+<!--
+@Override
+public void configure(WebSecurity web) throws Exception {
+    // swagger 관련 리소스 시큐리티 필터 제거
+    web.ignoring().antMatchers(
+            "/v2/api-docs",
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/webjars/**", "/swagger/**"
+    );
+}
+* 정확이 어떻게 동작 하는지 모름
+-->
 
 pom.xml
 ```xml
@@ -160,3 +219,6 @@ pom.xml
 </dependency>
 ```
 * `디버깅 모드`에서 어떻게 동작 하는지 확인
+* `Swagger`에서 `GET`, `POST`, `PATCH`, `DELETE` 메소드 실행 해보기
+* GET 메소드외의 메소드에서 403 Forbidden 처리 <- `// http.csrf().disable();` 주석 빼기
+
