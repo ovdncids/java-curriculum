@@ -210,7 +210,6 @@ public void configure(WebSecurity web) throws Exception {
             "/webjars/**", "/swagger/**"
     );
 }
-* 정확이 어떻게 동작 하는지 모름
 -->
 
 pom.xml
