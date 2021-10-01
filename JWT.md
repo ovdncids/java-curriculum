@@ -1,4 +1,6 @@
 # JSON Web Token(JWT)
+* https://www.npmjs.com/package/jsonwebtoken
+* https://jwt.io
 
 ## 설치
 pom.xml
