@@ -143,7 +143,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 ### /api/v1/members/check 경로에만 Filter 적용
 ```java
 @Override
-protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+protected boolean shouldNotFilter(HttpServletRequest request) {
     AntPathMatcher pathMatcher = new AntPathMatcher();
     Collection<String> includeUrlPatterns = new ArrayList<>();
     includeUrlPatterns.add("/api/v1/members/check");
