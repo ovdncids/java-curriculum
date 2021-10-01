@@ -91,7 +91,7 @@ public class SwaggerConfig {
                 // API가 Header에서 받은 x-jwt-token 읽기
                 .securityContexts(Collections.singletonList(securityContext))
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("패키지.api.v1"))
                 .paths(Predicates.or(PathSelectors.ant("/api/v1/members/login"), PathSelectors.ant("/api/v1/members/check")))
                 .build();
     }
