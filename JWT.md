@@ -154,6 +154,7 @@ protected boolean shouldNotFilter(HttpServletRequest request) {
     return !match;
 }
 ```
+* `디버깅 모드`에서 어떻게 동작 하는지 확인
 
 ### Filter에서 Header의 x-jwt-token 토큰 받아서 회원정보 받기
 ```diff
@@ -183,19 +184,19 @@ public Map<String, Object> membersCheck(
 }
 ```
 
-## Security
-src/main/java/패키지/WebSecurityConfig
+## Security와 JwtRequestFilter 연결
+src/main/java/패키지/WebSecurityConfig.java
 ```java
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private JwtRequestFilter jwtRequestFilter;
-
     @Override
-    protected void configure(HttpSecurity http) {
-        // http.csrf().disable();
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            // csrf disable을 설정 안하면 POST, PATCH, DELETE 메소드에서 403 Forbidden 에러가 발생한다.
+            .csrf().disable()
+            .antMatcher("/api/v1/**")
+            .addFilterBefore(new JwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
 ```
@@ -210,6 +211,9 @@ public void configure(WebSecurity web) throws Exception {
             "/webjars/**", "/swagger/**"
     );
 }
+
+* https://sup2is.github.io/2020/03/05/spring-security-login-with-jwt.html
+* https://kimchanjung.github.io/programming/2020/07/02/spring-security-02
 -->
 
 pom.xml
@@ -219,7 +223,15 @@ pom.xml
     <artifactId>spring-boot-starter-security</artifactId>
 </dependency>
 ```
-* `디버깅 모드`에서 어떻게 동작 하는지 확인
-* `Swagger`에서 `GET`, `POST`, `PATCH`, `DELETE` 메소드 실행 해보기
-* GET 메소드외의 메소드에서 403 Forbidden 처리 <- `// http.csrf().disable();` 주석 빼기
 
+src/main/java/패키지/common/JwtRequestFilter.java
+```diff
+- @Component
++ // @Component
+```
+
+* `디버깅 모드`에서 어떻게 동작 하는지 확인
+* `.antMatcher` 주석 처리해 보기
+* `.csrf().disable()` 주석 처리해 보기
+* ❕ `.addFilterBefore` 없으면 아무일도 일어나지 않는다.
+* ❕ `spring-boot-starter-security`는 `MVC` 패턴 기반이므로 `Rest API` 패턴에서 사용해야 할지는 신중히 판단 해야 한다.
