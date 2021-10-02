@@ -193,10 +193,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-            // csrf disable을 설정 안하면 POST, PATCH, DELETE 메소드에서 403 Forbidden 에러가 발생한다.
-            .csrf().disable()
-            .antMatcher("/api/v1/**")
-            .addFilterBefore(new JwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
+                // csrf disable을 설정 안하면 POST, PATCH, DELETE 메소드에서 403 Forbidden 에러가 발생한다.
+                .csrf().disable()
+                .antMatcher("/api/v1/**")
+                .addFilterBefore(new JwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 }
 ```
