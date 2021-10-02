@@ -137,24 +137,30 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     ) throws IOException, ServletException {
         filterChain.doFilter(request,response);
     }
-}
-```
 
-### /api/v1/members/check 경로에만 Filter 적용
-```java
-@Override
-protected boolean shouldNotFilter(HttpServletRequest request) {
-    AntPathMatcher pathMatcher = new AntPathMatcher();
-    Collection<String> includeUrlPatterns = new ArrayList<>();
-    includeUrlPatterns.add("/api/v1/members/check");
-    boolean match = includeUrlPatterns
-            .stream()
-            .anyMatch(p -> pathMatcher.match(p, request.getServletPath()));
-    System.out.println(match + ", " + request.getServletPath());
-    return !match;
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        return true;
+    }
 }
 ```
 * `디버깅 모드`에서 어떻게 동작 하는지 확인
+* `@Component` 주석 처리해 보기 
+
+### /api/v1/members/check 경로에만 Filter 적용
+```diff
+- return true;
+```
+```java
+AntPathMatcher pathMatcher = new AntPathMatcher();
+Collection<String> includeUrlPatterns = new ArrayList<>();
+includeUrlPatterns.add("/api/v1/members/check");
+boolean match = includeUrlPatterns
+        .stream()
+        .anyMatch(p -> pathMatcher.match(p, request.getServletPath()));
+System.out.println(match + ", " + request.getServletPath());
+return !match;
+```
 
 ### Filter에서 Header의 x-jwt-token 토큰 받아서 회원정보 받기
 ```diff
