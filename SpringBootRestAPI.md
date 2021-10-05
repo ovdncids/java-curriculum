@@ -26,7 +26,8 @@ public class SpringBootRestApiStudyApplication <- RUN 버튼 누르기
 
 ## 회원(Members) Rest API
 src/main/java/com/example/SpringBootRestApiStudy/models/Member.java
-* Model, VO(Value Object), DTO(Data Transfer Object) 상황에 따라서 달리 불려진다.
+* Model, DTO(Data Transfer Object) 상황에 따라서 달리 불려진다.
+* VO(Value Object)는 주로 Request, Response 객체로 주로 사용 된다.
 ```java
 public class Member {
     private String name;
