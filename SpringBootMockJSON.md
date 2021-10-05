@@ -56,7 +56,7 @@ void contextLoads() {
     Gson gson = new Gson();
     return gson.fromJson(reader, type);
   } catch (Exception exception) {
-    System.out.println(exception);
+    exception.printStackTrace();
     return null;
   }
 }
