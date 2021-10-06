@@ -41,7 +41,7 @@ import java.lang.reflect.Type;
 ```java
 @Test
 void contextLoads() {
-  Member member = this.getMockJSON("json/member.json", Member.class);
+  Member member = getMockJSON("json/member.json", Member.class);
   System.out.println(member);
 
   List<Member> members = this.getMockJSON(
@@ -51,7 +51,7 @@ void contextLoads() {
   System.out.println(members);
 }
 
-<T>T getMockJSON(String filePath, Type type) {
+static <T>T getMockJSON(String filePath, Type type) {
   try {
     ClassPathResource resource = new ClassPathResource(filePath);
     Path path = Paths.get(resource.getURI());
