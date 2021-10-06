@@ -36,6 +36,9 @@ src/main/resources/json/members.json
 
 src/test/java/패키지/{프로젝트명}Tests.java
 ```java
+import java.lang.reflect.Type;
+```
+```java
 @Test
 void contextLoads() {
   Member member = this.getMockJSON("json/member.json", Member.class);
