@@ -114,3 +114,11 @@ Model1 model1New = gson.fromJson(model1String, Model1.class);
 System.out.println(model1New);
 ```
 * API에서 JSON 설명
+
+#### pom.xml 설정
+```xml
+<dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+</dependency>
+```
