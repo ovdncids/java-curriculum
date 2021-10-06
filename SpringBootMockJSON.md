@@ -44,7 +44,7 @@ void contextLoads() {
   Member member = getMockJSON("json/member.json", Member.class);
   System.out.println(member);
 
-  List<Member> members = this.getMockJSON(
+  List<Member> members = getMockJSON(
       "json/members.json",
       new TypeToken<List<Member>>(){}.getType()
   );
