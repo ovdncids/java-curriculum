@@ -2,7 +2,7 @@
 ## 설치
 * https://www.oracle.com/kr/java/technologies/javase-downloads.html
 ```sh
-# Java SE 8
+# Java SE 8 (or 1.8)
 # JDK Download
 java -version
 ```
