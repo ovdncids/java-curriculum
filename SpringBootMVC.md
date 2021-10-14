@@ -168,8 +168,10 @@ src/main/webapp/WEB-INF/views/members.jsp
                                     <td>홍길동</td>
                                     <td>20</td>
                                     <td>
-                                        <button>Update</button>
-                                        <button>Delete</button>
+				        <form method="POST">
+                                            <button>Update</button>
+                                            <button>Delete</button>
+					</form>
                                     </td>
                                 </tr>
                             </tbody>
