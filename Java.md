@@ -35,6 +35,21 @@ public class Main {
 C:\Program Files\Java\jdk1.8.0_291
 ```
 
+## 컴파일, 실행
+컴파일
+* .java 파일을 java에서 읽을 수 있게 .class 파일로 컴파일 해줌
+```sh
+javac src/com/company/Main.java
+```
+
+실행
+* 컴파일된 .class 파일을 실행 시킴
+```sh
+java -classpath src com.company.Main
+# 또는
+java com.company.Main
+```
+
 ## 변수 (Variable)
 ### 변수를 사용하는 이유
 1. 자료형 데이터를 보관 할 수 있고, 자유롭게 값을 수정 할 수 있다.
