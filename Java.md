@@ -40,6 +40,10 @@ C:\Program Files\Java\jdk1.8.0_291
 * .java 파일을 java에서 읽을 수 있게 .class 파일로 컴파일 해줌
 ```sh
 javac src/com/company/Main.java
+
+# 확인
+vi src/com/company/Main.class
+notepad src/com/company/Main.class
 ```
 
 실행
