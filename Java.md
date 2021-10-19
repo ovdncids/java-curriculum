@@ -37,7 +37,7 @@ C:\Program Files\Java\jdk1.8.0_291
 
 ## 컴파일, 실행
 컴파일
-* .java 파일을 java에서 읽을 수 있게 .class 파일로 컴파일 해줌
+* `.java` 파일을 `java`에서 읽을 수 있게 `.class` 파일로 컴파일 해줌
 ```sh
 javac src/com/company/Main.java
 
@@ -47,7 +47,7 @@ notepad src/com/company/Main.class
 ```
 
 실행
-* 컴파일된 .class 파일을 실행 시킴
+* 컴파일된 `.class` 파일을 `실행` 시킴
 ```sh
 java -classpath src com.company.Main
 # 또는
