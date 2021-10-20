@@ -414,7 +414,7 @@ public static String uriBuilder(String url, Object query) throws Exception {
     JsonObject jsonObject = gson.toJsonTree(query).getAsJsonObject();
     for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
         System.out.println("Key = " + entry.getKey() + " Value = " + entry.getValue());
-        uriBuilder.addParameter(entry.getKey(), entry.getValue().toString());
+        uriBuilder.addParameter(entry.getKey(), entry.getValue());
     }
     url = uriBuilder.build().toString();
     System.out.println(url);
