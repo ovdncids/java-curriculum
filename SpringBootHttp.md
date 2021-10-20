@@ -428,7 +428,7 @@ public static HttpClient5Response getQuery(String url, Object query) throws Exce
 ```
 
 * ❔ `deleteQuery`, `postQuery`, `patchQuery` 함수 만들기
-* ❕ `query` 객체를 넘기지 않는다면 `delete`, `post`, `patch` 함수를 사용하자
+* ❕ `query` 객체를 `null`로 넘긴다면, 대신에 `delete`, `post`, `patch` 함수를 사용하자
 
 ## 커스텀 Properties Model로 받기
 src/main/resources/custom.properties
