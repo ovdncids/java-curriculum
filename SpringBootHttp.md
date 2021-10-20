@@ -491,11 +491,11 @@ public static Map<String, Object> gsonMerge(Object[] objects) {
 
 src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 ```java
-Object[] object = {member, CustomProperties.getAll()};
+Object[] objects = {member, CustomProperties.getAll()};
 ```
 ```diff
 - HttpClient5Response httpClient5Response = HttpClient5.getQuery(URL, CustomProperties.getAll());
-+ HttpClient5Response httpClient5Response = HttpClient5.getQuery(URL, HttpClient5.gsonMerge(object));
++ HttpClient5Response httpClient5Response = HttpClient5.getQuery(URL, HttpClient5.gsonMerge(objects));
 ```
 * ❔ `member.name`만 빼고 넘기려면
 
