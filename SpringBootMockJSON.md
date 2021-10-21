@@ -106,3 +106,15 @@ static <T>T getMockJSON(String filePath, TypeReference<T> valueTypeRef) {
 }
 ```
 * ❕ `Model`의 `멤버 변수`들이 `private`일 경우 `빈 생성자`가 있어야 한다.
+
+### Java Lambda Expression
+```java
+members.forEach((Member member) ->
+  System.out.println(member)
+);
+
+members.forEach(member ->
+  System.out.println(member)
+);
+```
+* `Python`의 `lambda` 형식으로 실행 가능 (lambda 안에서 한개의 명령만 실행 가능)
