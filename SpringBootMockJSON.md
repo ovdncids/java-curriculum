@@ -1,6 +1,6 @@
 # Spring Boot - Mock JSON
 
-src/main/resources/json/member.json
+src/main/resources/json/Member.json
 ```json
 {
   "name": "홍길동",
@@ -8,7 +8,7 @@ src/main/resources/json/member.json
 }
 ```
 
-src/main/resources/json/members.json
+src/main/resources/json/Members.json
 ```json
 [
   {
@@ -41,11 +41,11 @@ import java.lang.reflect.Type;
 ```java
 @Test
 void contextLoads() {
-  Member member = getMockJSON("json/member.json", Member.class);
+  Member member = getMockJSON("json/Member.json", Member.class);
   System.out.println(member);
 
   List<Member> members = getMockJSON(
-      "json/members.json",
+      "json/Members.json",
       new TypeToken<List<Member>>(){}.getType()
   );
   System.out.println(members);
