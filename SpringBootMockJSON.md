@@ -85,8 +85,8 @@ static <T>T getMockJSON(String filePath, Class<T> valueType) {
   try {
     ClassPathResource resource = new ClassPathResource(filePath);
     Path path = Paths.get(resource.getURI());
-    ObjectMapper mapper = new ObjectMapper();
-    return mapper.readValue(new File(path.toString()), valueType);
+    ObjectMapper objectMapper = new ObjectMapper();
+    return objectMapper.readValue(new File(path.toString()), valueType);
   } catch (Exception exception) {
     exception.printStackTrace();
     return null;
@@ -97,8 +97,8 @@ static <T>T getMockJSON(String filePath, TypeReference<T> valueTypeRef) {
   try {
     ClassPathResource resource = new ClassPathResource(filePath);
     Path path = Paths.get(resource.getURI());
-    ObjectMapper mapper = new ObjectMapper();
-    return mapper.readValue(new File(path.toString()), valueTypeRef);
+    ObjectMapper objectMapper = new ObjectMapper();
+    return objectMapper.readValue(new File(path.toString()), valueTypeRef);
   } catch (Exception exception) {
     exception.printStackTrace();
     return null;
