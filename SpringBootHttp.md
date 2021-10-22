@@ -443,9 +443,9 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/models/CustomProperties.jav
 @PropertySource(value="classpath:custom.properties", encoding="UTF-8")
 public class CustomProperties {
     @Value("${a1}")
-    private Integer a1;
+    public Integer a1;
     @Value("${b1.b2}")
-    private String b2;
+    public String b2;
 
     private static Integer _a1;
     private static String _b2;
@@ -685,3 +685,58 @@ if (httpClient5Response != null) {
 }
 ```
 * 8080 서버 <- 켜기
+
+## Gson to Jackson
+src/main/java/com/example/SpringBootHttpStudy/common/HttpClient5.java
+```diff
+- if (entity != null) {
+-     Gson gson = new Gson();
+-     StringEntity stringEntity = new StringEntity(gson.toJson(entity), StandardCharsets.UTF_8);
+-     httpUriRequestBase.setEntity(stringEntity);
+- }
+```
+```java
+if (entity != null) {
+    ObjectMapper objectMapper = new ObjectMapper();
+    StringEntity stringEntity = new StringEntity(objectMapper.writeValueAsString(entity), StandardCharsets.UTF_8);
+    httpUriRequestBase.setEntity(stringEntity);
+}
+```
+
+```diff
+- Gson gson = new Gson();
+- JsonObject jsonObject = gson.toJsonTree(query).getAsJsonObject();
+- for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+-     System.out.println("Key = " + entry.getKey() + " Value = " + entry.getValue() );
+-     uriBuilder.addParameter(entry.getKey(), entry.getValue().toString());
+- }
+```
+```java
+ObjectMapper objectMapper = new ObjectMapper();
+String jsonString = objectMapper.writeValueAsString(object);
+Map<String, Object> map = objectMapper.readValue(jsonString, new TypeReference<Map<String, Object>>(){});
+for(Map.Entry<String, Object> entry : map.entrySet()) {
+    System.out.println("Key = " + entry.getKey() + " Value = " + entry.getValue());
+    uriBuilder.addParameter(entry.getKey(), entry.getValue().toString());
+}
+```
+
+```diff
+- for (Object object : objects) {
+-     Gson gson = new Gson();
+-     JsonObject jsonObject = gson.toJsonTree(object).getAsJsonObject();
+-     for(Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+-         map.put(entry.getKey(), entry.getValue());
+-     }
+- }
+```
+```java
+for (Object object : objects) {
+    ObjectMapper objectMapper = new ObjectMapper();
+    String jsonString = objectMapper.writeValueAsString(object);
+    Map<String, Object> mapObject = objectMapper.readValue(jsonString, new TypeReference<Map<String, Object>>(){});
+    for(Map.Entry<String, Object> entry : mapObject.entrySet()) {
+        map.put(entry.getKey(), entry.getValue());
+    }
+}
+```
