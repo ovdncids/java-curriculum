@@ -698,7 +698,8 @@ src/main/java/com/example/SpringBootHttpStudy/common/HttpClient5.java
 ```java
 if (entity != null) {
     ObjectMapper objectMapper = new ObjectMapper();
-    StringEntity stringEntity = new StringEntity(objectMapper.writeValueAsString(entity), StandardCharsets.UTF_8);
+    String jsonString = objectMapper.writeValueAsString(entity);
+    StringEntity stringEntity = new StringEntity(jsonString, StandardCharsets.UTF_8);
     httpUriRequestBase.setEntity(stringEntity);
 }
 ```
