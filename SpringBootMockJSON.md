@@ -105,7 +105,7 @@ static <T>T getMockJSON(String filePath, TypeReference<T> valueTypeRef) {
   }
 }
 ```
-* ❕ `Model`의 `멤버 변수`들이 `private`일 경우 `빈 생성자`가 있어야 한다.
+* ❕ `Model`의 `멤버 변수`들이 `private`일 경우 `public 빈 생성자`와 `get`, `set` 메서드가 있어야 한다.
 
 ### Java Lambda Expression
 ```java
