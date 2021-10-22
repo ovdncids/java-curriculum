@@ -113,8 +113,8 @@ members.forEach((Member member) ->
   System.out.println(member)
 );
 
-members.forEach(member ->
-  System.out.println(member)
-);
+members.forEach(member -> {
+  System.out.println(member);
+});
 ```
-* `Python`의 `lambda` 형식으로 실행 가능 (lambda 안에서 한개의 명령만 실행 가능)
+* `Python`의 `lambda` 형식으로 실행 가능
