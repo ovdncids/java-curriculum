@@ -33,6 +33,8 @@ public class Member {
     private String name;
     private Integer age;
 
+    public Member() {}
+
     
 }
 ```
@@ -43,6 +45,8 @@ src/main/java/com/example/SpringBootRestApiStudy/models/MembersResponse.java
 public class MembersResponse {
     public String result;
     public List<Member> members;
+
+    public MembersResponse() {};
 
     public MembersResponse(String result) {
         this.result = result;
