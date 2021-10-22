@@ -46,7 +46,7 @@ public class MembersResponse {
     public String result;
     public List<Member> members;
 
-    public MembersResponse() {};
+    public MembersResponse() {}
 
     public MembersResponse(String result) {
         this.result = result;
