@@ -51,6 +51,7 @@ notepad src/com/company/Main.class
 ```sh
 java -classpath src com.company.Main
 # 또는
+cd src
 java com.company.Main
 ```
 
