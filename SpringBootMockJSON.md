@@ -69,11 +69,10 @@ static <T>T getMockJSON(String filePath, Type type) {
 ## Jackson
 src/test/java/패키지/{프로젝트명}Tests.java
 ```java
-static String getResource(String filePath) {
+static Path getResource(String filePath) {
     try {
         ClassPathResource resource = new ClassPathResource(filePath);
-        Path path = Paths.get(resource.getURI());
-        return path.toString();
+        return Paths.get(resource.getURI());
     } catch (IOException ioException) {
         ioException.printStackTrace();
         return null;
@@ -83,7 +82,7 @@ static String getResource(String filePath) {
 static <T>T getMockJSON(String filePath, Class<T> valueType) {
     ObjectMapper mapper = new ObjectMapper();
     try {
-        return mapper.readValue(new File(getResource(filePath)), valueType);
+        return mapper.readValue(new File(getResource(filePath).toUri()), valueType);
     } catch (IOException ioException) {
         ioException.printStackTrace();
         return null;
@@ -93,7 +92,16 @@ static <T>T getMockJSON(String filePath, Class<T> valueType) {
 static <T>T getMockJSON(String filePath, TypeReference<T> valueTypeRef) {
     ObjectMapper mapper = new ObjectMapper();
     try {
-        return mapper.readValue(new File(getResource(filePath)), valueTypeRef);
+        return mapper.readValue(new File(getResource(filePath).toUri()), valueTypeRef);
+    } catch (IOException ioException) {
+        ioException.printStackTrace();
+        return null;
+    }
+}
+
+static String getMockJSON(String filePath) {
+    try {
+        return new String(Files.readAllBytes(getResource(filePath)));
     } catch (IOException ioException) {
         ioException.printStackTrace();
         return null;
@@ -102,6 +110,9 @@ static <T>T getMockJSON(String filePath, TypeReference<T> valueTypeRef) {
 
 @Test
 void testMember() {
+    String jsonMember = getMockJSON("json/Member.json");
+    System.out.println(jsonMember);
+
     Member member = getMockJSON("json/Member.json", Member.class);
     System.out.println(member);
 
