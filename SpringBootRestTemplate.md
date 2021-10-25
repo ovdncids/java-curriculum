@@ -68,5 +68,5 @@ public static String uriBuilder(String url, Object query) {
 ```
 ```diff
 - String url = "http://localhost:8080/api/v1/members";
-+ String url = uriBuilder("http://localhost:8080/api/v1/members", new Member("최세민", 10));
++ String url = uriBuilder("http://localhost:8080/api/v1/members", new Member("홍길동", 39));
 ```
