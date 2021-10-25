@@ -5,31 +5,31 @@ MembersService.java
 ```java
 @Service
 public class MembersService {
+    static String URL = "http://localhost:8080/api/v1/members";
+
     public MembersResponse read() {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:8080/api/v1/members";
-        ResponseEntity<MembersResponse> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null, MembersResponse.class);
+        ResponseEntity<MembersResponse> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, null, MembersResponse.class);
         return responseEntity.getBody();
     }
 
     public MembersResponse create(Member member) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:8080/api/v1/members";
         HttpEntity<Member> httpEntity = new HttpEntity<>(member, null);
-        ResponseEntity<MembersResponse> responseEntity = restTemplate.exchange(url, HttpMethod.POST, httpEntity, MembersResponse.class);
+        ResponseEntity<MembersResponse> responseEntity = restTemplate.exchange(URL, HttpMethod.POST, httpEntity, MembersResponse.class);
         return responseEntity.getBody();
     }
 
     public MembersResponse delete(int index) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:8080/api/v1/members/" + index;
+        String url = URL + "/" + index;
         ResponseEntity<MembersResponse> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, null, MembersResponse.class);
         return responseEntity.getBody();
     }
 
     public MembersResponse update(int index, Member member) {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:8080/api/v1/members/" + index;
+        String url = URL + "/" + index;
         HttpEntity<Member> httpEntity = new HttpEntity<>(member, null);
         ResponseEntity<MembersResponse> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, MembersResponse.class);
         return responseEntity.getBody();
@@ -67,6 +67,7 @@ public static String uriBuilder(String url, Object query) {
 }
 ```
 ```diff
-- String url = "http://localhost:8080/api/v1/members";
-+ String url = uriBuilder("http://localhost:8080/api/v1/members", new Member("홍길동", 39));
+- ResponseEntity<MembersResponse> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, null, MembersResponse.class);
++ String url = uriBuilder(URL, new Member("홍길동", 39));
++ ResponseEntity<MembersResponse> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null, MembersResponse.class);
 ```
