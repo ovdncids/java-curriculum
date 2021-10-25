@@ -533,7 +533,7 @@ public class ExceptionController {
         log.error("Exception", exception);
         DefaultErrorAttributes defaultErrorAttributes = new DefaultErrorAttributes();
         Map<String, Object> map = defaultErrorAttributes.getErrorAttributes(webRequest, ErrorAttributeOptions.defaults());
-//        Map<String, Object> map = ErrorAttributes.getErrorAttributes(webRequest);
+        //  Map<String, Object> map = ErrorAttributes.getErrorAttributes(webRequest);
         map.put("key", "value");
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
     }
