@@ -69,8 +69,39 @@ static <T>T getMockJSON(String filePath, Type type) {
 ## Jackson
 src/test/java/패키지/{프로젝트명}Tests.java
 ```java
+static String getResource(String filePath) {
+  try {
+    ClassPathResource resource = new ClassPathResource(filePath);
+    Path path = Paths.get(resource.getURI());
+    return path.toString();
+  } catch (IOException ioException) {
+    ioException.printStackTrace();
+    return null;
+  }
+}
+
+static <T>T getMockJSON(String filePath, Class<T> valueType) {
+  ObjectMapper mapper = new ObjectMapper();
+  try {
+    return mapper.readValue(new File(getResource(filePath)), valueType);
+  } catch (IOException ioException) {
+    ioException.printStackTrace();
+    return null;
+  }
+}
+
+static <T>T getMockJSON(String filePath, TypeReference<T> valueTypeRef) {
+  ObjectMapper mapper = new ObjectMapper();
+  try {
+    return mapper.readValue(new File(getResource(filePath)), valueTypeRef);
+  } catch (IOException ioException) {
+    ioException.printStackTrace();
+    return null;
+  }
+}
+
 @Test
-void contextLoads() {
+void testMember() {
   Member member = getMockJSON("json/Member.json", Member.class);
   System.out.println(member);
 
@@ -79,30 +110,6 @@ void contextLoads() {
       new TypeReference<List<Member>>(){}
   );
   System.out.println(members);
-}
-
-static <T>T getMockJSON(String filePath, Class<T> valueType) {
-  try {
-    ClassPathResource resource = new ClassPathResource(filePath);
-    Path path = Paths.get(resource.getURI());
-    ObjectMapper objectMapper = new ObjectMapper();
-    return objectMapper.readValue(new File(path.toString()), valueType);
-  } catch (Exception exception) {
-    exception.printStackTrace();
-    return null;
-  }
-}
-
-static <T>T getMockJSON(String filePath, TypeReference<T> valueTypeRef) {
-  try {
-    ClassPathResource resource = new ClassPathResource(filePath);
-    Path path = Paths.get(resource.getURI());
-    ObjectMapper objectMapper = new ObjectMapper();
-    return objectMapper.readValue(new File(path.toString()), valueTypeRef);
-  } catch (Exception exception) {
-    exception.printStackTrace();
-    return null;
-  }
 }
 ```
 * ❕ `Model`의 `멤버 변수`들이 `private`일 경우, `public 빈 생성자` 또는 `get`, `set` 메서드가 있어야 한다.
@@ -164,3 +171,55 @@ void testBuilder() {
 }
 ```
 * ❕ `@SuperBuilder` 대신 `@Builder`를 사용하면 .p1("p1") 사용할 수 없다.
+
+### UsersResult
+src/main/resources/json/UsersResult.json
+```json
+{
+  "RESULT": {
+    "USERS": [
+      {
+        "NAME": "홍길동",
+        "AGE": 39
+      },
+      {
+        "NAME": "김삼순",
+        "AGE": 33
+      }
+    ]
+  }
+}
+```
+
+src/test/java/패키지/{프로젝트명}Tests.java
+```java
+@Data
+public static class UsersResult {
+  @JsonAlias("RESULT")
+  private UserList result;
+
+  @Data
+  public static class UserList {
+    @JsonAlias("USERS")
+    private List<User> users;
+  }
+
+  @Data
+  public static class User {
+    @JsonAlias("NAME")
+    private String name;
+    @JsonAlias("AGE")
+    private int age;
+    private String from;
+  }
+}
+
+@Test
+void testUsersResult() {
+  UsersResult users = getMockJSON("json/UsersResult.json", UsersResult.class);
+  users.getResult().getUsers().stream().forEach(user -> {
+    user.setFrom("Korea");
+  });
+  System.out.println(users);
+}
+```
