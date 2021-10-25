@@ -3,34 +3,34 @@
 src/main/resources/json/Member.json
 ```json
 {
-  "name": "홍길동",
-  "age": 39
+    "name": "홍길동",
+    "age": 39
 }
 ```
 
 src/main/resources/json/Members.json
 ```json
 [
-  {
-    "name": "홍길동",
-    "age": 39
-  },
-  {
-    "name": "김삼순",
-    "age": 33
-  },
-  {
-    "name": "홍명보",
-    "age": 44
-  },
-  {
-    "name": "박지삼",
-    "age": 22
-  },
-  {
-    "name": "권명순",
-    "age": 10
-  }
+    {
+        "name": "홍길동",
+        "age": 39
+    },
+    {
+        "name": "김삼순",
+        "age": 33
+    },
+    {
+        "name": "홍명보",
+        "age": 44
+    },
+    {
+        "name": "박지삼",
+        "age": 22
+    },
+    {
+        "name": "권명순",
+        "age": 10
+    }
 ]
 ```
 
@@ -42,27 +42,27 @@ import java.lang.reflect.Type;
 ```java
 @Test
 void contextLoads() {
-  Member member = getMockJSON("json/Member.json", Member.class);
-  System.out.println(member);
+    Member member = getMockJSON("json/Member.json", Member.class);
+    System.out.println(member);
 
-  List<Member> members = getMockJSON(
-      "json/Members.json",
-      new TypeToken<List<Member>>(){}.getType()
-  );
-  System.out.println(members);
+    List<Member> members = getMockJSON(
+            "json/Members.json",
+            new TypeToken<List<Member>>(){}.getType()
+    );
+    System.out.println(members);
 }
 
 static <T>T getMockJSON(String filePath, Type type) {
-  try {
-    ClassPathResource resource = new ClassPathResource(filePath);
-    Path path = Paths.get(resource.getURI());
-    Reader reader = new FileReader(path.toString());
-    Gson gson = new Gson();
-    return gson.fromJson(reader, type);
-  } catch (Exception exception) {
-    exception.printStackTrace();
-    return null;
-  }
+    try {
+        ClassPathResource resource = new ClassPathResource(filePath);
+        Path path = Paths.get(resource.getURI());
+        Reader reader = new FileReader(path.toString());
+        Gson gson = new Gson();
+        return gson.fromJson(reader, type);
+    } catch (Exception exception) {
+        exception.printStackTrace();
+        return null;
+    }
 }
 ```
 
@@ -70,46 +70,46 @@ static <T>T getMockJSON(String filePath, Type type) {
 src/test/java/패키지/{프로젝트명}Tests.java
 ```java
 static String getResource(String filePath) {
-  try {
-    ClassPathResource resource = new ClassPathResource(filePath);
-    Path path = Paths.get(resource.getURI());
-    return path.toString();
-  } catch (IOException ioException) {
-    ioException.printStackTrace();
-    return null;
-  }
+    try {
+        ClassPathResource resource = new ClassPathResource(filePath);
+        Path path = Paths.get(resource.getURI());
+        return path.toString();
+    } catch (IOException ioException) {
+        ioException.printStackTrace();
+        return null;
+    }
 }
 
 static <T>T getMockJSON(String filePath, Class<T> valueType) {
-  ObjectMapper mapper = new ObjectMapper();
-  try {
-    return mapper.readValue(new File(getResource(filePath)), valueType);
-  } catch (IOException ioException) {
-    ioException.printStackTrace();
-    return null;
-  }
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+        return mapper.readValue(new File(getResource(filePath)), valueType);
+    } catch (IOException ioException) {
+        ioException.printStackTrace();
+        return null;
+    }
 }
 
 static <T>T getMockJSON(String filePath, TypeReference<T> valueTypeRef) {
-  ObjectMapper mapper = new ObjectMapper();
-  try {
-    return mapper.readValue(new File(getResource(filePath)), valueTypeRef);
-  } catch (IOException ioException) {
-    ioException.printStackTrace();
-    return null;
-  }
+    ObjectMapper mapper = new ObjectMapper();
+    try {
+        return mapper.readValue(new File(getResource(filePath)), valueTypeRef);
+    } catch (IOException ioException) {
+        ioException.printStackTrace();
+        return null;
+    }
 }
 
 @Test
 void testMember() {
-  Member member = getMockJSON("json/Member.json", Member.class);
-  System.out.println(member);
+    Member member = getMockJSON("json/Member.json", Member.class);
+    System.out.println(member);
 
-  List<Member> members = getMockJSON(
-      "json/Members.json",
-      new TypeReference<List<Member>>(){}
-  );
-  System.out.println(members);
+    List<Member> members = getMockJSON(
+            "json/Members.json",
+            new TypeReference<List<Member>>(){}
+    );
+    System.out.println(members);
 }
 ```
 * ❕ `Model`의 `멤버 변수`들이 `private`일 경우, `public 빈 생성자` 또는 `get`, `set` 메서드가 있어야 한다.
@@ -117,11 +117,11 @@ void testMember() {
 ### Java Lambda Expression
 ```java
 members.forEach((Member member) ->
-  System.out.println(member)
+    System.out.println(member)
 );
 
 members.forEach(member -> {
-  System.out.println(member);
+    System.out.println(member);
 });
 ```
 * `Python`의 `lambda` 형식으로 실행 가능
@@ -147,8 +147,8 @@ public static class User {
 
 @Test
 void testBuilder() {
-  User user = User.builder().name("홍길동").build();
-  System.out.println(user);
+    User user = User.builder().name("홍길동").build();
+    System.out.println(user);
 }
 ```
 
@@ -156,18 +156,18 @@ void testBuilder() {
 ```java
 @SuperBuilder
 public static class Parent {
-  private String p1;
+    private String p1;
 }
 
 @SuperBuilder
 public static class Child extends Parent {
-  private String c1;
+    private String c1;
 }
 
 @Test
 void testBuilder() {
-  Child child = Child.builder().p1("p1").c1("c1").build();
-  System.out.println(child);
+    Child child = Child.builder().p1("p1").c1("c1").build();
+    System.out.println(child);
 }
 ```
 * ❕ `@SuperBuilder` 대신 `@Builder`를 사용하면 .p1("p1") 사용할 수 없다.
@@ -176,18 +176,18 @@ void testBuilder() {
 src/main/resources/json/UsersResult.json
 ```json
 {
-  "RESULT": {
-    "USERS": [
-      {
-        "NAME": "홍길동",
-        "AGE": 39
-      },
-      {
-        "NAME": "김삼순",
-        "AGE": 33
-      }
-    ]
-  }
+    "RESULT": {
+        "USERS": [
+            {
+                "NAME": "홍길동",
+                "AGE": 39
+            },
+            {
+                "NAME": "김삼순",
+                "AGE": 33
+            }
+        ]
+    }
 }
 ```
 
@@ -195,29 +195,29 @@ src/test/java/패키지/{프로젝트명}Tests.java
 ```java
 @Data
 public static class UsersResult {
-  @JsonAlias("RESULT")
-  private UserList result;
+    @JsonAlias("RESULT")
+    private UserList result;
 
-  @Data
-  public static class UserList {
-    @JsonAlias("USERS")
-    private List<User> users;
-  }
+    @Data
+    public static class UserList {
+        @JsonAlias("USERS")
+        private List<User> users;
+    }
 
-  @Data
-  public static class User {
-    @JsonAlias("NAME")
-    private String name;
-    @JsonAlias("AGE")
-    private int age;
-    private String from;
-  }
+    @Data
+    public static class User {
+        @JsonAlias("NAME")
+        private String name;
+        @JsonAlias("AGE")
+        private int age;
+        private String from;
+    }
 }
 
 @Test
 void testUsersResult() {
-  UsersResult users = getMockJSON("json/UsersResult.json", UsersResult.class);
-  users.getResult().getUsers().stream().forEach(user -> user.setFrom("Korea"));
-  System.out.println(users);
+    UsersResult users = getMockJSON("json/UsersResult.json", UsersResult.class);
+    users.getResult().getUsers().stream().forEach(user -> user.setFrom("Korea"));
+    System.out.println(users);
 }
 ```
