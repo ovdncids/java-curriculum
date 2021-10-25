@@ -63,7 +63,7 @@ public static String uriBuilder(String url, Object query) {
     } catch (JsonProcessingException e) {
         e.printStackTrace();
     }
-    return uriComponentsBuilder.toUriString();
+    return uriComponentsBuilder.build().toUriString();
 }
 ```
 ```diff
