@@ -172,7 +172,7 @@ void testBuilder() {
 ```
 * ❕ `@SuperBuilder` 대신 `@Builder`를 사용하면 .p1("p1") 사용할 수 없다.
 
-### UsersResult
+### 예시: UsersResult
 src/main/resources/json/UsersResult.json
 ```json
 {
