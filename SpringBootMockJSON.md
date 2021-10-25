@@ -217,9 +217,7 @@ public static class UsersResult {
 @Test
 void testUsersResult() {
   UsersResult users = getMockJSON("json/UsersResult.json", UsersResult.class);
-  users.getResult().getUsers().stream().forEach(user -> {
-    user.setFrom("Korea");
-  });
+  users.getResult().getUsers().stream().forEach(user -> user.setFrom("Korea"));
   System.out.println(users);
 }
 ```
