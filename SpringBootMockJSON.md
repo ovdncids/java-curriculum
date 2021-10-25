@@ -118,3 +118,27 @@ members.forEach(member -> {
 });
 ```
 * `Python`의 `lambda` 형식으로 실행 가능
+
+## Lombok 어노테이션
+* `@ToString(exclude = "password")` toString()에서 password만 제외 시킨다.
+* `@NoArgsConstructor` 파라미터가 없는 기본 생성자를 만들어 준다.
+* `@AllArgsConstructor` 모든 필드를 파라미터로 받는 생성자를 만들어 준다.
+* `@RequiredArgsConstructor` final 또는 @NonNull 필드만 파라미터로 받는 생성자를 만들어 준다.
+* `@EqualsAndHashCode` equals(내용이 동일), hashCode(동일 객체) 함수를 만들어준다.
+* `@EqualsAndHashCode(callSuper = true)` 부모 클래스 필드도 동일한지 비교한다.
+* `@Data` @Getter, @Setter, @RequiredArgsConstructor, @ToString, @EqualsAndHashCode 한번에 설정 해준다.
+
+### @Builder
+```java
+@Data
+@Builder
+public class User {
+    private String name;
+    @Builder.Default
+    private int age = 39;
+}
+```
+```java
+User user = User.builder().name("홍길동").build();
+System.out.println(user);
+```
