@@ -79,6 +79,15 @@ static Path getResource(String filePath) {
     }
 }
 
+static String getMockJSON(String filePath) {
+    try {
+        return new String(Files.readAllBytes(getResource(filePath)));
+    } catch (IOException ioException) {
+        ioException.printStackTrace();
+        return null;
+    }
+}
+
 static <T>T getMockJSON(String filePath, Class<T> valueType) {
     ObjectMapper mapper = new ObjectMapper();
     try {
@@ -93,15 +102,6 @@ static <T>T getMockJSON(String filePath, TypeReference<T> valueTypeRef) {
     ObjectMapper mapper = new ObjectMapper();
     try {
         return mapper.readValue(new File(getResource(filePath).toUri()), valueTypeRef);
-    } catch (IOException ioException) {
-        ioException.printStackTrace();
-        return null;
-    }
-}
-
-static String getMockJSON(String filePath) {
-    try {
-        return new String(Files.readAllBytes(getResource(filePath)));
     } catch (IOException ioException) {
         ioException.printStackTrace();
         return null;
