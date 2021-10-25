@@ -95,7 +95,7 @@ public class MembersController {
         return new MembersResponse("deleted");
     }
 
-    @RequestMapping(path = "/{index}", method = RequestMethod.PATCH)
+    @RequestMapping(path = "/{index}", method = {RequestMethod.PUT, RequestMethod.PATCH})
     public MembersResponse membersUpdate(
             @PathVariable("index") int index,
             @RequestBody Member member
