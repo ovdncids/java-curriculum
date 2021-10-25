@@ -132,13 +132,35 @@ members.forEach(member -> {
 ```java
 @Data
 @Builder
-public class User {
+public static class User {
     private String name;
     @Builder.Default
     private int age = 39;
 }
+
+@Test
+void testBuilder() {
+  User user = User.builder().name("홍길동").build();
+  System.out.println(user);
+}
 ```
+
+### @SuperBuilder
 ```java
-User user = User.builder().name("홍길동").build();
-System.out.println(user);
+@SuperBuilder
+public static class Parent {
+  private String p1;
+}
+
+@SuperBuilder
+public static class Child extends Parent {
+  private String c1;
+}
+
+@Test
+void testBuilder() {
+  Child child = Child.builder().p1("p1").c1("c1").build();
+  System.out.println(child);
+}
 ```
+* ❕ `@SuperBuilder` 대신 `@Builder`를 사용하면 .p1("p1") 사용할 수 없다.
