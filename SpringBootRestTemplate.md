@@ -1,6 +1,6 @@
 # Rest Template
 
-
+## Service
 MembersService.java
 ```java
 @Service
@@ -46,3 +46,27 @@ public class MembersService {
 ```
 * 위와 같이 수정하면 경고가 나오지 않지만, 소스가 지저분 해지므로 경고를 무시한다.
 -->
+
+## UriComponentsBuilder
+```java
+public static String uriBuilder(String url, Object query) {
+    UriComponentsBuilder uriComponentsBuilder = UriComponentsBuilder.fromHttpUrl(url);
+    try {
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonString = objectMapper.writeValueAsString(query);
+        Map<String, Object> map = objectMapper.readValue(jsonString, new TypeReference<Map<String, Object>>() {
+        });
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            System.out.println("Key = " + entry.getKey() + " Value = " + entry.getValue());
+            uriComponentsBuilder.queryParam(entry.getKey(), entry.getValue().toString());
+        }
+    } catch (JsonProcessingException e) {
+        e.printStackTrace();
+    }
+    return uriComponentsBuilder.toUriString();
+}
+```
+```diff
+- String url = "http://localhost:8080/api/v1/members";
++ String url = uriBuilder("http://localhost:8080/api/v1/members", new Member("최세민", 10));
+```
