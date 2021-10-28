@@ -126,6 +126,11 @@ void testMember() {
 }
 ```
 * ❕ `Model`의 `멤버 변수`들이 `private`일 경우, `public 빈 생성자` 또는 `get`, `set` 메서드가 있어야 한다.
+* 또는 `mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);`
+<!--
+Map<String, String> 변경 하는 방법
+Map<String, String> map = mapper.convertValue(object, HashMap.class);
+-->
 
 ### Java Lambda Expression
 ```java
