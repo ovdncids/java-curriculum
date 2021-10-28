@@ -34,6 +34,7 @@ src/main/resources/json/Members.json
 ]
 ```
 
+<!--
 ## Gson
 src/test/java/패키지/{프로젝트명}Tests.java
 ```java
@@ -65,6 +66,7 @@ static <T>T getMockJSON(String filePath, Type type) {
     }
 }
 ```
+-->
 
 ## Jackson
 src/test/java/패키지/{프로젝트명}Tests.java
@@ -232,3 +234,10 @@ void testUsersResult() {
     System.out.println(users);
 }
 ```
+
+## 예외
+### Cannot construct instance of `java.time.LocalDateTime`
+```java
+@JsonDeserialize(using = LocalDateTimeDeserializer.class)
+```
+
