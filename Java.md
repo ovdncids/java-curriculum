@@ -558,7 +558,7 @@ System.out.println(index7);
   ```
 </details>
 
-* ❔ 문제: `total1`의 `평균` 값을 구해 `avg1` 상수에 넣고, `avg1`을 `System.out.println`로 찍어 보기
+* ❔ 문제: `total1`의 `평균` 값을 구해 `avg1` `int 변수`에 넣고, `avg1`을 `System.out.println`로 찍어 보기
 * ❕ 힌트: 평균으로 나눌 `5`값을 얻는 과정이 중요 (변수 또는 상수를 여러개 사용해도 무관, 사직연산 가능)
 * <details><summary>정답</summary>
 
