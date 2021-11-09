@@ -96,6 +96,7 @@ public void setV2(Integer v2) {
 
 ## static 멤버
 * Class의 `static 멤버`는 `new 연산자`로 객체를 만들지 않고도, 바로 사용할 수 있는 변(상)수 또는 함수
+
 src/com/company/models/Model1.java
 ```java
 public static String s1 = "Static member";
