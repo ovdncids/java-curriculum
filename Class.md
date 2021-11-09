@@ -94,6 +94,28 @@ public void setV2(Integer v2) {
 
 * ❔ `model1`객체의 멤버변수 `v2`는 음수만 받아야 하고, 양수를 받을 경우 0으로 대치 하려면
 
+## static 멤버
+* Class의 `static 멤버`는 `new 연산자`로 객체를 만들지 않고도, 바로 사용할 수 있는 변(상)수 또는 함수
+src/com/company/models/Model1.java
+```java
+public static String s1 = "Static member";
+public static void s2() {
+    System.out.println(s1);
+}
+```
+
+src/com/company/Class.java
+```java
+Model1.s2();
+Model1 m1 = new Model1();
+m1.s1 = "Static m1";
+m1.s2();
+Model1 m2 = new Model1();
+m2.s1 = "Static m2";
+m2.s2();
+Model1.s2();
+```
+
 ## 외부 라이브러리 불러오기
 ### Gson
 * Object를 JSON 형식으로 쉽게 변경 가능
