@@ -407,13 +407,6 @@ membersDAO.update(memberPk, member);
 + index <- memberPk 수정
 * `membersDAO.update(memberPk, member);` 수정된 Member의 수를 반환한다.
 
-### 예외
-#### com.microsoft.sqlserver.jdbc.SQLServerException: 데이터 형식 varbinary을(를) date(으)로 암시적으로 변환할 수 없습니다.
-```diff
-- #{date}
-+ #{date, mode=IN, jdbcType=DATE}
-```
-
 ### 회원(Members) Service 만들기
 * ❕ Service를 생성하는 이유 (여러 Controller에서 사용 되거나, 또는 Test(JUnit)에서 사용될 비지니스 로직(DB의 CRUD등등)을 담을때 사용한다.)
 
