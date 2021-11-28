@@ -162,6 +162,17 @@ public class SwaggerConfig {
 
 <!-- pom.xml 파일에서 문제가 있을경우 2.9.2 -> 2.6.1 변경 후 다시 2.9.2 버전으로 돌아 온다. -->
 
+<!--
+### Gradle
+* https://mvnrepository.com/artifact/io.springfox/springfox-swagger2/2.9.2
+
+build.gradle
+```gradle
+implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+```
+* IntelliJ -> View -> Tool Windows -> Gradle -> Reload Gradle Project
+-->
+
 # MySQL 연동
 * Spring Boot 2.0 부터 HikariCP가 기본 Datasource로 사용 된다.
 
