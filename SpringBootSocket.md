@@ -53,7 +53,7 @@ public class WebSocket {
     }
 
     @OnMessage
-    public void onMessage(String message) {
+    public void onMessage(Session session, String message) {
         log.info(message);
     }
 }
@@ -109,8 +109,9 @@ ws.onclose = function(event) {
 ## Server broadcast
 websocket/WebSocket.java
 ```java
-public static void broadcast(String message) {
+public static void broadcast(Session session, String message) {
     for (Socket listener : listeners) {
+        if (session == listener.session) continue;
         listener.sendMessage(message);
     }
 }
@@ -118,10 +119,30 @@ public static void broadcast(String message) {
 ```diff
 @OnOpen
 public void onOpen(Session session) {
-+   broadcast("Halo! Others");
     this.session = session;
     listeners.add(this);
     log.info("onOpen: " + listeners.size());
     this.sendMessage("Hi!");
++   broadcast(session, "Halo! Others");
+}
+```
+
+## Client에서 message 보내기
+webSocket.html
+```html
+<form onsubmit="ws.send(this['message'].value); return false;">
+  <input type="text" name="message">
+</form>
+```
+
+websocket/WebSocket.java
+```diff
+- broadcast(session, "Halo! Others");
+```
+```diff
+@OnMessage
+public void onMessage(Session session, String message) {
+    log.info(message);
++   broadcast(session, message);
 }
 ```
