@@ -148,6 +148,8 @@ public void onMessage(Session session, String message) {
 ```
 
 ## @Autowired service 연결
+* ❕ `CustomSpringConfigurator` 적용 전에는 `@Autowired`로 서비스를 불러도 `null`을 반환 한다.
+
 CustomSpringConfigurator.java
 ```java
 @Configuration
@@ -176,4 +178,3 @@ websocket/WebSocket.java
 @Autowired
 private MembersService membersService;
 ```
-* ❕ `CustomSpringConfigurator` 적용 전에는 `@Autowired`로 서비스를 불러도 `null`을 반환 한다.
