@@ -26,6 +26,7 @@ public ServerEndpointExporter serverEndpointExporter() {
 }
 ```
 
+## Server
 websocket/WebSocket.java
 ```java
 @Log
@@ -55,5 +56,72 @@ public class WebSocket {
     public void onMessage(String message) {
         log.info(message);
     }
+}
+```
+
+## Client
+webSocket.html
+```html
+<script>
+const ws = new WebSocket('ws://localhost:8080/websocket');
+
+ws.onopen = function() {
+  ws.send('Hello!');
+};
+    
+ws.onmessage = function(event) {
+  console.log(event.data);
+};
+</script>
+```
+
+## error, close
+websocket/WebSocket.java
+```java
+// 통신 중 에러가 발생할 경우
+@OnError
+public void onError(Session session, Throwable throwable) {
+    listeners.remove(this);
+    log.warning("error:" + throwable.getMessage());
+}
+
+// server 또는 client 중 어느 하나가 통신을 끊는 경우
+@OnClose
+public void onClose(Session session) {
+    listeners.remove(this);
+    log.info("onClose: " + listeners.size());
+}
+```
+
+webSocket.html
+```html
+// 통신 중 에러가 발생할 경우
+ws.onerror = function(event) {
+  console.error(event.error);
+};
+
+// server 또는 client 중 어느 하나가 통신을 끊는 경우
+ws.onclose = function(event) {
+  console.warn(event.code);
+};
+```
+
+## Server broadcast
+websocket/WebSocket.java
+```java
+public static void broadcast(String message) {
+    for (Socket listener : listeners) {
+        listener.sendMessage(message);
+    }
+}
+```
+```diff
+@OnOpen
+public void onOpen(Session session) {
++   broadcast("Halo! Others");
+    this.session = session;
+    listeners.add(this);
+    log.info("onOpen: " + listeners.size());
+    this.sendMessage("Hi!");
 }
 ```
