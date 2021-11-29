@@ -158,7 +158,7 @@ public class CustomSpringConfigurator extends ServerEndpointConfig.Configurator 
     private static volatile BeanFactory context;
 
     @Override
-    public <T> T getEndpointInstance(Class<T> _class) throws InstantiationException {
+    public <T> T getEndpointInstance(Class<T> _class) {
         return context.getBean(_class);
     }
 
