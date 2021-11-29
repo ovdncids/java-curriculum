@@ -46,7 +46,7 @@ public class WebSocketServer {
 
     @OnOpen
     public void onOpen(Session session) {
-        sessions.add(this);
+        sessions.add(session);
         log.info("onOpen: " + sessions.size());
         sendMessage(session, "Hi!");
     }
