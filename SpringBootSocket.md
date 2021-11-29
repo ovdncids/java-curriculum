@@ -82,7 +82,7 @@ websocket/WebSocket.java
 @OnError
 public void onError(Session session, Throwable throwable) {
     listeners.remove(this);
-    log.warning("error:" + throwable.getMessage());
+    log.warning("error: " + throwable.getMessage());
 }
 
 // server 또는 client 중 어느 하나가 통신을 끊는 경우
@@ -146,3 +146,34 @@ public void onMessage(Session session, String message) {
 +   broadcast(session, message);
 }
 ```
+
+## @Autowired service 연결
+CustomSpringConfigurator.java
+```java
+@Configuration
+public class CustomSpringConfigurator extends ServerEndpointConfig.Configurator implements ApplicationContextAware {
+
+    private static volatile BeanFactory context;
+
+    @Override
+    public <T> T getEndpointInstance(Class<T> _class) throws InstantiationException {
+        return context.getBean(_class);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        CustomSpringConfigurator.context = applicationContext;
+    }
+}
+```
+
+websocket/WebSocket.java
+```diff
+- @ServerEndpoint(value = "/websocket")
++ @ServerEndpoint(value = "/websocket", configurator = CustomSpringConfigurator.class)
+```
+```java
+@Autowired
+private MembersService membersService;
+```
+* ❕ `CustomSpringConfigurator` 적용 전에는 `@Autowired`로 서비스를 불러도 `null`을 반환 한다.
