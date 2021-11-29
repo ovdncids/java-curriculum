@@ -33,23 +33,21 @@ websocket/WebSocketServer.java
 @Component
 @ServerEndpoint(value = "/websocket")
 public class WebSocketServer {
-    public static Set<WebSocketServer> listeners = new CopyOnWriteArraySet<>();
-    private Session session;
+    private static Set<Session> sessions = new CopyOnWriteArraySet<>();
 
-    private void sendMessage(String message) {
+    private static void sendMessage(Session session, String message) {
         try {
-            this.session.getBasicRemote().sendText(message);
+            session.getBasicRemote().sendText(message);
         } catch (IOException e) {
-            log.warning(this.session.getId() + ", error: " + e.getMessage());
+            log.warning(session.getId() + ", error: " + e.getMessage());
         }
     }
 
     @OnOpen
     public void onOpen(Session session) {
-        this.session = session;
-        listeners.add(this);
-        log.info("onOpen: " + listeners.size());
-        this.sendMessage("Hi!");
+        sessions.add(this);
+        log.info("onOpen: " + sessions.size());
+        sendMessage(session, "Hi!");
     }
 
     @OnMessage
@@ -81,15 +79,15 @@ websocket/WebSocketServer.java
 // 통신 중 에러가 발생할 경우
 @OnError
 public void onError(Session session, Throwable throwable) {
-    listeners.remove(this);
+    sessions.remove(session);
     log.warning("error: " + throwable.getMessage());
 }
 
 // server 또는 client 중 어느 하나가 통신을 끊는 경우
 @OnClose
 public void onClose(Session session) {
-    listeners.remove(this);
-    log.info("onClose: " + listeners.size());
+    sessions.remove(session);
+    log.info("onClose: " + sessions.size());
 }
 ```
 
@@ -109,20 +107,19 @@ ws.onclose = function(event) {
 ## Server broadcast
 websocket/WebSocketServer.java
 ```java
-public static void broadcast(Session session, String message) {
-    for (Socket listener : listeners) {
-        if (session == listener.session) continue;
-        listener.sendMessage(message);
+private static void broadcast(Session _session, String message) {
+    for (Session session : sessions) {
+        if (session == _session) continue;
+        sendMessage(session, message);
     }
 }
 ```
 ```diff
 @OnOpen
 public void onOpen(Session session) {
-    this.session = session;
-    listeners.add(this);
-    log.info("onOpen: " + listeners.size());
-    this.sendMessage("Hi!");
+    sessions.add(this);
+    log.info("onOpen: " + sessions.size());
+    sendMessage(session, "Hi!");
 +   broadcast(session, "Halo! Others");
 }
 ```
