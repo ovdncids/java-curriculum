@@ -27,13 +27,13 @@ public ServerEndpointExporter serverEndpointExporter() {
 ```
 
 ## Server
-websocket/WebSocket.java
+websocket/WebSocketServer.java
 ```java
 @Log
 @Component
 @ServerEndpoint(value = "/websocket")
-public class WebSocket {
-    public static Set<WebSocket> listeners = new CopyOnWriteArraySet<>();
+public class WebSocketServer {
+    public static Set<WebSocketServer> listeners = new CopyOnWriteArraySet<>();
     private Session session;
 
     private void sendMessage(String message) {
@@ -60,7 +60,7 @@ public class WebSocket {
 ```
 
 ## Client
-webSocket.html
+webSocketClient.html
 ```html
 <script>
 const ws = new WebSocket('ws://localhost:8080/websocket');
@@ -76,7 +76,7 @@ ws.onmessage = function(event) {
 ```
 
 ## error, close
-websocket/WebSocket.java
+websocket/WebSocketServer.java
 ```java
 // 통신 중 에러가 발생할 경우
 @OnError
@@ -93,7 +93,7 @@ public void onClose(Session session) {
 }
 ```
 
-webSocket.html
+webSocketClient.html
 ```html
 // 통신 중 에러가 발생할 경우
 ws.onerror = function(event) {
@@ -107,7 +107,7 @@ ws.onclose = function(event) {
 ```
 
 ## Server broadcast
-websocket/WebSocket.java
+websocket/WebSocketServer.java
 ```java
 public static void broadcast(Session session, String message) {
     for (Socket listener : listeners) {
@@ -128,14 +128,14 @@ public void onOpen(Session session) {
 ```
 
 ## Client에서 message 보내기
-webSocket.html
+webSocketClient.html
 ```html
 <form onsubmit="ws.send(this['message'].value); return false;">
   <input type="text" name="message">
 </form>
 ```
 
-websocket/WebSocket.java
+websocket/WebSocketServer.java
 ```diff
 - broadcast(session, "Halo! Others");
 ```
@@ -169,7 +169,7 @@ public class CustomSpringConfigurator extends ServerEndpointConfig.Configurator 
 }
 ```
 
-websocket/WebSocket.java
+websocket/WebSocketServer.java
 ```diff
 - @ServerEndpoint(value = "/websocket")
 + @ServerEndpoint(value = "/websocket", configurator = CustomSpringConfigurator.class)
