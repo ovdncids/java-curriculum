@@ -181,10 +181,10 @@ private MembersService membersService;
 ### Channel 마다 세션 넣기
 websocket/WebSocketServer.java
 ```java
-private static Map<String, Set<Session>> channelsSessions = new LinkedHashMap();
+private static Map<String, Set<Session>> channelsSessions = new LinkedHashMap<>();
 
 public static Map<String, String> splitQueryString(String query) {
-    Map<String, String> query_pairs = new LinkedHashMap();
+    Map<String, String> query_pairs = new LinkedHashMap<>();
     try {
         String[] pairs = query.split("&");
         for (String pair : pairs) {
