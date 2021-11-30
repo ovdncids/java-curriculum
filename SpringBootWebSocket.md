@@ -1,4 +1,4 @@
-# Socket
+# WebSocket
 * https://kouzie.github.io/spring/Spring-Boot-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B6%80%ED%8A%B8-WebSocket
 * https://chrome.google.com/webstore/detail/advanced-rest-client/hgmloofddffdnphfgcellkdfbfbjeloo
 
@@ -108,10 +108,10 @@ ws.onclose = function(event) {
 ## Server broadcast
 websocket/WebSocketServer.java
 ```java
-private static void broadcast(Session _session, String message) {
-    for (Session session : sessions) {
+private static void broadcast(Session session, String message) {
+    for (Session _session : sessions) {
         if (session == _session) continue;
-        sendMessage(session, message);
+        sendMessage(_session, message);
     }
 }
 ```
@@ -176,3 +176,87 @@ websocket/WebSocketServer.java
 @Autowired
 private MembersService membersService;
 ```
+
+## Channel 나누기
+### Channel 마다 세션 넣기
+websocket/WebSocketServer.java
+```java
+private static Map<String, Set<Session>> channelsSessions = new LinkedHashMap();
+
+public static Map<String, String> splitQueryString(String query) {
+    Map<String, String> query_pairs = new LinkedHashMap();
+    try {
+        String[] pairs = query.split("&");
+        for (String pair : pairs) {
+            int idx = pair.indexOf("=");
+            query_pairs.put(URLDecoder.decode(pair.substring(0, idx), "UTF-8"), URLDecoder.decode(pair.substring(idx + 1), "UTF-8"));
+        }
+    } catch (Exception exception) {
+        exception.printStackTrace();
+    }
+    return query_pairs;
+}
+
+public void onOpen(Session session) {
+    ...
+    Map<String, String> queryString = splitQueryString(session.getQueryString());
+    Set<Session> channelSessions = channelsSessions.get(queryString.get("channel"));
+    if (channelSessions == null) {
+        Set<Session> sessions = new CopyOnWriteArraySet<>();
+        sessions.add(session);
+        channelsSessions.put(queryString.get("channel"), sessions);
+    } else {
+        channelSessions.add(session);
+    }
+}
+```
+
+webSocketClient.html
+```diff
+- const ws = new WebSocket('ws://localhost:8080/websocket');
++ const ws = new WebSocket('ws://localhost:8080/websocket?channel=abc');
+```
+
+### 해당 Channel에만 메시지 보내기
+websocket/WebSocketServer.java
+```java
+private static void broadcastChannel(Session session, String message) {
+    Map<String, String> queryString = splitQueryString(session.getQueryString());
+    Set<Session> channelSessions = channelsSessions.get(queryString.get("channel"));
+    for (Session _session : channelSessions) {
+        if (session == _session) continue;
+        sendMessage(_session, message);
+    }
+}
+```
+```diff
+public void onMessage(Session session, String message) {
+    log.info(message);
+-   broadcast(session, message);
++   broadcastChannel(session, message);
+}
+```
+
+### 해당 Channel의 session 지우기
+```java
+private static void sessionRemove(Session session) {
+    sessions.remove(session);
+    Map<String, String> queryString = splitQueryString(session.getQueryString());
+    Set<Session> channelSessions = channelsSessions.get(queryString.get("channel"));
+    channelSessions.remove(session);
+}
+```
+```diff
+public void onError(Session session, Throwable throwable) {
+-   sessions.remove(session);
++   sessionRemove(session);
+    log.warning("error: " + throwable.getMessage());
+}
+
+public void onClose(Session session) {
+-   sessions.remove(session);
++   sessionRemove(session);
+    log.info("onClose: " + sessions.size());
+}
+```
+
