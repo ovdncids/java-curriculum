@@ -302,7 +302,7 @@ src/main/resources/mappers/members.xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.SpringBootRestApiStudy.api.v1.MembersDAO">
+<mapper namespace="com.example.SpringBootRestApiStudy.repositories.MembersRepository">
     <select id="read" resultType="Member">
         select * from members
     </select>
@@ -320,34 +320,34 @@ private SqlSessionFactory sqlSessionFactory;
 @Test
 void membersRead() {
     SqlSession sqlSession = sqlSessionFactory.openSession();
-    List<Member> members = sqlSession.selectList("com.example.SpringBootRestApiStudy.api.v1.MembersDAO.read");
-    logger.info("Done: MembersDAO.read");
+    List<Member> members = sqlSession.selectList("com.example.SpringBootRestApiStudy.repositories.MembersRepository.read");
+    logger.info("Done: MembersRepository.read");
 }
 ```
 * 테스트를 사용하는 이유 (테스트 하고 싶은 부분만 바로 실행 할 수 있다.)
 
-#### DAO(Data Access Object) 인터페이스 생성
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersDAO.java
+#### Repository 인터페이스 생성
+src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.java
 ```java
 @Mapper
-public interface MembersDAO {
+public interface MembersRepository {
     List<Member> read();
 }
 ```
-* ❕ DAO 인터페이스 생성하는 이유 (Controller 마다 SqlSessionFactory, SqlSession을 호출할 필요 없고, 바로 매핑까지 해준다.)
+* ❕ Repository 인터페이스 생성하는 이유 (Controller 마다 SqlSessionFactory, SqlSession을 호출할 필요 없고, 바로 매핑까지 해준다.)
 
-#### MembersController에서 DAO 사용하기
+#### MembersController에서 Repository 사용하기
 src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 ```java
 @Autowired
-private MembersDAO membersDAO;
+private MembersRepository membersRepository;
 ```
 ```diff
 - public MembersResponse membersRead() {
 ```
 ```java
 public MembersResponse membersRead() {
-    List<Member> members = membersDAO.read();
+    List<Member> members = membersRepository.read();
 ```
 
 ### 회원(Members) Create
@@ -358,7 +358,7 @@ src/main/resources/mappers/members.xml
 </insert>
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersDAO.java
+src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.java
 ```java
 Integer create(Member member);
 ```
@@ -368,9 +368,9 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 - members.add(member);
 ```
 ```java
-membersDAO.create(member);
+membersRepository.create(member);
 ```
-* `membersDAO.create(member);` 생성된 Member의 수를 반환한다.
+* `membersRepository.create(member);` 생성된 Member의 수를 반환한다.
 
 ### 회원(Members) Delete
 src/main/resources/mappers/members.xml
@@ -380,7 +380,7 @@ src/main/resources/mappers/members.xml
 </delete>
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersDAO.java
+src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.java
 ```java
 Integer delete(Integer memberPk);
 ```
@@ -390,10 +390,10 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 - members.remove(index);
 ```
 ```java
-membersDAO.delete(memberPk);
+membersRepository.delete(memberPk);
 ```
 + index <- memberPk 수정
-* `membersDAO.delete(memberPk);` 삭제된 Member의 수를 반환한다.
+* `membersRepository.delete(memberPk);` 삭제된 Member의 수를 반환한다.
 
 ### 회원(Members) Update
 src/main/resources/mappers/members.xml
@@ -403,7 +403,7 @@ src/main/resources/mappers/members.xml
 </update>
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersDAO.java
+src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.java
 ```java
 Integer update(@Param("memberPk") Integer memberPk, @Param("member") Member member);
 ```
@@ -413,10 +413,10 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 - members.set(index, member);
 ```
 ```java
-membersDAO.update(memberPk, member);
+membersRepository.update(memberPk, member);
 ```
 + index <- memberPk 수정
-* `membersDAO.update(memberPk, member);` 수정된 Member의 수를 반환한다.
+* `membersRepository.update(memberPk, member);` 수정된 Member의 수를 반환한다.
 
 ### 회원(Members) Service 만들기
 * ❕ Service를 생성하는 이유 (여러 Controller에서 사용 되거나, 또는 Test(JUnit)에서 사용될 비지니스 로직(DB의 CRUD등등)을 담을때 사용한다.)
@@ -426,32 +426,32 @@ src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersService.java
 @Service
 public class MembersService {
     @Autowired
-    private MembersDAO membersDAO;
+    private MembersRepository membersRepository;
 
     public List<Member> read() {
-        return membersDAO.read();
+        return membersRepository.read();
     }
 
     public Integer create(Member member) {
-        return membersDAO.create(member);
+        return membersRepository.create(member);
     }
 
     public Integer delete(Integer memberPk) {
-        return membersDAO.delete(memberPk);
+        return membersRepository.delete(memberPk);
     }
 
     public Integer update(@Param("memberPk") Integer memberPk, @Param("member") Member member) {
-        return membersDAO.update(memberPk, member);
+        return membersRepository.update(memberPk, member);
     }
 }
 ```
 
 src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
 ```diff
-- private MembersDAO membersDAO;
+- private MembersRepository membersRepository;
 + private MembersService membersService;
 ```
-* membersDAO <- membersService
+* membersRepository <- membersService
 
 #### 회원(Members) Service 테스트(JUnit)에서 호출 하기
 src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
@@ -470,8 +470,8 @@ void members() {
 * ❕ 테스트에서도 Service를 자유롭게 사용 할 수 있다.
 
 <!--
-#### DAO에서 바로 쿼리문 사용하기
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersDAO.java
+#### Repository에서 바로 쿼리문 사용하기
+src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.java
 ```java
 @Select("select * from members")
 List<Member> select();
@@ -480,7 +480,7 @@ List<Member> select();
 src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersService.java
 ```java
 public List<Member> select() {
-    return membersDAO.select();
+    return membersRepository.select();
 }
 ```
 
