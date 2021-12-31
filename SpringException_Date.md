@@ -11,6 +11,12 @@ public void membersCreate(@RequestBody MultiValueMap<String, Object> map) {
 * `MultiValueMap`은 `Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported`에 유용 하다.
 
 # LocalDateTime
+## String 변환 LocalDateTime
+```java
+LocalDateTime localDateTime = LocalDateTime.parse("20220101000001", DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+String formatDateTime = LocalDateTime.from(localDateTime).format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
+```
+
 ## Cannot construct instance of `java.time.LocalDateTime`
 ```java
 @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -21,10 +27,4 @@ public void membersCreate(@RequestBody MultiValueMap<String, Object> map) {
 ```diff
 - #{date}
 + #{date, mode=IN, jdbcType=DATE}
-```
-
-## String 변환 LocalDateTime
-```java
-LocalDateTime localDateTime = LocalDateTime.parse("20220101000001", DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
-String formatDateTime = LocalDateTime.from(localDateTime).format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
 ```
