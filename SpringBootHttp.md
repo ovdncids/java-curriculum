@@ -387,6 +387,16 @@ public static HttpClient5Response patch(String url, Object entity) throws Except
 ## Query string 받아서 넘기기
 src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersController.java
 ```java
+public MembersResponse membersRead(
+        @RequestParam("name") String name,
+        @RequestParam("age") int age
+) throws Exception {
+    Member member = new Member(name, age);
+    return new MembersResponse("read", membersService.read(member));
+}
+```
+* 또는
+```java
 public MembersResponse membersRead(@ModelAttribute Member member) throws Exception {
     return new MembersResponse("read", membersService.read(member));
 }
