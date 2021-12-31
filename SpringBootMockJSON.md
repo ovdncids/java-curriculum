@@ -239,10 +239,3 @@ void testUsersResult() {
     System.out.println(users);
 }
 ```
-
-## 예외
-### Cannot construct instance of `java.time.LocalDateTime`
-```java
-@JsonDeserialize(using = LocalDateTimeDeserializer.class)
-```
-
