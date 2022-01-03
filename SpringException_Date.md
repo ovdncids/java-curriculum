@@ -16,6 +16,7 @@ public void membersCreate(@RequestBody MultiValueMap<String, Object> map) {
 # LocalDateTime
 ## String 변환 LocalDateTime
 ```java
+// LocalDateTime approvDatTime = LocalDateTime.parse("2022-01-01T00:00:01");
 LocalDateTime localDateTime = LocalDateTime.parse("20220101000001", DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
 String formatDateTime = LocalDateTime.from(localDateTime).format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"));
 ```
