@@ -10,6 +10,9 @@ public void membersCreate(@RequestBody MultiValueMap<String, Object> map) {
 ```
 * `MultiValueMap`은 `Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported`에 유용 하다.
 
+## java.lang.UnsupportedOperationException
+* 배열, 인덱스에 관련된 오류
+
 # LocalDateTime
 ## String 변환 LocalDateTime
 ```java
