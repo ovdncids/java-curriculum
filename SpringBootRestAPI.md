@@ -174,6 +174,7 @@ implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.
 -->
 
 # MySQL 연동
+* [mysql-curriculum](https://github.com/ovdncids/mysql-curriculum)
 * Spring Boot 2.0 부터 HikariCP가 기본 Datasource로 사용 된다.
 
 src/main/resources/application.properties
