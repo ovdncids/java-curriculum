@@ -121,7 +121,6 @@ spring.mvc.view.suffix=.jsp
 # 컨테이너에 기본 서블릭을 등록한다. Spring boot 2.4 버전 부터는 기본이 false이다. (무슨 차이인지 ...)
 server.servlet.register-default-servlet=true
 -->
-* ❔ `Search.java` 적용해 보기
 
 ### View Members 페이지 Markup 적용
 src/main/webapp/WEB-INF/views/members.jsp
