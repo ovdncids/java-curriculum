@@ -87,3 +87,58 @@ curl -v -X POST "https://kapi.kakao.com/v1/payment/approve" \
 * 이제 결제가 완료 되었다.
 
 ## Cancel (결제 취소)
+```sh
+curl -v -X POST "https://kapi.kakao.com/v1/payment/cancel" \
+-H "Authorization: KakaoAK {APP_ADMIN_KEY}" \
+-d "cid=TC0ONETIME" \
+-d "tid=T000000000xxxxxxxxxx" \
+-d "cancel_amount=2200" \
+-d "cancel_tax_free_amount=0" \
+-d "cancel_vat_amount=200"
+```
+
+### 결과
+```json
+{
+   "aid":"A000000000xxxxxxxxxx",
+   "tid":"T000000000xxxxxxxxxx",
+   "cid":"TC0ONETIME",
+   "status":"CANCEL_PAYMENT",
+   "partner_order_id":"partner_order_id",
+   "partner_user_id":"partner_user_id",
+   "payment_method_type":"MONEY",
+   "item_name":"초코파이",
+   "quantity":1,
+   "amount":{
+      "total":2200,
+      "tax_free":0,
+      "vat":200,
+      "point":0,
+      "discount":0
+   },
+   "approved_cancel_amount":{
+      "total":2200,
+      "tax_free":0,
+      "vat":200,
+      "point":0,
+      "discount":0
+   },
+   "canceled_amount":{
+      "total":2200,
+      "tax_free":0,
+      "vat":200,
+      "point":0,
+      "discount":0
+   },
+   "cancel_available_amount":{
+      "total":0,
+      "tax_free":0,
+      "vat":0,
+      "point":0,
+      "discount":0
+   },
+   "created_at":"2022-01-27T17:50:40",
+   "approved_at":"2022-01-27T17:51:56",
+   "canceled_at":"2022-01-27T17:53:09"
+}
+```
