@@ -15,7 +15,7 @@
   "sellerKey": "{sellerKey}",
   "sellerOrderReferenceKey": "ORDER_00000001",
   "totalDeliveryFeeAmt": "0",
-  "totalPaymentAmt": "1500",
+  "totalPaymentAmt": 1500,
   "payMode": "PAY2",
   "returnUrl": "{콜백 URL}/approval_url",
   "orderMethod": "EASYPAY",
@@ -23,9 +23,8 @@
     {
     "cpId": "{cpId}",
     "productId": "PROD_EASY",
-    "productAmt": "1500",
-    "productPaymentAmt": "1500",
-    "sortOrdering": 1,
+    "productAmt": 1500,
+    "productPaymentAmt": 1500,
     "productName": "BAG",
     "orderQuantity": 1,
     "sellerOrderProductReferenceKey": "PRODUCT_00000001"
@@ -35,7 +34,7 @@
 ```
 #### 결제 요청
 ```sh
-curl -v -X POST "https://alpha-api-bill.payco.com/outseller/order/reserve" -H "Content-Type: application/json" -d "{\"sellerKey\": \"DEMO\", \"sellerOrderReferenceKey\": \"ORDER_00000001\", \"totalDeliveryFeeAmt\": \"0\", \"totalPaymentAmt\": \"1500\", \"payMode\": \"PAY2\", \"returnUrl\": \"http://localhost:8080/api/v1/paycopay/approval_url\", \"orderMethod\": \"EASYPAY\", \"orderProducts\": [{\"cpId\": \"DEMO\", \"productId\": \"PROD_EASY\", \"productAmt\": \"1500\", \"productPaymentAmt\": \"1500\", \"sortOrdering\": 1, \"productName\": \"BAG\", \"orderQuantity\": 1, \"sellerOrderProductReferenceKey\": \"PRODUCT_00000001\"}]}"
+curl -v -X POST "https://alpha-api-bill.payco.com/outseller/order/reserve" -H "Content-Type: application/json" -d "{\"sellerKey\": \"DEMO\", \"sellerOrderReferenceKey\": \"ORDER_00000001\", \"totalPaymentAmt\": 1500, \"payMode\": \"PAY2\", \"returnUrl\": \"http://localhost:8080/api/v1/paycopay/approval_url\", \"orderMethod\": \"EASYPAY\", \"orderProducts\": [{\"cpId\": \"DEMO\", \"productId\": \"PROD_EASY\", \"productAmt\": 1500, \"productPaymentAmt\": 1500, \"productName\": \"BAG\", \"orderQuantity\": 1, \"sellerOrderProductReferenceKey\": \"PRODUCT_00000001\"}]}"
 ```
 * `허용되지 않은 IP 입니다.`: PAYCO 쪽에 서버 주소를 등록 해야 함. PAYCO 쪽에 전화 하는게 빠를 수 있음.
 
@@ -68,13 +67,13 @@ curl -v -X POST "https://alpha-api-bill.payco.com/outseller/order/reserve" -H "C
   "reserveOrderNo": "202201010000000000",
   "sellerOrderReferenceKey": "ORDER_00000001",
   "paymentCertifyToken": "xxxx-fY75vDM3d_VOajRB8_e0g7TB7vDbSK3Bdi0x4N-N-YRrOPCTJ5PHoUk39D9",
-  "totalPaymentAmt": "1500"
+  "totalPaymentAmt": 1500
 }
 ```
 
 #### 결제 승인
 ```sh
-curl -v -X POST "https://alpha-api-bill.payco.com/outseller/payment/approval" -H "Content-Type: application/json" -d "{\"sellerKey\": \"DEMO\", \"reserveOrderNo\": \"202201010000000000\", \"sellerOrderReferenceKey\": \"ORDER_00000001\", \"paymentCertifyToken\": \"xxxx-fY75vDM3d_VOajRB8_e0g7TB7vDbSK3Bdi0x4N-N-YRrOPCTJ5PHoUk39D9\", \"totalPaymentAmt\": \"1500\"}"
+curl -v -X POST "https://alpha-api-bill.payco.com/outseller/payment/approval" -H "Content-Type: application/json" -d "{\"sellerKey\": \"DEMO\", \"reserveOrderNo\": \"202201010000000000\", \"sellerOrderReferenceKey\": \"ORDER_00000001\", \"paymentCertifyToken\": \"xxxx-fY75vDM3d_VOajRB8_e0g7TB7vDbSK3Bdi0x4N-N-YRrOPCTJ5PHoUk39D9\", \"totalPaymentAmt\": 1500}"
 ```
 
 #### 결과:
@@ -150,5 +149,57 @@ curl -v -X POST "https://alpha-api-bill.payco.com/outseller/payment/approval" -H
 ## Cancel (결제 취소)
 #### PAYCO에 넘길 정보
 ```json
+{
+  "sellerKey": "{sellerKey}",
+  "orderNo": "202201010000000001",
+  "orderCertifyKey": "xxxxtSAAs7xPSaBtZddXjAAOtpmBg2PegtO6XoZJQmQh4CC",
+  "cancelTotalAmt": 1500,
+  "requestMemo": "Cancel reason",
+  "orderProducts": [
+    {
+      "sellerOrderProductReferenceKey": "PRODUCT_00000001",
+      "cpId": "{cpId}",
+      "productId": "PROD_EASY",
+      "productAmt": 1500,
+      "cancelDetailContent": "Cancel reason for product"
+    }
+  ]
+}
+```
+```sh
+curl -v -X POST "https://alpha-api-bill.payco.com/outseller/order/cancel" -H "Content-Type: application/json" -d "{\"sellerKey\": \"DEMO\", \"orderNo\": \"202201010000000001\", \"orderCertifyKey\": \"xxxxtSAAs7xPSaBtZddXjAAOtpmBg2PegtO6XoZJQmQh4CC\", \"cancelTotalAmt\": 1500, \"requestMemo\": \"Cancel reason\", \"orderProducts\": [{\"sellerOrderProductReferenceKey\": \"PRODUCT_00000001\", \"cpId\": \"DEMO\", \"productId\": \"PROD_EASY\", \"productAmt\": 1500, \"cancelDetailContent\": \"Cancel reason for product\"}]}"
+```
 
+#### 결과:
+```json
+{
+   "result":{
+      "orderNo":"202201010000000001",
+      "cancelTradeSeq":2000601560,
+      "totalCancelPaymentAmt":1500.0,
+      "remainCancelPossibleAmt":0.0,
+      "cancelPaymentDetails":[
+         {
+            "paymentTradeNo":"202201010000000004",
+            "paymentMethodCode":"31",
+            "paymentMethodName":"신용카드",
+            "cancelPaymentAmt":1500.0,
+            "tradeYmdt":"20220128140438",
+            "cancelPaymentTradeNo":"202201010000000005",
+            "cancelTaxableAmt":1363.0,
+            "cancelTaxfreeAmt":0.0,
+            "cancelVatAmt":137.0,
+            "cancelServiceAmt":0.0
+         }
+      ],
+      "cancelReceiptPaycoPointAmt":0.0,
+      "cancelReceiptPaycoPointTaxfreeAmt":0.0,
+      "cancelReceiptPaycoPointTaxableAmt":0.0,
+      "cancelReceiptPaycoPointVatAmt":0.0,
+      "cancelReceiptPaycoPointServiceAmt":0.0,
+      "cancelYmdt":"20220128140438"
+   },
+   "message":"success",
+   "code":0
+}
 ```
