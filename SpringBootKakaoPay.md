@@ -31,14 +31,14 @@ curl -v -X POST "https://kapi.kakao.com/v1/payment/ready" \
 ### 결과: 
 ```json
 {
-   "tid":"T000000000xxxxxxxxxx",
-   "tms_result":false,
-   "next_redirect_app_url":"https://online-pay.kakao.com/mockup/v1/0c64fa4a17947ae4d2d554a3e31564fe29893f8c2daf91d32a0269b8bde36e63/aInfo",
-   "next_redirect_mobile_url":"https://online-pay.kakao.com/mockup/v1/0c64fa4a17947ae4d2d554a3e31564fe29893f8c2daf91d32a0269b8bde36e63/mInfo",
-   "next_redirect_pc_url":"https://online-pay.kakao.com/mockup/v1/0c64fa4a17947ae4d2d554a3e31564fe29893f8c2daf91d32a0269b8bde36e63/info",
-   "android_app_scheme":"kakaotalk://kakaopay/pg?url=https://online-pay.kakao.com/pay/mockup/0c64fa4a17947ae4d2d554a3e31564fe29893f8c2daf91d32a0269b8bde36e63",
-   "ios_app_scheme":"kakaotalk://kakaopay/pg?url=https://online-pay.kakao.com/pay/mockup/0c64fa4a17947ae4d2d554a3e31564fe29893f8c2daf91d32a0269b8bde36e63",
-   "created_at":"2022-01-26T20:54:29"
+   "tid": "T000000000xxxxxxxxxx",
+   "tms_result": false,
+   "next_redirect_app_url": "https://online-pay.kakao.com/mockup/v1/0c64fa4a17947ae4d2d554a3e31564fe29893f8c2daf91d32a0269b8bde36e63/aInfo",
+   "next_redirect_mobile_url": "https://online-pay.kakao.com/mockup/v1/0c64fa4a17947ae4d2d554a3e31564fe29893f8c2daf91d32a0269b8bde36e63/mInfo",
+   "next_redirect_pc_url": "https://online-pay.kakao.com/mockup/v1/0c64fa4a17947ae4d2d554a3e31564fe29893f8c2daf91d32a0269b8bde36e63/info",
+   "android_app_scheme": "kakaotalk://kakaopay/pg?url=https://online-pay.kakao.com/pay/mockup/0c64fa4a17947ae4d2d554a3e31564fe29893f8c2daf91d32a0269b8bde36e63",
+   "ios_app_scheme": "kakaotalk://kakaopay/pg?url=https://online-pay.kakao.com/pay/mockup/0c64fa4a17947ae4d2d554a3e31564fe29893f8c2daf91d32a0269b8bde36e63",
+   "created_at": "2022-01-26T20:54:29"
 }
 ```
 * ❕ `tid`: 결제 고유 번호
@@ -64,23 +64,23 @@ curl -v -X POST "https://kapi.kakao.com/v1/payment/approve" \
 ### 결과
 ```json
 {
-   "aid":"A000000000xxxxxxxxxx",
-   "tid":"T000000000xxxxxxxxxx",
-   "cid":"TC0ONETIME",
-   "partner_order_id":"partner_order_id",
-   "partner_user_id":"partner_user_id",
-   "payment_method_type":"MONEY",
-   "item_name":"초코파이",
-   "quantity":1,
-   "amount":{
-      "total":2200,
-      "tax_free":0,
-      "vat":200,
-      "point":0,
-      "discount":0
+   "aid": "A000000000xxxxxxxxxx",
+   "tid": "T000000000xxxxxxxxxx",
+   "cid": "TC0ONETIME",
+   "partner_order_id": "partner_order_id",
+   "partner_user_id": "partner_user_id",
+   "payment_method_type": "MONEY",
+   "item_name": "초코파이",
+   "quantity": 1,
+   "amount": {
+      "total": 2200,
+      "tax_free": 0,
+      "vat": 200,
+      "point": 0,
+      "discount": 0
    },
-   "created_at":"2022-01-27T17:38:20",
-   "approved_at":"2022-01-27T17:43:56"
+   "created_at": "2022-01-27T17:38:20",
+   "approved_at": "2022-01-27T17:43:56"
 }
 ```
 * ❕ `tid`: 요청 고유 번호
@@ -100,45 +100,45 @@ curl -v -X POST "https://kapi.kakao.com/v1/payment/cancel" \
 ### 결과
 ```json
 {
-   "aid":"A000000000xxxxxxxxxx",
-   "tid":"T000000000xxxxxxxxxx",
-   "cid":"TC0ONETIME",
-   "status":"CANCEL_PAYMENT",
-   "partner_order_id":"partner_order_id",
-   "partner_user_id":"partner_user_id",
-   "payment_method_type":"MONEY",
-   "item_name":"초코파이",
-   "quantity":1,
-   "amount":{
-      "total":2200,
-      "tax_free":0,
-      "vat":200,
-      "point":0,
-      "discount":0
+   "aid": "A000000000xxxxxxxxxx",
+   "tid": "T000000000xxxxxxxxxx",
+   "cid": "TC0ONETIME",
+   "status": "CANCEL_PAYMENT",
+   "partner_order_id": "partner_order_id",
+   "partner_user_id": "partner_user_id",
+   "payment_method_type": "MONEY",
+   "item_name": "초코파이",
+   "quantity": 1,
+   "amount": {
+      "total": 2200,
+      "tax_free": 0,
+      "vat": 200,
+      "point": 0,
+      "discount": 0
    },
-   "approved_cancel_amount":{
-      "total":2200,
-      "tax_free":0,
-      "vat":200,
-      "point":0,
-      "discount":0
+   "approved_cancel_amount": {
+      "total": 2200,
+      "tax_free": 0,
+      "vat": 200,
+      "point": 0,
+      "discount": 0
    },
-   "canceled_amount":{
-      "total":2200,
-      "tax_free":0,
-      "vat":200,
-      "point":0,
-      "discount":0
+   "canceled_amount": {
+      "total": 2200,
+      "tax_free": 0,
+      "vat": 200,
+      "point": 0,
+      "discount": 0
    },
-   "cancel_available_amount":{
-      "total":0,
-      "tax_free":0,
-      "vat":0,
-      "point":0,
-      "discount":0
+   "cancel_available_amount": {
+      "total": 0,
+      "tax_free": 0,
+      "vat": 0,
+      "point": 0,
+      "discount": 0
    },
-   "created_at":"2022-01-27T17:50:40",
-   "approved_at":"2022-01-27T17:51:56",
-   "canceled_at":"2022-01-27T17:53:09"
+   "created_at": "2022-01-27T17:50:40",
+   "approved_at": "2022-01-27T17:51:56",
+   "canceled_at": "2022-01-27T17:53:09"
 }
 ```
