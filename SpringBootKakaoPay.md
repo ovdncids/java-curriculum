@@ -28,7 +28,7 @@ curl -v -X POST "https://kapi.kakao.com/v1/payment/ready" \
 ```
 * `approval_url`: 카카오페이 결제 완료 후 우리쪽으로 콜백 받을 주소이다.
 
-### 결과: 
+#### 결과: 
 ```json
 {
    "tid": "T000000000xxxxxxxxxx",
@@ -61,7 +61,7 @@ curl -v -X POST "https://kapi.kakao.com/v1/payment/approve" \
 --data-urlencode "pg_token=xxxxxxxxxxxxxxxxxxxx"
 ```
 
-### 결과
+#### 결과
 ```json
 {
    "aid": "A000000000xxxxxxxxxx",
@@ -97,7 +97,7 @@ curl -v -X POST "https://kapi.kakao.com/v1/payment/cancel" \
 -d "cancel_vat_amount=200"
 ```
 
-### 결과
+#### 결과
 ```json
 {
    "aid": "A000000000xxxxxxxxxx",
