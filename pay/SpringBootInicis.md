@@ -116,5 +116,64 @@ P_CARD_APPLPRICE=100
 EventCode=
 ```
 
+* ❕❕❕ `P_TID`: `INCIS 인증거래번호`에서 `INCIS 승인거래번호`로 변경 됨
+
 ## Cancel (결제 취소)
 * https://manual.inicis.com/iniapi
+
+#### INICIS에 넘길 정보 만들기
+```java
+public String cancel() {
+    Date date_now = new Date(System.currentTimeMillis());
+    SimpleDateFormat fourteen_format = new SimpleDateFormat("yyyyMMddHHmmss");
+    String key = "ItEQKi3rY7uvDS8l"; // INIAPI key
+    String type = "Refund";
+    String paymethod = "Card";
+    String timestamp = fourteen_format.format(date_now);
+    String clientIp = "127.0.0.1";
+    String mid = "INIpayTest";
+    String tid = "{P_TID}";
+    String msg = "취소사유";
+    String hashData = key+type+paymethod+timestamp+clientIp+mid+tid;
+    hashData = encodeSHA512(hashData);
+    String apiURL = "https://iniapi.inicis.com/api/v1/refund";
+    apiURL += "?type=" + type;
+    apiURL += "&paymethod=" + paymethod;
+    apiURL += "&timestamp=" + timestamp;
+    apiURL += "&clientIp=" + clientIp;
+    apiURL += "&mid=" + mid;
+    apiURL += "&tid=" + tid;
+    apiURL += "&msg=" + msg;
+    apiURL += "&hashData=" + hashData;
+    return apiURL;
+}
+
+public static String encodeSHA512(String str) {
+    String hashData = "";
+    try {
+        MessageDigest digest = MessageDigest.getInstance("SHA-512");
+        digest.reset();
+        digest.update(str.getBytes());
+        hashData = String.format("%0128x", new BigInteger(1, digest.digest()));
+    } catch (NoSuchAlgorithmException e) {
+        e.printStackTrace();
+    }
+    return hashData;
+}
+```
+```sh
+curl -v -X POST "https://iniapi.inicis.com/api/v1/refund?type=Refund&paymethod=Card&timestamp=20220210003552&clientIp=127.0.0.1&mid=INIpayTest&tid={P_TID}&msg=취소사유&hashData=56a199c0cea0bfaa631b310ff40b8af075b428351ce3a0a7a24baa961351c7cab474a36d07dd9d43885a0d0473138b1df84b6153ca9d7dfd2987c1411a8e****"
+```
+
+#### 결과
+```json
+{
+   "resultCode":"00",
+   "resultMsg":"정상처리되었습니다.",
+   "cancelDate":"20220210",
+   "cancelTime":"004139",
+   "receiptInfo":"",
+   "cshrCancelNum":"",
+   "detailResultCode":""
+}
+```
