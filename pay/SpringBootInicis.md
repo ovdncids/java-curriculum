@@ -123,7 +123,7 @@ EventCode=
 
 #### INICIS에 넘길 정보 만들기
 ```java
-public String cancel() {
+public static String cancel() {
     Date date_now = new Date(System.currentTimeMillis());
     SimpleDateFormat fourteen_format = new SimpleDateFormat("yyyyMMddHHmmss");
     String key = "ItEQKi3rY7uvDS8l"; // INIAPI key
