@@ -65,7 +65,7 @@ const inicisPay = function(form) {
 ```sh
 P_STATUS: 00
 P_RMESG1: 정상 처리 되었습니다.
-P_TID: INIMX_AUTHINIpayTest2022020914081539xxxx
+P_TID: INIMX_AUTHINIpayTest2022020914081539****
 P_REQ_URL: https://fcmobile.inicis.com/smart/payReq.ini
 P_NOTI: 
 P_AMT: 100
@@ -78,7 +78,7 @@ P_AMT: 100
 
 #### 결제 승인
 ```sh
-curl -v -X POST "https://fcmobile.inicis.com/smart/payReq.ini?P_MID=INIpayTest&P_TID=INIMX_AUTHINIpayTest2022020914081539xxxx"
+curl -v -X POST "https://fcmobile.inicis.com/smart/payReq.ini?P_MID=INIpayTest&P_TID={P_TID}"
 ```
 
 #### 결과:
@@ -88,7 +88,7 @@ P_AUTH_DT=2022020914****
 P_AUTH_NO=3005****
 P_RMESG1=성공적으로 처리 하였습니다.
 P_RMESG2=00
-P_TID=INIMX_CARDINIpayTest2022020914315281****
+P_TID=INIMX_AUTHINIpayTest2022020914081539****
 P_FN_CD1=06
 P_AMT=100
 P_TYPE=CARD
