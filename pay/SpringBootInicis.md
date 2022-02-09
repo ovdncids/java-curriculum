@@ -82,7 +82,7 @@ curl -v -X POST "https://fcmobile.inicis.com/smart/payReq.ini?P_MID=INIpayTest&P
 ```
 
 #### 결과:
-```json
+```sh
 P_STATUS=00
 P_AUTH_DT=2022020914****
 P_AUTH_NO=3005****
