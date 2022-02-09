@@ -1,5 +1,6 @@
 # PAYCO 결제
 ## 준비 사항
+* [연동문서](./CA_PAYCO_연동_가이드_v1.1.9.36.pdf)
 * ❕ `sellerKey`: 가맹점 코드, 파트너 센터에서 발급 받은 가맹점 코드
 * ❕ `cpId`: 상점 ID, PAYCO에서 발급
 * ❕ `productID`: 상품 ID, PAYCO에서 확인 (간편결제형인지[PROD_EASY], 바로구매형인지 구분[PROD_CHK, DELIVERY_PROD])
