@@ -51,7 +51,7 @@ curl -v -X POST "https://alpha-api-bill.payco.com/outseller/order/reserve" -H "C
 }
 ```
 * ❕ `reserveOrderNo`: PAYCO 주문예약번호
-* ❕ `orderSheetUrl`: PAYCO 승인요청 URL
+* ❕ `orderSheetUrl`: PAYCO 결제창 URL
 
 ## 결제 진행
 * `PAYCO 결제창 URL`에서 PAYCO 결제 절차 진행
