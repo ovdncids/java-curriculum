@@ -43,7 +43,7 @@ curl -v -X POST "https://kapi.kakao.com/v1/payment/ready" \
 ```
 * ❕ `tid`: 결제 고유 번호
 * ❕ `next_redirect_pc_url`: 카카오페이 결제창(QR코드) URL
-* ❕ `android_app_scheme`: 하이브리드앱에서 쓰이고 카카오톡을 부른 후 `next_redirect_app_url` 이동한다. (ios_app_scheme 동일한 )
+* ❕ `android_app_scheme`: 하이브리드앱에서 쓰이고 카카오톡을 부른 후 `next_redirect_app_url` 이동한다. (`ios_app_scheme` 동일한 문자)
 
 ## 결제 진행
 * `QR코드` 등을 이용해서 카카오페이 결제 절차 진행
