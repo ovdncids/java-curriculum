@@ -1,10 +1,8 @@
 # KakaoPay
-* 결제 API 문서
-* https://developers.kakao.com/docs/latest/ko/kakaopay/single-payment
-* 개발자 콘솔
-* https://developers.kakao.com/console
+* [결제 API 문서](https://developers.kakao.com/docs/latest/ko/kakaopay/single-payment)
+* [카카오 개발자 콘솔](https://developers.kakao.com/console)
 ```sh
-개발자 콘솔
+카카오 개발자 콘솔
   Admin 키 확인
   플랫폼 -> Web -> 사이트 도메인 (콜백 URL 설정)
     http://localhost:8080
