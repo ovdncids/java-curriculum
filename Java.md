@@ -427,7 +427,7 @@ arr1[5] = 10;
 * ❕ 런타임 에러(RunTime Error), 컴파일 에러(Compile Error) 차이점 설명
 
 ### 배열 실습
-* 1 부터 5까지 더하기(total 변수를 만들어서 한번씩 더해서 만듬)
+* 1부터 5까지 더하기(total 변수를 만들어서 한번씩 더해서 만듬)
 ```java
 int[] testArray1 = {1, 2, 3, 4, 5};
 int total1 = testArray1[0];
