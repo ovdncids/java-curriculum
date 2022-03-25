@@ -529,7 +529,7 @@ for (int index6 = 1; index6 <= 10; index6 += 1) {
     System.out.println(index6 + "은 짝수 입니다.");
   }
   String oddEven = index6 % 2 == 1 ? "홀수" : "짝수";
-  System.out.println(index6 + "은 "+ oddEven +" 입니다.");
+  System.out.println(index6 + "은 " + oddEven + " 입니다.");
 }
 ```
 
