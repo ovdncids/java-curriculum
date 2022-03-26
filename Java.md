@@ -573,7 +573,7 @@ System.out.println(index7);
   int avg1 = total1 / count;
   System.out.println(avg1);
   ```
-  `total1 / 5 ` 이렇게 바로 나누었다면, 나중에 프로그램이 1에서 10까지로 변한다면, `5`값을 `2군데`에서 수정 해야 한다.
+  `total1 / 5` 이렇게 바로 나누었다면, 나중에 프로그램이 1에서 10까지로 변한다면, `5`값을 `2군데`에서 수정 해야 한다.
 </details>
 
 ### for문에서 배열 사용하기
