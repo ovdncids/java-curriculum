@@ -597,7 +597,7 @@ for (int index9 = 0; index9 < array1.length; index9++) {
 </details>
 
 * ❕ 결과적으로 `array2`는 `array1`을 복사하였다.
-* ❔ `array1 == array2` 참일까요?
+* ❔ `array1 == array2` 참일까?
 * ❕ 메모리 설명
 ```java
 int[] array3 = {1, 2, 3};
