@@ -698,7 +698,7 @@ int returned1 = func1(1, 2);
   ```
 </details>
 
-2. 인수에 자료형 데어터 넘기기
+2. 인수에 자료형 데이터 넘기기
 
 public class Function {
 ```java
