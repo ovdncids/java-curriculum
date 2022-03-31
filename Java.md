@@ -809,4 +809,4 @@ membersUpdate(0, "길동이");
 membersRead();
 ```
 
-* `MembersFunction2.java` 파일을 생성하고, 처음 부터 코딩 해보기
+* `배열의 CRUD`를 참조 하여, `MembersFunction2.java` 파일을 생성하고, 처음 부터 코딩 해보기
