@@ -1,4 +1,14 @@
 # Java
+
+## 목차
+* [변수](#변수-variable)
+* [상수](#상수-constant)
+* [연산자](#연산자-operator)
+* [if문](#if문제어문--조건문)
+* [배열](#기본형primitive-type-배열)
+* [for문](#for문제어문--반복문)
+* [함수](#함수)
+
 ## 설치
 * https://www.oracle.com/kr/java/technologies/javase-downloads.html
 ```sh
