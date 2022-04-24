@@ -17,6 +17,7 @@ GENERATE <- SpringBootRestApiStudy.zip 다운받기
 압축 풀고 해당 경로를 Intellij에서 Open
 Terminal <- git init
 ```
+* `2.5.14 (SNAPSHOT)` SNAPSHOT 버전으로 생성해야 `Swagger UI`에서 오류가 발생 하지 않는다.
 
 ## Spring Boot Tomcat 서버 실행
 src/main/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplication.java
