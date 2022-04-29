@@ -51,6 +51,38 @@ Tomcat 시작
 * http://localhost:8080/myapp
 * `pom.xml`의 `<artifactId>myapp</artifactId>` 경로를 사용한다.
 
+### 한글 깨짐
+```sh
+# 프로젝트 Text file encoding
+프로젝트 > Properties > Resource > Text file encoding > Other > UTF-8
+```
+
+Tomcat/server.xml
+```diff
+- <Connector connectionTimeout="20000" port="8081" protocol="HTTP/1.1" redirectPort="8443"/>
++ <Connector uriencoding="utf-8" connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
+```
+
+Tomcat/web.xml
+```xml
+<filter>
+    <filter-name>setCharacterEncodingFilter</filter-name>
+    <filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+    <init-param>
+        <param-name>encoding</param-name>
+        <param-value>UTF-8</param-value>
+    </init-param>
+    <async-supported>true</async-supported>
+</filter>
+<!-- 주석 해제 -->
+```
+
+모든 .jsp 파일
+```jsp
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<!-- 최상단에 추가 -->
+```
+
 # STS (Spring Tool Suite 4)
 * https://spring.io/tools
 ```sh
