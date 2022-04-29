@@ -2,18 +2,36 @@
 
 * https://www.eclipse.org/downloads/packages/release/2020-06/r
 
-## Spring Boot 프로젝트 열기
+## Spring 프로젝트 열기
 ```sh
 File > Import... > Maven > Existing Maven Projects > Spring Boot 프로젝트
 ```
 
-## Spring Tools 4 설치
+## Spring Tools 3 설치
 ```sh
-Help > Eclipse Marketplace > Search > spring > Spring Tools 3 (Standalone Edition)
+Help > Eclipse Marketplace > Search > spring > Spring Tools 3 (Standalone Edition) 3.9.14.RELEASE
 ```
 
-## STS (Spring Tool Suite)
+## STS (Spring Tool Suite 4)
 * https://spring.io/tools
 ```sh
 다운로드 > spring-tool-suite-4-4.14.1.RELEASE-e4.23.0-win32.win32.x86_64.self-extracting.jar > 더블 클릭하면 압축 풀림
 ```
+* ❕ `Spring Tool Suite 4` 부터는 일반 `Spring Legacy Project`를 생성 할 수 없고 `Spring Boot`만 생성 가능 하다.
+
+## Spring 프로젝트 생성
+* https://secure-key.tistory.com/47
+```sh
+File > New > Spring > Spring Legacy Project > Spring MVC Project > Project name: demo
+  package: com.mycompany.myapp
+```
+
+### Tomcat 설치
+* https://tomcat.apache.org/download-90.cgi
+```sj
+# Tomcat 9 버전 다운로드
+Servers > create a new searver... > Apache > Tomcat v9.0 Server
+  Tomcat installation directory: 다운 받은 경로 선택
+  Next > demo 프로젝트 선택 > Add > Finish
+```
+* http://localhost:8080/myapp
