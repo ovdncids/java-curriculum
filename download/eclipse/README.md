@@ -40,6 +40,7 @@ File > New > Spring > Spring Legacy Project > Spring MVC Project > Project name:
 Servers > create a new searver... > Apache > Tomcat v9.0 Server
   Tomcat installation directory: 다운 받은 경로 선택
   Next > demo 프로젝트 선택 > Add > Finish
+Tomcat 시작
 ```
 * http://localhost:8080/myapp
 
