@@ -43,7 +43,7 @@ Servers > create a new searver... > Apache > Tomcat v9.0 Server
 ```
 * http://localhost:8080/myapp
 
-## STS (Spring Tool Suite 4)
+# STS (Spring Tool Suite 4)
 * https://spring.io/tools
 ```sh
 다운로드 > spring-tool-suite-4-4.14.1.RELEASE-e4.23.0-win32.win32.x86_64.self-extracting.jar > 더블 클릭하면 압축 풀림
