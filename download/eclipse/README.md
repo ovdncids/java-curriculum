@@ -1,5 +1,9 @@
 # Eclipse for Java 8 (1.8)
 * https://www.eclipse.org/downloads/packages/release/2020-06/r
+```sh
+# 설치
+eclipseinstaller > Eclipse IDE for Enterprise Java and Web Developers
+```
 
 #### Mac에서 Failed to create the Java Virtual 발생 할 경우
 ```sh
@@ -23,6 +27,8 @@ File > Import... > Maven > Existing Maven Projects > Spring 프로젝트
 ## Spring Tools 3 설치
 ```sh
 Help > Eclipse Marketplace > Search > spring > Spring Tools 3 (Standalone Edition) 3.9.14.RELEASE
+
+# Spring Tools 3 Add-On For Spring Tools 4 3.9.22.RELEASE < Spring Legacy Project 생성 가능
 ```
 
 ## Spring 프로젝트 생성
