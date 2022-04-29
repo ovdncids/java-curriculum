@@ -30,6 +30,7 @@ File > New > Spring > Spring Legacy Project > Spring MVC Project > Project name:
 * https://tomcat.apache.org/download-90.cgi
 ```sj
 # Tomcat 9 버전 다운로드
+
 Servers > create a new searver... > Apache > Tomcat v9.0 Server
   Tomcat installation directory: 다운 받은 경로 선택
   Next > demo 프로젝트 선택 > Add > Finish
