@@ -49,6 +49,7 @@ Servers > create a new searver... > Apache > Tomcat v9.0 Server
 Tomcat 시작
 ```
 * http://localhost:8080/myapp
+* `pom.xml`의 `<artifactId>myapp</artifactId>` 경로를 사용한다.
 
 # STS (Spring Tool Suite 4)
 * https://spring.io/tools
