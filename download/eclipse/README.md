@@ -83,6 +83,31 @@ Tomcat/web.xml
 <!-- 최상단에 추가 -->
 ```
 
+## MyBatis
+src/webapp/WEB-INF/spring/root-context.xml
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/DB명" />
+        <property name="username" value="계정" />
+        <property name="password" value="비밀번호" />
+    </bean>
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="mapperLocations">
+            <list>
+                <value>classpath:mappers/*.xml</value>
+            </list>
+        </property>
+        <property name="typeAliasesPackage" value="com.example.SpringBootRestApiStudy.models" />
+    </bean>
+</beans>
+```
+
 # STS (Spring Tool Suite 4)
 * https://spring.io/tools
 ```sh
