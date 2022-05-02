@@ -57,6 +57,7 @@ Tomcat 시작
 프로젝트 > Properties > Resource > Text file encoding > Other > UTF-8
 ```
 
+<!--
 Tomcat/server.xml
 ```diff
 - <Connector connectionTimeout="20000" port="8081" protocol="HTTP/1.1" redirectPort="8443"/>
@@ -74,8 +75,9 @@ Tomcat/web.xml
     </init-param>
     <async-supported>true</async-supported>
 </filter>
-<!-- 주석 해제 -->
 ```
+* 주석 해제
+-->
 
 모든 .jsp 파일
 ```jsp
@@ -84,6 +86,35 @@ Tomcat/web.xml
 ```
 
 ## MyBatis
+pom.xml
+```xml
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-jdbc</artifactId>
+    <version>${org.springframework-version}</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-dbcp2</artifactId>
+    <version>2.1.1</version>
+</dependency>
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.29</version>
+</dependency>
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis</artifactId>
+    <version>3.4.6</version>
+</dependency>
+<dependency>
+    <groupId>org.mybatis</groupId>
+    <artifactId>mybatis-spring</artifactId>
+    <version>1.3.2</version>
+</dependency>
+```
+
 src/webapp/WEB-INF/spring/root-context.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -103,9 +134,32 @@ src/webapp/WEB-INF/spring/root-context.xml
                 <value>classpath:mappers/*.xml</value>
             </list>
         </property>
-        <property name="typeAliasesPackage" value="com.example.SpringBootRestApiStudy.models" />
+        <property name="typeAliasesPackage" value="com.mycompany.myapp.models" />
     </bean>
 </beans>
+```
+
+src/main/resources/mappers/Members.xml
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mycompany.myapp.repositories.MembersRepository">
+    <select id="read" resultType="Map">
+        select * from members
+    </select>
+</mapper>
+```
+
+src/main/java/com/mycompany/myapp/HomeController.java
+```java
+@Autowired
+private SqlSessionFactory sqlSessionFactory;
+
+@RequestMapping(value = "/", method = RequestMethod.GET)
+public String home(Locale locale, Model model) {
+  SqlSession sqlSession = sqlSessionFactory.openSession();
+  List<Map> members = sqlSession.selectList("com.mycompany.myapp.repositories.MembersRepository.read");
 ```
 
 # STS (Spring Tool Suite 4)
