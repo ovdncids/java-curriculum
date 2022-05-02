@@ -164,6 +164,8 @@ public String home(Locale locale, Model model) {
 ```
 
 ## log4jdbc-log4j2-jdbc4 with Mybatis
+* https://shanepark.tistory.com/84
+
 pom.xml
 ```xml
 <dependency>
