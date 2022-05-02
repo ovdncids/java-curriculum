@@ -114,7 +114,7 @@ pom.xml
     <version>1.3.2</version>
 </dependency>
 ```
-* `pom.xml` > Maven > Update Project...
+* pom.xml > Maven > Update Project...
 
 src/webapp/WEB-INF/spring/root-context.xml
 ```xml
