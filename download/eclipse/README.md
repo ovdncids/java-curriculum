@@ -114,6 +114,7 @@ pom.xml
     <version>1.3.2</version>
 </dependency>
 ```
+* `pom.xml` > Maven > Update Project...
 
 src/webapp/WEB-INF/spring/root-context.xml
 ```xml
@@ -160,6 +161,38 @@ private SqlSessionFactory sqlSessionFactory;
 public String home(Locale locale, Model model) {
   SqlSession sqlSession = sqlSessionFactory.openSession();
   List<Map> members = sqlSession.selectList("com.mycompany.myapp.repositories.MembersRepository.read");
+```
+
+## log4jdbc-log4j2-jdbc4 with Mybatis
+pom.xml
+```xml
+<dependency>
+    <groupId>org.bgee.log4jdbc-log4j2</groupId>
+    <artifactId>log4jdbc-log4j2-jdbc4</artifactId>
+    <version>1.16</version>
+</dependency>
+```
+
+src/webapp/WEB-INF/spring/root-context.xml
+```diff
+- <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+- <property name="url" value="jdbc:mysql://127.0.0.1:3306/DB명" />
+<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+<property name="url" value="jdbc:log4jdbc:mysql://127.0.0.1:3306/DB명" />
+```
+
+src/main/resources/log4jdbc.log4j2.properties
+```properties
+log4jdbc.spylogdelegator.name=net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
+```
+
+src/main/resources/log4j.xml
+```diff
+<root>
+-   <priority value="warn" />
++   <priority value="info" />
+    <appender-ref ref="console" />
+</root>
 ```
 
 # STS (Spring Tool Suite 4)
