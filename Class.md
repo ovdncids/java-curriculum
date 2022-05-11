@@ -1,6 +1,37 @@
 # Java - Class
+
+## 원시(Primitive)자료형과 래퍼(Wrapper)클래스
+### int와 Integer형 비교
+```java
+int int1 = 1;
+Integer int2 = new Integer(1);
+System.out.println(int1 == int2);
+System.out.println(int2.toString() + 1);
+System.out.println(int2.equals(int1));
+// System.out.println(int1.toString());
+// System.out.println(int1.equals(int1));
+```
+
+### boolean과 Boolean형 비교
+```java
+boolean bool1 = true;
+Boolean bool2 = new Boolean(true);
+System.out.println(bool1 == bool2);
+System.out.println(bool2.toString() + 1);
+System.out.println(bool2.equals(bool1));
+// System.out.println(bool1.toString());
+// System.out.println(bool1.equals(int1));
+```
+
+#### 언제 원시자료형을 쓰고, 언제 래퍼클래스를 사용하는가?
+* ❕ `null`을 사용해야 한다면 `래퍼클래스`, 필요 없다면 `원시자료형`을 사용한다.
+```java
+int int3 = null;
+Integer int4 = null;
+```
+
 ## Model형 Class
-배열은 변수의 집합으로 숫자(index) 기준으로 변수에 접근 하지만, Model형 Class로 만든 객체(Object)는 문자를 기준으로 변수에 접근 한다.
+`배열`은 변수의 집합으로 `숫자(index)` 기준으로 변수에 접근 하지만, Model형 Class로 만든 `객체(Object)`는 `문자`를 기준으로 변수에 접근 한다.
 
 src/com/company/models/Model1.java
 ```java
