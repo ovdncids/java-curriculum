@@ -30,6 +30,22 @@ int int3 = null;
 Integer int4 = null;
 ```
 
+Main.java
+```java
+class PrimitiveTest {
+    int a;
+}
+
+public class Main {
+    public static void main(String[] args) {
+        PrimitiveTest primitiveTest = new PrimitiveTest();
+        System.out.println(primitiveTest.a);
+    }
+}
+```
+* ❔ `primitiveTest.a`값은?
+* ❔ `int a;`를 `Integer a;`로 바꾼다면?
+
 ## Model형 Class
 `배열`은 변수의 집합으로 `숫자(index)` 기준으로 변수에 접근 하지만, Model형 Class로 만든 `객체(Object)`는 `문자`를 기준으로 변수에 접근 한다.
 
