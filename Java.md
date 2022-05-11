@@ -342,31 +342,6 @@ String condition3 = 1 == 1 ? "a" : "b";
   ```
 </details>
 
-<!--
-## 원시(Primitive)자료형과 래퍼(Wrapper)클래스
-### int와 Integer형 비교
-```java
-int int1 = 1;
-Integer int2 = new Integer(1);
-System.out.println(int1 == int2);
-System.out.println(int2.toString() + 1);
-System.out.println(int2.equals(int1));
-// System.out.println(int1.toString());
-// System.out.println(int1.equals(int1));
-```
-
-### boolean과 Boolean형 비교
-```java
-boolean bool1 = true;
-Boolean bool2 = new Boolean(true);
-System.out.println(bool1 == bool2);
-System.out.println(bool2.toString() + 1);
-System.out.println(bool2.equals(bool1));
-// System.out.println(bool1.toString());
-// System.out.println(bool1.equals(int1));
-```
--->
-
 ## 기본형(Primitive type) 배열
 Array.java
 
