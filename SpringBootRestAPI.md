@@ -335,6 +335,7 @@ src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.
 ```java
 @Mapper
 public interface MembersRepository {
+    // @Select("select * from members")
     List<Member> read();
 }
 ```
