@@ -34,9 +34,10 @@ public class SpringBootMvcStudyApplication {
     ...
 
     @RequestMapping("/")
-        @ResponseBody
-        String root() {
-    return "Hello world!";
+    @ResponseBody
+    String root() {
+        return "Hello world!";
+    }
 }
 ```
 
