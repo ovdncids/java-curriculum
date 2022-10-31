@@ -632,3 +632,6 @@ property.c1=c1
 property.d1=d1
 ```
 * https://www.whiteship.me/spring-boot-external-config
+
+#### static으로 프로퍼티 받기
+* https://github.com/ovdncids/java-curriculum/blob/master/SpringBootHttp.md#%EC%BB%A4%EC%8A%A4%ED%85%80-properties-model%EB%A1%9C-%EB%B0%9B%EA%B8%B0
