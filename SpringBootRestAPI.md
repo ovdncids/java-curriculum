@@ -187,6 +187,10 @@ spring.datasource.url=jdbc:mysql://127.0.0.1:3306/DB명
 spring.datasource.username=계정
 spring.datasource.password=비밀번호
 ```
+```properties
+# spring.datasource.url=jdbc:mysql://127.0.0.1:3306/DB명?useUnicode=true&characterEncoding=utf8
+# spring.datasource.url=jdbc:mysql://127.0.0.1:3306/DB명?useUnicode=true&amp;characterEncoding=utf8
+```
 
 pom.xml
 ```xml
