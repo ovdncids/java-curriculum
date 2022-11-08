@@ -33,3 +33,7 @@ String formatDateTime = LocalDateTime.from(localDateTime).format(DateTimeFormatt
 - #{date}
 + #{date, mode=IN, jdbcType=DATE}
 ```
+
+### Cannot determine value type from string ''
+* 숫자형에 문자가 들어 올때 발생
+* `select문`의 순서와 `Model 생성자`의 순서가 같은지 확인
