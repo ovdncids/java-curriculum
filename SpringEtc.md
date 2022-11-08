@@ -19,6 +19,9 @@ String formatDateTime = LocalDateTime.from(localDateTime).format(DateTimeFormatt
 
 # Mybatis
 ## foreach
+```java
+@RequestParam String[] categories
+```
 ```xml
 <select id="read" resultType="Product">
     select * from products
