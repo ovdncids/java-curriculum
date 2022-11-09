@@ -303,6 +303,7 @@ mybatis.type-aliases-package=com.example.SpringBootRestApiStudy.models
 mybatis.mapper-locations=classpath:mappers/*.xml
 logging.level.com.example.SpringBootRestApiStudy=TRACE
 ```
+* ❕ SQL문 로깅이 잘 안 될 경우 `logging.level.com=TRACE` 해보자
 
 ### 회원(Members) Read
 src/main/resources/mappers/members.xml
