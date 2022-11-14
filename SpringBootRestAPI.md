@@ -558,16 +558,23 @@ class SpringBootRestApiStudyApplicationTests {
 }
 ```
 * ❕ `@Slf4j`는 `log` 함수를 바로 사용하게 해준다.
-* `@Slf4j` 임포트가 잘 안되면 (Add library 'Maven ... lombok' 선택) 또는
+* `@Slf4j` 임포트가 잘 안되면 (Add library 'Maven ... lombok' 선택)
+
+### STS4
 ```xml
 <dependency>
     <groupId>org.projectlombok</groupId>
     <artifactId>lombok</artifactId>
-    <version>1.18.24</version>
+    <!-- <version>1.18.24</version> -->
     <scope>compile</scope>
 </dependency>
 ```
-* Eclipse는 lombok-1.18.24.jar > Run As > Java Application > Install / Update
+* Maven Dependencies > lombok-1.18.24.jar > Run As > Java Application > Install / Update > Project Clear... > STS4 종료
+* /Applications/SpringToolSuite4.app/Contents/Eclipse/SpringToolSuite4.ini
+```ini
+-javaagent:/Applications/SpringToolSuite4.app/Contents/Eclipse/lombok-1.18.24.jar
+```
+* STS4 시작
 
 ## Properties
 ### 커스텀 Properties 읽기
