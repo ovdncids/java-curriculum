@@ -85,6 +85,9 @@ Tomcat/web.xml
 <!-- 최상단에 추가 -->
 ```
 
+### Tab 대신 Space로 변경
+* https://www.lesstif.com/java/eclipse-tab-space-39126240.html
+
 ## MyBatis
 pom.xml
 ```xml
