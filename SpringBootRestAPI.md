@@ -338,6 +338,7 @@ void membersRead() {
 }
 ```
 * 테스트를 사용하는 이유 (테스트 하고 싶은 부분만 바로 실행 할 수 있다.)
+* `org.slf4j.Logger` 선택
 
 #### Repository 인터페이스 생성
 src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.java
