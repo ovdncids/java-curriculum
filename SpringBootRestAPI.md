@@ -313,7 +313,7 @@ logging.level.com.example.SpringBootRestApiStudy=TRACE
 src/main/resources/mappers/members.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <mapper namespace="com.example.SpringBootRestApiStudy.repositories.MembersRepository">
     <select id="read" resultType="Member">
