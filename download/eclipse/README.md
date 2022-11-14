@@ -208,4 +208,5 @@ src/main/resources/log4j.xml
 ```sh
 Window > Show View > Other... > Git Repositories > Add an existing local Git repository
 Window > Show View > Other... > Git Staging
+Window > Show View > Other... > Git Reflog
 ```
