@@ -302,7 +302,7 @@ pom.xml
 
 src/main/resources/application.properties
 ```properties
-# mybatis.configuration.map-underscore-to-camel-case=true
+mybatis.configuration.map-underscore-to-camel-case=true
 mybatis.type-aliases-package=com.example.SpringBootRestApiStudy.models
 mybatis.mapper-locations=classpath:mappers/*.xml
 logging.level.com.example.SpringBootRestApiStudy=TRACE
