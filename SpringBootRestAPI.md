@@ -62,7 +62,7 @@ public class MembersResponse {
 
 * ❕ 접근권한을 private로 만든 경우는 `Getter and Setter`가 필수 이지만, 접근권한을 public으로 만든 경우는 없어도 된다.
 
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
 ```java
 @RestController
 @CrossOrigin(origins = "*")
@@ -121,7 +121,7 @@ public WebMvcConfigurer corsConfigurer() {
     return new WebMvcConfigurer() {
         @Override
         public void addCorsMappings(CorsRegistry registry) {
-	    registry.addMapping("/api/v1/*").allowedOrigins("*");
+            registry.addMapping("/api/v1/*").allowedOrigins("*");
         }
     };
 }
@@ -236,7 +236,7 @@ pom.xml
 ```
 
 ### 회원(Members) Read
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
 ```java
 @Autowired
 JdbcTemplate jdbcTemplate;
@@ -347,7 +347,7 @@ public interface MembersRepository {
 * ❕ Repository 인터페이스 생성하는 이유 (Controller나 Service 마다 SqlSessionFactory, SqlSession을 호출할 필요 없고, 바로 매핑까지 해준다.)
 
 #### MembersController에서 Repository 사용하기
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
 ```java
 @Autowired
 private MembersRepository membersRepository;
@@ -373,7 +373,7 @@ src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.
 Integer create(Member member);
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
 ```diff
 - members.add(member);
 ```
@@ -395,7 +395,7 @@ src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.
 Integer delete(Integer memberPk);
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
 ```diff
 - members.remove(index);
 ```
@@ -418,7 +418,7 @@ src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.
 Integer update(@Param("memberPk") Integer memberPk, @Param("member") Member member);
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
 ```diff
 - members.set(index, member);
 ```
@@ -431,7 +431,7 @@ membersRepository.update(memberPk, member);
 ### 회원(Members) Service 만들기
 * ❕ Service를 생성하는 이유 (여러 Controller에서 사용 되거나, 또는 Test(JUnit)에서 사용될 비지니스 로직(DB의 CRUD등등)을 담을때 사용한다.)
 
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersService.java
+src/main/java/com/example/SpringBootRestApiStudy/services/MembersService.java
 ```java
 @Service
 public class MembersService {
@@ -456,7 +456,7 @@ public class MembersService {
 }
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
 ```diff
 - private MembersRepository membersRepository;
 + private MembersService membersService;
@@ -487,7 +487,7 @@ src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.
 List<Member> select();
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersService.java
+src/main/java/com/example/SpringBootRestApiStudy/services/MembersService.java
 ```java
 public List<Member> select() {
     return membersRepository.select();
@@ -505,7 +505,7 @@ members = membersService.select();
 
 MembersService.java 복사해서 MembersServiceImpl.java
 
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersService.java
+src/main/java/com/example/SpringBootRestApiStudy/services/MembersService.java
 ```diff
 - @Service
 - 밑으로 모두
@@ -519,7 +519,7 @@ public interface MembersService {
 }
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersServiceImpl.java
+src/main/java/com/example/SpringBootRestApiStudy/services/MembersServiceImpl.java
 ```diff
 - @Service
 - public class MembersService {
@@ -563,7 +563,7 @@ a1=123
 b1.b2=한글
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
 ```java
 @Slf4j
 @PropertySource(value = "classpath:custom.properties", encoding="UTF-8")
@@ -599,7 +599,7 @@ src/main/resources/application-production.properties
 property.c1=production
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
 ```java
 @Value("${property.c1}") private String c1;
 ```
@@ -620,7 +620,7 @@ src/main/resources/application-db-production.properties
 property.d1=db-production
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/api/v1/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
 ```java
 @Value("${property.d1}") private String d1;
 ```
@@ -634,7 +634,7 @@ src/main/resources/application.properties
 ```properties
 a1=1
 b1.b2=b2
-property.c1=c1
+property.c1=c1 
 property.d1=d1
 ```
 * https://www.whiteship.me/spring-boot-external-config
