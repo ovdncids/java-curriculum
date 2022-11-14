@@ -203,3 +203,9 @@ src/main/resources/log4j.xml
 다운로드 > spring-tool-suite-4-4.14.1.RELEASE-e4.23.0-win32.win32.x86_64.self-extracting.jar > 더블 클릭하면 압축 풀림
 ```
 * ❕ `Spring Tool Suite 4` 부터는 일반 `Spring Legacy Project`를 생성 할 수 없고 `Spring Boot`만 생성 가능 하다.
+
+# GIT
+```sh
+Window > Show View > Other... > Git Repositories > Add an existing local Git repository
+Window > Show View > Other... > Git Staging
+```
