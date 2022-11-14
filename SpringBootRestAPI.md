@@ -162,6 +162,10 @@ public class SwaggerConfig {
 * Spring Boot(Tomcat) 재시작
 * http://localhost:8080/swagger-ui.html
 * ❕ 안될 경우: IntelliJ 재시작
+* ❕ Spring Boot 2.6버전 이후 `documentationPluginsBootstrapper` 오류 발생 할 경우 `application.properties` 파일에 추가
+```sh
+spring.mvc.pathmatch.matching-strategy=ant_path_matcher
+```
 
 <!-- pom.xml 파일에서 문제가 있을경우 2.9.2 -> 2.6.1 변경 후 다시 2.9.2 버전으로 돌아 온다. -->
 
