@@ -49,7 +49,7 @@ public class SpringBootMvcStudyApplication {
 src/main/java/com/example/SpringBootMvcStudy/controllers/MembersController.java
 ```java
 @Controller
-public class Members {
+public class MembersController {
     @RequestMapping(value = "/membersRead", method = RequestMethod.GET)
     @ResponseBody
     String membersRead() {
@@ -58,10 +58,10 @@ public class Members {
 }
 ```
 
-src/main/java/com/example/SpringBootMvcStudy/controllers/Search.java
+src/main/java/com/example/SpringBootMvcStudy/controllers/SearchController.java
 ```java
 @Controller
-public class Search {
+public class SearchController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     @ResponseBody
     String search() {
@@ -337,7 +337,7 @@ public class Member {
 ## Model과 Controller 연결
 src/main/java/com/example/SpringBootMvcStudy/controllers/MembersController.java
 
-public class Members {
+public class MembersController {
 
 ```java
     private static List<Member> init() {
@@ -532,10 +532,10 @@ src/main/webapp/WEB-INF/views/search.jsp
 </html>
 ```
 
-src/main/java/com/example/SpringBootMvcStudy/controllers/Search.java
+src/main/java/com/example/SpringBootMvcStudy/controllers/SearchController.java
 ```java
 @Controller
-public class Search {
+public class SearchController {
     @RequestMapping(value = "/search", method = RequestMethod.GET)
     ModelAndView search() {
         ModelAndView modelAndView = new ModelAndView("search");
@@ -553,7 +553,7 @@ src/main/webapp/WEB-INF/views/search.jsp
 + <input type="text" placeholder="Search" name="q" value="${param.q}" />
 ```
 
-src/main/java/com/example/SpringBootMvcStudy/controllers/Search.java
+src/main/java/com/example/SpringBootMvcStudy/controllers/SearchController.java
 ```diff
 - ModelAndView search() {
 + ModelAndView search(@RequestParam(required = false) String q) {
