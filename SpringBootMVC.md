@@ -560,14 +560,14 @@ src/main/java/com/example/SpringBootMvcStudy/controllers/SearchController.java
 ```
 ```java
 List<Member> members = new ArrayList<>();
-for (int index = 0; index < Members.members.size(); index++) {
-    Member member = Members.members.get(index);
+for (int index = 0; index < MembersController.members.size(); index++) {
+    Member member = MembersController.members.get(index);
     if (q == null || member.getName().contains(q)) {
         members.add(member);
     }
 }
 ```
 ```diff
-- modelAndView.addObject("members", Members.members);
+- modelAndView.addObject("members", MembersController.members);
 + modelAndView.addObject("members", members);
 ```
