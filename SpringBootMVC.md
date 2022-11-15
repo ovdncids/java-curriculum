@@ -540,7 +540,7 @@ public class SearchController {
     ModelAndView search() {
         ModelAndView modelAndView = new ModelAndView("search");
         modelAndView.addObject("result", "search");
-        modelAndView.addObject("members", Members.members);
+        modelAndView.addObject("members", MembersController.members);
         return modelAndView;
     }
 }
