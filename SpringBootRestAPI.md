@@ -33,10 +33,6 @@ src/main/java/com/example/SpringBootRestApiStudy/models/Member.java
 public class Member {
     private String name;
     private Integer age;
-
-    public Member() {}
-
-    
 }
 ```
 * `Generate...`, `Constructor`,  `Getter and Setter` 설명
@@ -229,7 +225,9 @@ public void setMemberPk(Integer memberPk) {
     this.memberPk = memberPk;
 }
 ```
-* ❕ 생성자의 파라미터 순서대로 DB에서 내려 받는다.
+* ❕ `select * from members`의 경우는 생성자의 파라미터 순서대로 DB에서 내려 받는다.
+* ❕ `select name, age, member_pk from members`의 경우는 생성자의 파라미터 순서와 같이 않아도 받을 수 있다.
+* ❕ 생성자를 사용하지 않으면 `select * from members`, `select name, age, member_pk from members` 모두 받을 수 있다.
 
 ## 1. JDBC(Java Database Connectivity) 연동 모듈
 pom.xml
