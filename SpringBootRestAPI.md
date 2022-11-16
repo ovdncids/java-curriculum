@@ -229,6 +229,7 @@ public void setMemberPk(Integer memberPk) {
     this.memberPk = memberPk;
 }
 ```
+* ❕ 생성자의 파라미터 순서대로 DB에서 내려 받는다.
 
 ## 1. JDBC(Java Database Connectivity) 연동 모듈
 pom.xml
