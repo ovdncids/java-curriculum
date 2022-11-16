@@ -36,6 +36,9 @@ String formatDateTime = LocalDateTime.from(localDateTime).format(DateTimeFormatt
 ```
 
 # 오류들
+## Spring
+### @org.springframework.beans.factory.annotation.Autowired(required=true)
+* pom.xml 파일에 `라이브러리`를 추가 하지 않았거나, `@Service` 어노테이션을 붙이지 않았을때 발생
 
 ## Http
 ### HttpMediaTypeNotSupportedException :: 415 status code
