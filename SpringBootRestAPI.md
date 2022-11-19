@@ -541,6 +541,21 @@ public class MembersServiceImpl implements MembersService {
 
 <!-- APO: 쉽게 미들웨어라고 생각하면 쉽다. -->
 
+## 특정 컬럼 추가/삭제 후 Response 하기
+src/main/java/com/example/SpringBootRestApiStudy/models/Member.java
+```java
+@JsonIgnoreProperties({"memberPk", "age"})
+class MemberRead extends Member {
+    public String add;
+}
+```
+
+src/main/resources/mappers/members.xml
+```diff
+- <select id="read" resultType="Member">
++ <select id="read" resultType="MemberRead">
+```
+
 # 기타 라이브러리
 ## @Slf4j log
 src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
