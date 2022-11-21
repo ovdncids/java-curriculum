@@ -163,7 +163,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 }
 ```
 * `디버깅 모드`에서 어떻게 동작 하는지 확인
-* `@Component` 주석 처리해 보기 
+* `@Component` 주석 처리해 보기
+* `return true;` `false`로 바꿔 보기
 
 ### /api/v1/members/check 경로에만 Filter 적용
 ```diff
