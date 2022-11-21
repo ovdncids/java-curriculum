@@ -209,7 +209,7 @@ public Map<String, Object> membersCheck(
 }
 ```
 
-## Security와 JwtRequestFilter 연결
+## Security와 JwtRequestFilter 연결 (꼭 필요하지 않으면 사용 하지 않는다.)
 pom.xml
 ```xml
 <dependency>
