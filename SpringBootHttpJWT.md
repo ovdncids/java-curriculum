@@ -248,6 +248,7 @@ public void configure(WebSecurity web) throws Exception {
 * https://sup2is.github.io/2020/03/05/spring-security-login-with-jwt.html
 * https://kimchanjung.github.io/programming/2020/07/02/spring-security-02
 -->
+* [WebSecurityConfigurerAdapter - deprecation 관련](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter)
 
 src/main/java/패키지/common/JwtRequestFilter.java
 ```diff
