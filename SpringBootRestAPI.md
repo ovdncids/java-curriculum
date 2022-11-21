@@ -83,7 +83,7 @@ public class MembersController {
 
     @RequestMapping(path = "", method = RequestMethod.GET)
     // public MembersResponse membersRead(@ModelAttribute Member member) {
-    // public MembersResponse membersRead(@RequestParam("name") String title, @RequestParam((required=false, defaultValue="1")) int age) {
+    // public MembersResponse membersRead(@RequestParam("name") String title, @RequestParam(required=false, defaultValue="1") int age) {
     public MembersResponse membersRead() {
         return new MembersResponse("read", members);
     }
