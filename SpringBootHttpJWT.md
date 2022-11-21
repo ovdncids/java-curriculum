@@ -15,6 +15,10 @@ pom.xml
 ## JWT 테스트
 src/main/java/패키지/common/JwtAuth.java
 ```java
+import io.jsonwebtoken.Header;
+import java.time.Duration;
+import java.util.Date;
+
 public class JwtAuth {
     private static String privateKey = "privateKey";
 
