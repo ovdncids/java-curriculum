@@ -75,6 +75,14 @@ public Map<String, Object> membersCheck(@RequestParam String token) {
     return member;
 }
 ```
+### Java 11 이상에서 java.lang.ClassNotFoundException: javax.xml.bind.DatatypeConverter 발생 하는 경우
+```xml
+<dependency>
+    <groupId>javax.xml.bind</groupId>
+    <artifactId>jaxb-api</artifactId>
+    <!-- <version>2.3.1</version> -->
+</dependency>
+```
 
 ## token 값을 header에서 받기
 ### Swagger에 적용
