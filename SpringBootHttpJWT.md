@@ -210,6 +210,14 @@ public Map<String, Object> membersCheck(
 ```
 
 ## Security와 JwtRequestFilter 연결
+pom.xml
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+```
+
 src/main/java/패키지/WebSecurityConfig.java
 ```java
 @Configuration
@@ -240,14 +248,6 @@ public void configure(WebSecurity web) throws Exception {
 * https://sup2is.github.io/2020/03/05/spring-security-login-with-jwt.html
 * https://kimchanjung.github.io/programming/2020/07/02/spring-security-02
 -->
-
-pom.xml
-```xml
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-security</artifactId>
-</dependency>
-```
 
 src/main/java/패키지/common/JwtRequestFilter.java
 ```diff
