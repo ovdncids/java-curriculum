@@ -88,6 +88,9 @@ public Map<String, Object> membersCheck(@RequestParam String token) {
 ### Swagger에 적용
 src/main/java/패키지/프로젝트.java
 ```java
+import java.util.Collections;
+import springfox.documentation.service.AuthorizationScope;
+
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
