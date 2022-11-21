@@ -119,8 +119,11 @@ src/main/java/패키지/api/v1/members/MembersController.java
 ```java
 public Map<String, Object> membersCheck(
         @ApiIgnore @RequestHeader("x-jwt-token") String token
+        // @RequestHeader(value="x-jwt-token", required=false) String token
 ) {
 ```
+* `@ApiIgnore`가 함수 위에 있을 경우는 `swagger`에서 해당 API를 숨기고,
+* `@ApiIgnore`가 파라미터에 있는 경우는 `swagger`에서 해당 파라미터를 숨긴다.
 
 ## 모든 서버 요청에 JwtRequestFilter 먼저 실행 시키기
 * 필터(Filter), 인터셉터(Interceptor), 미들웨어(Middleware) 상황에 따라서 달리 불려진다.
