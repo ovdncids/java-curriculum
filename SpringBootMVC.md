@@ -27,12 +27,10 @@ public class SpringBootMvcStudyApplication <- RUN 버튼 누르기
 ## Controller 만들기
 * Controller는 웹 URL 경로를 생성해 준다.
 
-src/main/java/com/example/SpringBootMvcStudy/SpringBootMvcStudyApplication.java
+src/main/java/com/example/SpringBootMvcStudy/controllers/RootController.java
 ```java
 @Controller
-public class SpringBootMvcStudyApplication {
-    ...
-
+public class RootController {
     @RequestMapping("/")
     @ResponseBody
     String root() {
@@ -103,6 +101,7 @@ src/main/webapp/WEB-INF/views/members.jsp
 
 src/main/java/com/example/SpringBootMvcStudy/controllers/MembersController.java
 ```diff
+- @ResponseBody
 - String membersRead() {
 -     return "membersRead";
 - }
@@ -112,6 +111,7 @@ ModelAndView membersRead() {
     return new ModelAndView("members");
 }
 ```
+* ❕ `ModelAndView`을 사용하면 `@ResponseBody` 어노테이션은 사용하지 않아도 된다.
 
 src/main/resources/application.properties
 ```properties
@@ -359,7 +359,6 @@ public class MembersController {
         return new ModelAndView("members");
     }
 ```
-* ❕ `ModelAndView`을 사용하면 `@ResponseBody` 어노테이션은 사용하지 않아도 된다.
 
 ## Model과 Controller와 View 연결
 ```diff
