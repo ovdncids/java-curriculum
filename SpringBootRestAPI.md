@@ -308,7 +308,8 @@ logging.level.com.example.SpringBootRestApiStudy=TRACE
 ```
 * ❕ SQL문 로깅이 잘 안 될 경우 `logging.level.com=TRACE` 해보자
 
-### 회원(Members) Read
+### MySQL 접속 테스트 (JUnit)
+#### 회원(Members) Read
 src/main/resources/mappers/members.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -321,7 +322,6 @@ src/main/resources/mappers/members.xml
 </mapper>
 ```
 
-#### MySQL 접속 테스트 (JUnit)
 src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
 ```java
 private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -339,7 +339,75 @@ void membersRead() {
 * 테스트를 사용하는 이유 (테스트 하고 싶은 부분만 바로 실행 할 수 있다.)
 * `org.slf4j.Logger` 선택
 
-#### Repository 인터페이스 생성
+#### 회원(Members) Create
+src/main/resources/mappers/members.xml
+```xml
+<insert id="create" parameterType="Member">
+    insert into members(name, age)
+    values(#{name}, #{age})
+</insert>
+```
+
+src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
+```java
+@Test
+void membersCreate() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    Integer count = sqlSession.insert(
+        "com.example.SpringBootRestApiStudy.repositories.MembersRepository.create",
+        new Member(0, "홍길동", 39)
+    );
+    logger.info("Done: MembersRepository.create");
+}
+```
+
+#### 회원(Members) Delete
+src/main/resources/mappers/members.xml
+```xml
+<delete id="delete" parameterType="Integer">
+    delete from members
+    where member_pk = #{memberPk}
+</delete>
+```
+
+src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
+```java
+@Test
+void membersDelete() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    Integer count = sqlSession.delete(
+        "com.example.SpringBootRestApiStudy.repositories.MembersRepository.delete",
+        1
+    );
+    logger.info("Done: MembersRepository.delete");
+}
+```
+
+#### 회원(Members) Update
+src/main/resources/mappers/members.xml
+```xml
+<update id="update">
+    update members set name = #{name}, age = #{age}
+    where member_pk = #{memberPk}
+</update>
+```
+
+src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
+```java
+@Test
+void membersUpdate() {
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+    Integer count = sqlSession.update(
+        "com.example.SpringBootRestApiStudy.repositories.MembersRepository.update",
+        new Member(2, "이순신", 33)
+    );
+    logger.info("Done: MembersRepository.update");
+}
+```
+* `Controller`에서 `SqlSession` 적용해 보기
+
+### Repository 인터페이스 매핑
+#### 회원(Members) Read
 src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.java
 ```java
 @Mapper
@@ -364,14 +432,7 @@ public MembersResponse membersRead() {
     List<Member> members = membersRepository.read();
 ```
 
-### 회원(Members) Create
-src/main/resources/mappers/members.xml
-```xml
-<insert id="create" parameterType="Member">
-    insert into members(name, age) values(#{name}, #{age})
-</insert>
-```
-
+#### 회원(Members) Create
 src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.java
 ```java
 Integer create(Member member);
@@ -386,14 +447,7 @@ membersRepository.create(member);
 ```
 * `membersRepository.create(member);` 생성된 Member의 수를 반환한다.
 
-### 회원(Members) Delete
-src/main/resources/mappers/members.xml
-```xml
-<delete id="delete" parameterType="Integer">
-    delete from members where member_pk = #{memberPk}
-</delete>
-```
-
+#### 회원(Members) Delete
 src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.java
 ```java
 Integer delete(Integer memberPk);
@@ -411,9 +465,16 @@ membersRepository.delete(memberPk);
 
 ### 회원(Members) Update
 src/main/resources/mappers/members.xml
+```diff
+- <update id="update">
+-     update members set name = #{name}, age = #{age}
+-     where member_pk = #{memberPk}
+- </update>
+```
 ```xml
 <update id="update">
-    update members set name = #{member.name}, age = #{member.age} where member_pk = #{memberPk}
+    update members set name = #{member.name}, age = #{member.age}
+    where member_pk = #{memberPk}
 </update>
 ```
 
