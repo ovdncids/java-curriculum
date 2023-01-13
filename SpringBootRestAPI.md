@@ -416,7 +416,7 @@ public interface MembersRepository {
     List<Member> read();
 }
 ```
-* ❕ Repository 인터페이스 생성하는 이유 (Controller나 Service 마다 SqlSessionFactory, SqlSession을 호출할 필요 없고, 바로 매핑까지 해준다.)
+* ❕ Repository 인터페이스 생성하는 이유 (Controller나 Service 마다 SqlSessionFactory, SqlSession을 호출할 필요 없이, 바로 매핑까지 해준다.)
 
 #### MembersController에서 Repository 사용하기
 src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
