@@ -306,6 +306,7 @@ mybatis.type-aliases-package=com.example.SpringBootRestApiStudy.models
 mybatis.mapper-locations=classpath:mappers/*.xml
 logging.level.com.example.SpringBootRestApiStudy=TRACE
 ```
+* ❕ `com.example.SpringBootRestApiStudy` 패키지가 동일한지 확인
 * ❕ SQL문 로깅이 잘 안 될 경우 `logging.level.com=TRACE` 해보자
 
 ### MySQL 접속 테스트 (JUnit)
