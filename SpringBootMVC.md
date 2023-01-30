@@ -570,3 +570,36 @@ for (int index = 0; index < MembersController.members.size(); index++) {
 - modelAndView.addObject("members", MembersController.members);
 + modelAndView.addObject("members", members);
 ```
+
+### Nav import
+```diff
+- <nav class="nav">
+-     <ul>
+-         <li><h2><a href="/membersRead" class="active">Members</a></h2></li>
+-         <li><h2><a href="/search">Search</a></h2></li>
+-     </ul>
+- </nav>
+```
+```jsp
+<c:import url="../layout/nav.jsp" charEncoding="UTF-8">
+    <c:param name="active" value="members" />
+</c:import>
+```
+
+src/main/webapp/WEB-INF/layout/nav.jsp
+```jsp
+<%@ page language="java" contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<nav class="nav">
+    <ul>
+        <li>
+            <h2>
+                <a href="/membersRead"
+                    <c:if test="${param.active eq 'members'}">class="active"</c:if>
+                >Members</a>
+            </h2>
+        </li>
+        <li><h2><a href="/search">Search</a></h2></li>
+    </ul>
+</nav>
+```
