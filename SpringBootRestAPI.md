@@ -257,7 +257,10 @@ public MembersResponse membersRead() {
 ```
 
 * @Autowired 관련 문서
-* https://laycoder.tistory.com/109
+* `Bean`에 등록된 `@Service`, `@Component (사용자 정의 Class)`, `@Controller` 등을 `@Autowired`로 간단히 주입 받는다.
+* `@Service`을 `@Component` 변경 하여도 정상적으로 동작은 한다.
+* `@Service` 비지니스 로직 담당을 명시한다.
+* https://wildeveloperetrain.tistory.com/26
 * https://medium.com/@jang.wangsu/di-dependency-injection-%EC%9D%B4%EB%9E%80-1b12fdefec4f
 
 ### 회원(Members) Create
