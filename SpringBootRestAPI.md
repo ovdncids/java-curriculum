@@ -556,9 +556,9 @@ private MembersService membersService;
 @Test
 void members() {
     List<Member> members = membersService.read();
-    membersService.create(new Member(null, "semin", 20));
+    membersService.create(new Member(null, "홍길동", 39));
     membersService.delete(0);
-    membersService.update(0, new Member(null, "min", 30));
+    membersService.update(0, new Member(null, "이순신", 33));
 }
 ```
 * ❕ 테스트에서도 Service를 자유롭게 사용 할 수 있다.
