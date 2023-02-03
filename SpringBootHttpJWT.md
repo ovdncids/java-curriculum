@@ -109,12 +109,13 @@ public class SwaggerConfig {
                 // API가 Header에서 받은 x-jwt-token 읽기
                 .securityContexts(Collections.singletonList(securityContext))
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("패키지.api.v1"))
+                .apis(RequestHandlerSelectors.basePackage("패키지 경로"))
                 .paths(Predicates.or(PathSelectors.ant("/api/v1/members/login"), PathSelectors.ant("/api/v1/members/check")))
                 .build();
     }
 }
 ```
+* ❕ 이전 `@Bean`이 있으면 추가 한다.
 
 <!--
 Predicates.and(
@@ -139,6 +140,7 @@ public Map<String, Object> membersCheck(
 ```
 * `@ApiIgnore`가 함수 위에 있을 경우는 `swagger`에서 해당 API를 숨기고,
 * `@ApiIgnore`가 파라미터에 있는 경우는 `swagger`에서 해당 파라미터를 숨긴다.
+* ❕ `Swagger`에서 `Select a spec`이 `x-jwt-token`으로 선택되었는지 확인. 
 
 ## 모든 서버 요청에 JwtRequestFilter 먼저 실행 시키기
 * 필터(Filter), 인터셉터(Interceptor), 미들웨어(Middleware) 상황에 따라서 달리 불려진다.
