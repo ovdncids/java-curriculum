@@ -449,6 +449,13 @@ membersRepository.create(member);
 ```
 * `membersRepository.create(member);` 생성된 Member의 수를 반환한다.
 
+##### (no Creators, like default constructor, exist): cannot deserialize from Object value (no delegate- or property-based Creator) 발생 한다면
+src/main/java/com/example/SpringBootRestApiStudy/models/Member.java
+```java
+public Member() {}
+```
+* 또는 `Swagger` 새로고침
+
 #### 회원(Members) Delete
 src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.java
 ```java
@@ -494,6 +501,16 @@ membersRepository.update(memberPk, member);
 ```
 + index <- memberPk 수정
 * `membersRepository.update(memberPk, member);` 수정된 Member의 수를 반환한다.
+
+src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
+```diff
+- private static List<Member> init() {
+- public static final List<Member> members = init();
+```
+src/main/java/com/example/SpringBootRestApiStudy/models/Member.java
+```diff
+- public Member(String name, Integer age) {
+```
 
 ### 회원(Members) Service 만들기
 * ❕ Service를 생성하는 이유 (여러 Controller에서 사용 되거나, 또는 Test(JUnit)에서 사용될 비지니스 로직(DB의 CRUD등등)을 담을때 사용한다.)
