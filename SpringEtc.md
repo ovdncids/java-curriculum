@@ -45,7 +45,7 @@ String formatDateTime = LocalDateTime.from(localDateTime).format(DateTimeFormatt
 * https://blog.naver.com/writer0713/221853596497
 ```java
 @RequestMapping(path = "", method = RequestMethod.POST)
-public void membersCreate(@RequestBody MultiValueMap<String, Object> map) {
+public void usersCreate(@RequestBody MultiValueMap<String, Object> map) {
 }
 ```
 * `MultiValueMap`은 `Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported`에 유용 하다.

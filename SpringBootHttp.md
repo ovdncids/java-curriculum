@@ -17,88 +17,88 @@ Run -> Edit Configurations... -> Environment variables: `server.port=18080`
 ```
 * http://localhost:18080/swagger-ui.html
 
-## 회원(Members) Service 만들기
+## 회원(Users) Service 만들기
 * ❕ Service를 생성하는 이유 (여러 Controller에서 사용 되거나, 또는 Test(JUnit)에서 사용될 비지니스 로직(DB의 CRUD등등)을 담을때 사용한다.)
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/UsersService.java
 ```java
 @Service
-public class MembersService {
-    private static List<Member> init() {
-        List<Member> members = new ArrayList<>();
-        members.add(new Member("홍길동", 39));
-        members.add(new Member("김삼순", 33));
-        members.add(new Member("홍명보", 44));
-        members.add(new Member("박지삼", 22));
-        members.add(new Member("권명순", 10));
-        return members;
+public class UsersService {
+    private static List<User> init() {
+        List<User> users = new ArrayList<>();
+        users.add(new User("홍길동", 39));
+        users.add(new User("김삼순", 33));
+        users.add(new User("홍명보", 44));
+        users.add(new User("박지삼", 22));
+        users.add(new User("권명순", 10));
+        return users;
     }
-    public static final List<Member> members = init();
+    public static final List<User> users = init();
 
-    public List<Member> read() {
-        return members;
+    public List<User> read() {
+        return users;
     }
 
-    public Integer create(Member member) {
-        members.add(member);
-        return members.size();
+    public Integer create(User user) {
+        users.add(user);
+        return users.size();
     }
 
     public Integer delete(int index) {
-        members.remove(index);
-        return members.size();
+        users.remove(index);
+        return users.size();
     }
 
-    public Integer update(int index, Member member) {
-        members.set(index, member);
-        return members.size();
+    public Integer update(int index, User user) {
+        users.set(index, user);
+        return users.size();
     }
 }
 ```
 
-### 회원(Members) Controller에서 Service 사용
-src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersController.java
+### 회원(Users) Controller에서 Service 사용
+src/main/java/com/example/SpringBootHttpStudy/api/v1/UsersController.java
 ```java
 @Autowired
-MembersService membersService;
+UsersService usersService;
 ```
 ```diff
 # Create
-- members.add(member);
-+ membersService.create(member);
+- users.add(user);
++ usersService.create(user);
 
 # Read
-- return new MembersResponse("read", members);
-+ return new MembersResponse("read", membersService.read());
+- return new UsersResponse("read", users);
++ return new UsersResponse("read", usersService.read());
 
 # Delete
-- members.remove(index);
-+ membersService.delete(index);
+- users.remove(index);
++ usersService.delete(index);
 
 # Update
-- members.set(index, member);
-+ membersService.update(index, member);
+- users.set(index, user);
++ usersService.update(index, user);
 ```
 
 ```diff
-- private static List<Member> init() {
+- private static List<User> init() {
 ```
 
-### 회원(Members) Service 테스트(JUnit)에서 호출 하기
+### 회원(Users) Service 테스트(JUnit)에서 호출 하기
 * 테스트를 사용하는 이유 (테스트 하고 싶은 부분만 바로 실행 할 수 있다.)
 
 src/test/java/com/example/SpringBootHttpStudy/SpringBootHttpStudyApplicationTests.java
 ```java
 @Autowired
-private MembersService membersService;
+private UsersService usersService;
 
 @Test
-void members() {
-    List<Member> members = membersService.read();
-    membersService.create(new Member("semin", 20));
-    membersService.delete(0);
-    membersService.update(0, new Member("min", 30));
-    System.out.println(members);
+void users() {
+    List<User> users = usersService.read();
+    usersService.create(new User("semin", 20));
+    usersService.delete(0);
+    usersService.update(0, new User("min", 30));
+    System.out.println(users);
 }
 ```
 * ❕ 테스트에서도 Service를 자유롭게 사용 할 수 있다.
@@ -106,30 +106,30 @@ void members() {
 ## Service와 ServiceImpl
 * 관습적으로 Service를 만들때 Service와 ServiceImpl로 나누어서 개발하는 곳이 많다.
 
-MembersService.java 복사해서 MembersServiceImpl.java
+UsersService.java 복사해서 UsersServiceImpl.java
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/UsersService.java
 ```diff
 - @Service
 - 밑으로 모두 삭제
 ```
 ```java
-public interface MembersService {
-    List<Member> read();
-    Integer create(Member member);
+public interface UsersService {
+    List<User> read();
+    Integer create(User user);
     Integer delete(int index);
-    Integer update(int index, Member member);
+    Integer update(int index, User user);
 }
 ```
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersServiceImpl.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/UsersServiceImpl.java
 ```diff
 - @Service
-- public class MembersService {
+- public class UsersService {
 ```
 ```java
-@Service("MembersService")
-public class MembersServiceImpl implements MembersService {
+@Service("UsersService")
+public class UsersServiceImpl implements UsersService {
 ```
 
 * ❕ 결론 Service와 ServiceImpl의 관계가 1:1인 경우는 service와 serviceImpl로 따로 나눌 필요 없다.
@@ -154,14 +154,14 @@ pom.xml
 </dependency>
 ```
 
-## 회원(Members) Read
-src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+## 회원(Users) Read
+src/main/java/com/example/SpringBootHttpStudy/api/v1/UsersService.java
 ```java
 import org.apache.tomcat.util.json.JSONParser;
 
 // @SuppressWarnings("unchecked")
-public List<Member> read() throws Exception {
-    HttpGet httpGet = new HttpGet("http://localhost:8080/api/v1/members");
+public List<User> read() throws Exception {
+    HttpGet httpGet = new HttpGet("http://localhost:8080/api/v1/users");
     httpGet.addHeader("Content-Type", "application/json");
     CloseableHttpClient httpClient = HttpClients.createDefault();
     CloseableHttpResponse httpResponse = httpClient.execute(httpGet);
@@ -170,20 +170,20 @@ public List<Member> read() throws Exception {
     System.out.println(jsonString);
     JSONParser jsonParser = new JSONParser(jsonString);
     LinkedHashMap<String, Object> linkedHashMap = jsonParser.object();
-    System.out.println(linkedHashMap.get("members"));
+    System.out.println(linkedHashMap.get("users"));
     httpClient.close();
-    return (List<Member>) linkedHashMap.get("members");
+    return (List<User>) linkedHashMap.get("users");
 }
 ```
 * `Controller`와 `Test` 모두 예외를 회피 한다. (`throws Exception`)
 
-## 회원(Members) Create
+## 회원(Users) Create
 ```java
-public Integer create(Member member) throws Exception {
-    HttpPost httpPost = new HttpPost("http://localhost:8080/api/v1/members");
+public Integer create(User user) throws Exception {
+    HttpPost httpPost = new HttpPost("http://localhost:8080/api/v1/users");
     httpPost.addHeader("Content-Type", "application/json");
     Gson gson = new Gson();
-    StringEntity stringEntity = new StringEntity(gson.toJson(member), StandardCharsets.UTF_8);
+    StringEntity stringEntity = new StringEntity(gson.toJson(user), StandardCharsets.UTF_8);
     httpPost.setEntity(stringEntity);
     CloseableHttpClient httpClient = HttpClients.createDefault();
     CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
@@ -198,10 +198,10 @@ public Integer create(Member member) throws Exception {
 }
 ```
 
-## 회원(Members) Delete
+## 회원(Users) Delete
 ```java
 public Integer delete(int index) throws Exception {
-    HttpDelete httpDelete = new HttpDelete("http://localhost:8080/api/v1/members/" + index);
+    HttpDelete httpDelete = new HttpDelete("http://localhost:8080/api/v1/users/" + index);
     httpDelete.addHeader("Content-Type", "application/json");
     CloseableHttpClient httpClient = HttpClients.createDefault();
     CloseableHttpResponse httpResponse = httpClient.execute(httpDelete);
@@ -216,13 +216,13 @@ public Integer delete(int index) throws Exception {
 }
 ```
 
-## 회원(Members) Update
+## 회원(Users) Update
 ```java
-public Integer update(int index, Member member) throws Exception {
-    HttpPatch httpPatch = new HttpPatch("http://localhost:8080/api/v1/members/" + index);
+public Integer update(int index, User user) throws Exception {
+    HttpPatch httpPatch = new HttpPatch("http://localhost:8080/api/v1/users/" + index);
     httpPatch.addHeader("Content-Type", "application/json");
     Gson gson = new Gson();
-    StringEntity stringEntity = new StringEntity(gson.toJson(member), StandardCharsets.UTF_8);
+    StringEntity stringEntity = new StringEntity(gson.toJson(user), StandardCharsets.UTF_8);
     httpPatch.setEntity(stringEntity);
     CloseableHttpClient httpClient = HttpClients.createDefault();
     CloseableHttpResponse httpResponse = httpClient.execute(httpPatch);
@@ -237,7 +237,7 @@ public Integer update(int index, Member member) throws Exception {
 }
 ```
 ```diff
-- private static List<Member> init() {
+- private static List<User> init() {
 ```
 
 ## HttpClient5 Service 또는 공용 함수 만들기
@@ -268,10 +268,10 @@ public class HttpClient5 {
 }
 ```
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/UsersService.java
 ```java
-public List<Member> read() throws Exception {
-    HttpClient5.connect("GET", "http://localhost:8080/api/v1/members");
+public List<User> read() throws Exception {
+    HttpClient5.connect("GET", "http://localhost:8080/api/v1/users");
     return null;
 }
 ```
@@ -303,31 +303,31 @@ public static HttpClient5Response connect(String method, String url) throws Exce
 }
 ```
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/UsersService.java
 ```diff
-- HttpClient5.connect("GET", "http://localhost:8080/api/v1/members");
+- HttpClient5.connect("GET", "http://localhost:8080/api/v1/users");
 - return null;
 ```
 ```java
-String url = "http://localhost:8080/api/v1/members";
+String url = "http://localhost:8080/api/v1/users";
 HttpClient5Response httpClient5Response = HttpClient5.connect("GET", url);
-return (List<Member>) httpClient5Response.getResponseMap().get("members");
+return (List<User>) httpClient5Response.getResponseMap().get("users");
 ```
 
-### 회원(Members) Service Delete
+### 회원(Users) Service Delete
 ```java
 public Integer delete(int index) throws Exception {
-    String url = "http://localhost:8080/api/v1/members/" + index;
+    String url = "http://localhost:8080/api/v1/users/" + index;
     HttpClient5.connect("DELETE", url);
     return null;
 }
 ```
 
-### 회원(Members) Service Create, Update
+### 회원(Users) Service Create, Update
 ```java
-public Integer create(Member member) throws Exception {
-    String url = "http://localhost:8080/api/v1/members";
-    HttpClient5.connect("POST", url, member);
+public Integer create(User user) throws Exception {
+    String url = "http://localhost:8080/api/v1/users";
+    HttpClient5.connect("POST", url, user);
     return null;
 }
 ```
@@ -340,7 +340,7 @@ public static HttpClient5Response connect(String method, String url, Object entr
 ```
 ```java
 Gson gson = new Gson();
-StringEntity stringEntity = new StringEntity(gson.toJson(member), StandardCharsets.UTF_8);
+StringEntity stringEntity = new StringEntity(gson.toJson(user), StandardCharsets.UTF_8);
 httpPost.setEntity(stringEntity);
 ```
 * `오류` 모두 수정 하기
@@ -385,27 +385,27 @@ public static HttpClient5Response patch(String url, Object entity) throws Except
 * ❔ Service 수정 하기
 
 ## Query string 받아서 넘기기
-src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersController.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/UsersController.java
 ```java
-public MembersResponse membersRead(
+public UsersResponse usersRead(
         @RequestParam("name") String name,
         @RequestParam("age") int age
 ) throws Exception {
-    Member member = new Member(name, age);
-    return new MembersResponse("read", membersService.read(member));
+    User user = new User(name, age);
+    return new UsersResponse("read", usersService.read(user));
 }
 ```
 * 또는
 ```java
-public MembersResponse membersRead(@ModelAttribute Member member) throws Exception {
-    return new MembersResponse("read", membersService.read(member));
+public UsersResponse usersRead(@ModelAttribute User user) throws Exception {
+    return new UsersResponse("read", usersService.read(user));
 }
 ```
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/UsersService.java
 ```diff
-- public List<Member> read() throws Exception {
-+ public List<Member> read(Member member) throws Exception {
+- public List<User> read() throws Exception {
++ public List<User> read(User user) throws Exception {
 ```
 * ❕ Problem이 발생 하면 Problems 탭에서 확인
 * Swagger에서 확인
@@ -413,7 +413,7 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
 ### HttpClient5에서 Query string을 받을 수 있는 함수 만들기
 ```diff
 - HttpClient5Response httpClient5Response = HttpClient5.get(URL);
-+ HttpClient5Response httpClient5Response = HttpClient5.getQuery(URL, member);
++ HttpClient5Response httpClient5Response = HttpClient5.getQuery(URL, user);
 ```
 
 src/main/java/com/example/SpringBootHttpStudy/common/HttpClient5.java
@@ -477,9 +477,9 @@ public class CustomProperties {
 }
 ```
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/UsersService.java
 ```diff
-- HttpClient5Response httpClient5Response = HttpClient5.getQuery(URL, member);
+- HttpClient5Response httpClient5Response = HttpClient5.getQuery(URL, user);
 + HttpClient5Response httpClient5Response = HttpClient5.getQuery(URL, CustomProperties.getAll());
 ```
 * `@Component`와 `@PostConstruct` 동작 설명
@@ -500,15 +500,15 @@ public static Map<String, Object> gsonMerge(Object[] objects) {
 }
 ```
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/UsersService.java
 ```java
-Object[] objects = {member, CustomProperties.getAll()};
+Object[] objects = {user, CustomProperties.getAll()};
 ```
 ```diff
 - HttpClient5Response httpClient5Response = HttpClient5.getQuery(URL, CustomProperties.getAll());
 + HttpClient5Response httpClient5Response = HttpClient5.getQuery(URL, HttpClient5.gsonMerge(objects));
 ```
-* ❔ `member.name`만 빼고 넘기려면
+* ❔ `user.name`만 빼고 넘기려면
 
 ## 예외 처리
 * https://cheese10yun.github.io/spring-guide-exception
@@ -521,13 +521,13 @@ server.error.include-exception=TRUE
 #server.error.include-stacktrace=ALWAYS
 ```
 
-src/main/java/com/example/SpringBootHttpStudy/api/v1/MembersService.java
+src/main/java/com/example/SpringBootHttpStudy/api/v1/UsersService.java
 ```diff
-- return (List<Member>) httpClient5Response.getResponseMap().get("members");
+- return (List<User>) httpClient5Response.getResponseMap().get("users");
 ```
 ```java
 int a = 1 / 0;
-return (List<Member>) httpClient5Response.getResponseMap().get("members");
+return (List<User>) httpClient5Response.getResponseMap().get("users");
 ```
 
 ### 공용 예외 처리

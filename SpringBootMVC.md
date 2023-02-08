@@ -41,17 +41,17 @@ public class RootController {
 
 ```diff
 - return "Hello world!";
-+ return "<script>document.location.href = '/membersRead';</script>";
++ return "<script>document.location.href = '/usersRead';</script>";
 ```
 
-src/main/java/com/example/SpringBootMvcStudy/controllers/MembersController.java
+src/main/java/com/example/SpringBootMvcStudy/controllers/UsersController.java
 ```java
 @Controller
-public class MembersController {
-    @RequestMapping(value = "/membersRead", method = RequestMethod.GET)
+public class UsersController {
+    @RequestMapping(value = "/usersRead", method = RequestMethod.GET)
     @ResponseBody
-    String membersRead() {
-        return "membersRead";
+    String usersRead() {
+        return "usersRead";
     }
 }
 ```
@@ -94,21 +94,21 @@ pom.xml
 * ❕ 안될 경우: IntelliJ 재시작
 
 ## View 만들기
-src/main/webapp/WEB-INF/views/members.jsp
+src/main/webapp/WEB-INF/views/users.jsp
 ```jsp
-<%="members.jsp"%>
+<%="users.jsp"%>
 ```
 
-src/main/java/com/example/SpringBootMvcStudy/controllers/MembersController.java
+src/main/java/com/example/SpringBootMvcStudy/controllers/UsersController.java
 ```diff
 - @ResponseBody
-- String membersRead() {
--     return "membersRead";
+- String usersRead() {
+-     return "usersRead";
 - }
 ```
 ```java
-ModelAndView membersRead() {
-    return new ModelAndView("members");
+ModelAndView usersRead() {
+    return new ModelAndView("users");
 }
 ```
 * ❕ `ModelAndView`을 사용하면 `@ResponseBody` 어노테이션은 사용하지 않아도 된다.
@@ -123,8 +123,8 @@ spring.mvc.view.suffix=.jsp
 server.servlet.register-default-servlet=true
 -->
 
-### View Members 페이지 Markup 적용
-src/main/webapp/WEB-INF/views/members.jsp
+### View Users 페이지 Markup 적용
+src/main/webapp/WEB-INF/views/users.jsp
 ```jsp
 <%@ page language="java" contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
@@ -132,7 +132,7 @@ src/main/webapp/WEB-INF/views/members.jsp
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Members</title>
+    <title>Users</title>
     <link href="./css/app.css" rel="stylesheet">
 </head>
 <body>
@@ -144,14 +144,14 @@ src/main/webapp/WEB-INF/views/members.jsp
         <div class="container">
             <nav class="nav">
                 <ul>
-                    <li><h2><a href="/membersRead" class="active">Members</a></h2></li>
+                    <li><h2><a href="/usersRead" class="active">Users</a></h2></li>
                     <li><h2><a href="/search">Search</a></h2></li>
                 </ul>
             </nav>
             <hr />
             <section class="contents">
                 <div>
-                    <h3>Members</h3>
+                    <h3>Users</h3>
                     <hr class="d-block" />
                     <div>
                         <h4>Read</h4>
@@ -178,7 +178,7 @@ src/main/webapp/WEB-INF/views/members.jsp
                     <hr class="d-block" />
                     <div>
                         <h4>Create</h4>
-                        <form method="POST" action="/membersCreate">
+                        <form method="POST" action="/usersCreate">
                             <input type="text" name="name" placeholder="Name" />
                             <input type="text" name="age" placeholder="Age" />
                             <button>Create</button>
@@ -275,24 +275,24 @@ spring.thymeleaf.cache=false
 spring.thymeleaf.enabled=true
 ```
 
-src/main/java/com/example/SpringBootMvcStudy/controllers/MembersController.java
+src/main/java/com/example/SpringBootMvcStudy/controllers/UsersController.java
 ```java
-@RequestMapping("/membersRead")
-ModelAndView membersRead(Model model) {
-    ModelAndView modelAndView = new ModelAndView("members");
+@RequestMapping("/usersRead")
+ModelAndView usersRead(Model model) {
+    ModelAndView modelAndView = new ModelAndView("users");
     modelAndView.addObject("result", "read");
     return modelAndView;
 }
 ```
 
-src/main/resources/templates/members.html
+src/main/resources/templates/users.html
 ```html
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Members</title>
+    <title>Users</title>
 </head>
 <body>
     <p th:text="${result}"></p>
@@ -304,14 +304,14 @@ src/main/resources/templates/members.html
 ## Model 만들기
 * Model은 데이터 구조 또는 스키마라고 한다.
 
-### 회원(Members) Model
-src/main/java/com/example/SpringBootMvcStudy/models/Member.java
+### 회원(Users) Model
+src/main/java/com/example/SpringBootMvcStudy/models/User.java
 ```java
-public class Member {
+public class User {
     private String name;
     private Integer age;
 
-    public Member(String name, Integer age) {
+    public User(String name, Integer age) {
         this.name = name;
         this.age = age;
     }
@@ -335,53 +335,53 @@ public class Member {
 ```
 
 ## Model과 Controller 연결
-src/main/java/com/example/SpringBootMvcStudy/controllers/MembersController.java
+src/main/java/com/example/SpringBootMvcStudy/controllers/UsersController.java
 
-public class MembersController {
+public class UsersController {
 
 ```java
-    private static List<Member> init() {
-        List<Member> members = new ArrayList<>();
-        members.add(new Member("홍길동", 39));
-        members.add(new Member("김삼순", 33));
-        members.add(new Member("홍명보", 44));
-        members.add(new Member("박지삼", 22));
-        members.add(new Member("권명순", 10));
-        return members;
+    private static List<User> init() {
+        List<User> users = new ArrayList<>();
+        users.add(new User("홍길동", 39));
+        users.add(new User("김삼순", 33));
+        users.add(new User("홍명보", 44));
+        users.add(new User("박지삼", 22));
+        users.add(new User("권명순", 10));
+        return users;
     }
-    public static final List<Member> members = init();
+    public static final List<User> users = init();
     
-    @RequestMapping(value = "/membersRead", method = RequestMethod.GET)
-    ModelAndView membersRead() {
-        Member member = members.get(0);
-        System.out.println(member.getName());
-        System.out.println(member.getAge());
-        return new ModelAndView("members");
+    @RequestMapping(value = "/usersRead", method = RequestMethod.GET)
+    ModelAndView usersRead() {
+        User user = users.get(0);
+        System.out.println(user.getName());
+        System.out.println(user.getAge());
+        return new ModelAndView("users");
     }
 ```
 
 ## Model과 Controller와 View 연결
 ```diff
-    ModelAndView membersRead() {
--       Member member = members.get(0);
--       System.out.println(member.getName());
--       System.out.println(member.getAge());
--       return new ModelAndView("members");
-	ModelAndView modelAndView = new ModelAndView("members");
+    ModelAndView usersRead() {
+-       User user = users.get(0);
+-       System.out.println(user.getName());
+-       System.out.println(user.getAge());
+-       return new ModelAndView("users");
+	ModelAndView modelAndView = new ModelAndView("users");
         modelAndView.addObject("result", "read");
-        modelAndView.addObject("members", members);
+        modelAndView.addObject("users", users);
         return modelAndView;
 ```
 
-### View Members 페이지에서 Model 활용
-src/main/webapp/WEB-INF/views/members.jsp
+### View Users 페이지에서 Model 활용
+src/main/webapp/WEB-INF/views/users.jsp
 ```diff
 - <h4>Read</h4>
 + <h4>${result}</h4>
 ```
 
-## 회원(Members) CRUD
-### 회원(Members) Read
+## 회원(Users) CRUD
+### 회원(Users) Read
 ```jsp
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 ```
@@ -396,11 +396,11 @@ src/main/webapp/WEB-INF/views/members.jsp
 - </tr>
 ```
 ```jsp
-<c:forEach items="${members}" var="member" varStatus="status">
+<c:forEach items="${users}" var="user" varStatus="status">
     <form method="POST">
     <tr>
-        <td>${member.name}</td>
-        <td>${member.age}</td>
+        <td>${user.name}</td>
+        <td>${user.age}</td>
         <td>
             <button>Update</button>
             <button>Delete</button>
@@ -410,57 +410,57 @@ src/main/webapp/WEB-INF/views/members.jsp
 </c:forEach>
 ```
 
-### 회원(Members) Create
-src/main/java/com/example/SpringBootMvcStudy/controllers/MembersController.java
+### 회원(Users) Create
+src/main/java/com/example/SpringBootMvcStudy/controllers/UsersController.java
 ```java
-@RequestMapping(value = "/membersCreate", method = RequestMethod.POST)
+@RequestMapping(value = "/usersCreate", method = RequestMethod.POST)
 @ResponseBody
-String membersCreate(Member member) {
-    members.add(member);
-    return "<script>document.location.href = '/membersRead';</script>";
+String usersCreate(User user) {
+    users.add(user);
+    return "<script>document.location.href = '/usersRead';</script>";
 }
 ```
 
-### 회원(Members) Delete
-src/main/webapp/WEB-INF/views/members.jsp
+### 회원(Users) Delete
+src/main/webapp/WEB-INF/views/users.jsp
 ```diff
 - <button>Delete</button>
-+ <button onclick="this.form.action = '/membersDelete/${status.index}';">Delete</button>
++ <button onclick="this.form.action = '/usersDelete/${status.index}';">Delete</button>
 ```
 
-src/main/java/com/example/SpringBootMvcStudy/controllers/MembersController.java
+src/main/java/com/example/SpringBootMvcStudy/controllers/UsersController.java
 ```java
-@RequestMapping(value = "/membersDelete/{index}", method = RequestMethod.POST)
+@RequestMapping(value = "/usersDelete/{index}", method = RequestMethod.POST)
 @ResponseBody
-    String membersDelete(@PathVariable("index") int index) {
-    members.remove(index);
-    return "<script>document.location.href = '/membersRead';</script>";
+    String usersDelete(@PathVariable("index") int index) {
+    users.remove(index);
+    return "<script>document.location.href = '/usersRead';</script>";
 }
 ```
 
-### 회원(Members) Update
-src/main/webapp/WEB-INF/views/members.jsp
+### 회원(Users) Update
+src/main/webapp/WEB-INF/views/users.jsp
 ```diff
-- <td>${member.name}</td>
-- <td>${member.age}</td>
-+ <td><input type="text" name="name" placeholder="Name" value="${member.name}" /></td>
-+ <td><input type="text" name="age" placeholder="Age" value="${member.age}" /></td>
+- <td>${user.name}</td>
+- <td>${user.age}</td>
++ <td><input type="text" name="name" placeholder="Name" value="${user.name}" /></td>
++ <td><input type="text" name="age" placeholder="Age" value="${user.age}" /></td>
 ```
 ```diff
 - <button>Update</button>
-+ <button onclick="this.form.action = '/membersUpdate/${status.index}';">Update</button>
++ <button onclick="this.form.action = '/usersUpdate/${status.index}';">Update</button>
 ```
 
-src/main/java/com/example/SpringBootMvcStudy/controllers/MembersController.java
+src/main/java/com/example/SpringBootMvcStudy/controllers/UsersController.java
 ```java
-@RequestMapping(value = "/membersUpdate/{index}", method = RequestMethod.POST)
+@RequestMapping(value = "/usersUpdate/{index}", method = RequestMethod.POST)
 @ResponseBody
-String membersUpdate(
+String usersUpdate(
         @PathVariable("index") int index,
-        Member member
+        User user
 ) {
-    members.set(index, member);
-    return "<script>document.location.href = '/membersRead';</script>";
+    users.set(index, user);
+    return "<script>document.location.href = '/usersRead';</script>";
 }
 ```
 
@@ -487,7 +487,7 @@ src/main/webapp/WEB-INF/views/search.jsp
         <div class="container">
             <nav class="nav">
                 <ul>
-                    <li><h2><a href="/membersRead">Members</a></h2></li>
+                    <li><h2><a href="/usersRead">Users</a></h2></li>
                     <li><h2><a href="/search" class="active">Search</a></h2></li>
                 </ul>
             </nav>
@@ -512,10 +512,10 @@ src/main/webapp/WEB-INF/views/search.jsp
                                 </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${members}" var="member" varStatus="status">
+                            <c:forEach items="${users}" var="user" varStatus="status">
                                 <tr>
-                                    <td>${member.name}</td>
-                                    <td>${member.age}</td>
+                                    <td>${user.name}</td>
+                                    <td>${user.age}</td>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -539,7 +539,7 @@ public class SearchController {
     ModelAndView search() {
         ModelAndView modelAndView = new ModelAndView("search");
         modelAndView.addObject("result", "search");
-        modelAndView.addObject("members", MembersController.members);
+        modelAndView.addObject("users", UsersController.users);
         return modelAndView;
     }
 }
@@ -558,31 +558,31 @@ src/main/java/com/example/SpringBootMvcStudy/controllers/SearchController.java
 + ModelAndView search(@RequestParam(required = false) String q) {
 ```
 ```java
-List<Member> members = new ArrayList<>();
-for (int index = 0; index < MembersController.members.size(); index++) {
-    Member member = MembersController.members.get(index);
-    if (q == null || member.getName().contains(q)) {
-        members.add(member);
+List<User> users = new ArrayList<>();
+for (int index = 0; index < UsersController.users.size(); index++) {
+    User user = UsersController.users.get(index);
+    if (q == null || user.getName().contains(q)) {
+        users.add(user);
     }
 }
 ```
 ```diff
-- modelAndView.addObject("members", MembersController.members);
-+ modelAndView.addObject("members", members);
+- modelAndView.addObject("users", UsersController.users);
++ modelAndView.addObject("users", users);
 ```
 
 ### Nav import
 ```diff
 - <nav class="nav">
 -     <ul>
--         <li><h2><a href="/membersRead" class="active">Members</a></h2></li>
+-         <li><h2><a href="/usersRead" class="active">Users</a></h2></li>
 -         <li><h2><a href="/search">Search</a></h2></li>
 -     </ul>
 - </nav>
 ```
 ```jsp
 <c:import url="../layout/nav.jsp" charEncoding="UTF-8">
-    <c:param name="active" value="members" />
+    <c:param name="active" value="users" />
 </c:import>
 ```
 
@@ -594,9 +594,9 @@ src/main/webapp/WEB-INF/layout/nav.jsp
     <ul>
         <li>
             <h2>
-                <a href="/membersRead"
-                    <c:if test="${param.active eq 'members'}">class="active"</c:if>
-                >Members</a>
+                <a href="/usersRead"
+                    <c:if test="${param.active eq 'users'}">class="active"</c:if>
+                >Users</a>
             </h2>
         </li>
         <li><h2><a href="/search">Search</a></h2></li>

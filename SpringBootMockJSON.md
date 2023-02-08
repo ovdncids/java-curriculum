@@ -1,6 +1,6 @@
 # Spring Boot - Mock JSON
 
-src/main/resources/json/Member.json
+src/main/resources/json/User.json
 ```json
 {
     "name": "홍길동",
@@ -8,7 +8,7 @@ src/main/resources/json/Member.json
 }
 ```
 
-src/main/resources/json/Members.json
+src/main/resources/json/Users.json
 ```json
 [
     {
@@ -43,14 +43,14 @@ import java.lang.reflect.Type;
 ```java
 @Test
 void contextLoads() {
-    Member member = getMockJSON("json/Member.json", Member.class);
-    System.out.println(member);
+    User user = getMockJSON("json/User.json", User.class);
+    System.out.println(user);
 
-    List<Member> members = getMockJSON(
-            "json/Members.json",
-            new TypeToken<List<Member>>(){}.getType()
+    List<User> users = getMockJSON(
+            "json/Users.json",
+            new TypeToken<List<User>>(){}.getType()
     );
-    System.out.println(members);
+    System.out.println(users);
 }
 
 static <T>T getMockJSON(String filePath, Type type) {
@@ -111,18 +111,18 @@ static <T>T getMockJSON(String filePath, TypeReference<T> valueTypeRef) {
 }
 
 @Test
-void testMember() {
-    String jsonMember = getMockJSON("json/Member.json");
-    System.out.println(jsonMember);
+void testUser() {
+    String jsonUser = getMockJSON("json/User.json");
+    System.out.println(jsonUser);
 
-    Member member = getMockJSON("json/Member.json", Member.class);
-    System.out.println(member);
+    User user = getMockJSON("json/User.json", User.class);
+    System.out.println(user);
 
-    List<Member> members = getMockJSON(
-            "json/Members.json",
-            new TypeReference<List<Member>>(){}
+    List<User> users = getMockJSON(
+            "json/Users.json",
+            new TypeReference<List<User>>(){}
     );
-    System.out.println(members);
+    System.out.println(users);
 }
 ```
 * ❕ `Model`의 `멤버 변수`들이 `private`일 경우, `public 빈 생성자` 또는 `get`, `set` 메서드가 있어야 한다.
@@ -134,12 +134,12 @@ Map<String, String> map = mapper.convertValue(object, HashMap.class);
 
 ### Java Lambda Expression
 ```java
-members.forEach((Member member) ->
-    System.out.println(member)
+users.forEach((User user) ->
+    System.out.println(user)
 );
 
-members.forEach(member -> {
-    System.out.println(member);
+users.forEach(user -> {
+    System.out.println(user);
 });
 ```
 * `Python`의 `lambda` 형식으로 실행 가능

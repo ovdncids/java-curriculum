@@ -146,7 +146,7 @@ public void setV2(Integer v2) {
 
 src/com/company/models/Model1.java
 ```java
-public static String s1 = "Static member";
+public static String s1 = "Static user";
 public static void s2() {
     System.out.println(s1);
 }

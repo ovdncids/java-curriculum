@@ -22,13 +22,13 @@ import java.util.Date;
 public class JwtAuth {
     private static String privateKey = "privateKey";
 
-    public static String tokenCreate(Map<String, Object> member) {
+    public static String tokenCreate(Map<String, Object> user) {
         Date now = new Date();
         return Jwts.builder()
             .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
             .setExpiration(new Date(now.getTime() + Duration.ofMinutes(60 * 24).toMillis()))
             .setSubject("login")
-            .setClaims(member)
+            .setClaims(user)
             .signWith(SignatureAlgorithm.HS256, privateKey)
             .compact();
     }
@@ -43,36 +43,36 @@ src/test/java/패키지/{프로젝트명}Tests.java
 ```java
 @Test
 void tokenCreate() {
-    Map<String, Object> member = new HashMap<>();
-    member.put("name", "홍길동");
-    member.put("age", 39);
-    String token = JwtAuth.tokenCreate(member);
+    Map<String, Object> user = new HashMap<>();
+    user.put("name", "홍길동");
+    user.put("age", 39);
+    String token = JwtAuth.tokenCreate(user);
     System.out.println(token);
 }
 
 @Test
 void tokenCheck() {
     String token = "tokenCreate 함수에서 생성한 token";
-    Map<String, Object> member = JwtAuth.tokenCheck(token);
-    System.out.println(member);
+    Map<String, Object> user = JwtAuth.tokenCheck(token);
+    System.out.println(user);
 }
 ```
 
 ## Controller 만들기
-src/main/java/패키지/api/v1/members/MembersController.java
+src/main/java/패키지/api/v1/users/UsersController.java
 ```java
 @RequestMapping(path = "/login", method = RequestMethod.POST)
-public String membersLogin(@RequestBody Member member) {
-    Map<String, Object> mapMember = new HashMap<>();
-    mapMember.put("name", member.getName());
-    mapMember.put("age", member.getAge());
-    return JwtAuth.tokenCreate(mapMember);
+public String usersLogin(@RequestBody User user) {
+    Map<String, Object> mapUser = new HashMap<>();
+    mapUser.put("name", user.getName());
+    mapUser.put("age", user.getAge());
+    return JwtAuth.tokenCreate(mapUser);
 }
 
 @RequestMapping(path = "/check", method = RequestMethod.GET)
-public Map<String, Object> membersCheck(@RequestParam String token) {
-    Map<String, Object> member = JwtAuth.tokenCheck(token);
-    return member;
+public Map<String, Object> usersCheck(@RequestParam String token) {
+    Map<String, Object> user = JwtAuth.tokenCheck(token);
+    return user;
 }
 ```
 ### Java 11 이상에서 java.lang.ClassNotFoundException: javax.xml.bind.DatatypeConverter 발생 하는 경우
@@ -110,7 +110,7 @@ public class SwaggerConfig {
                 .securityContexts(Collections.singletonList(securityContext))
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("패키지 경로"))
-                .paths(Predicates.or(PathSelectors.ant("/api/v1/members/login"), PathSelectors.ant("/api/v1/members/check")))
+                .paths(Predicates.or(PathSelectors.ant("/api/v1/users/login"), PathSelectors.ant("/api/v1/users/check")))
                 .build();
     }
 }
@@ -119,7 +119,7 @@ public class SwaggerConfig {
 
 <!--
 Predicates.and(
-        Predicates.or(ant("/api/v1/members/login"), ant("/api/v1/members/check")),
+        Predicates.or(ant("/api/v1/users/login"), ant("/api/v1/users/check")),
         Predicates.not(ant("/error"))
 )
 
@@ -128,12 +128,12 @@ Predicates.and(
 + .securityContexts(Collections.singletonList(securityContext))
 -->
 
-src/main/java/패키지/api/v1/members/MembersController.java
+src/main/java/패키지/api/v1/users/UsersController.java
 ```diff
-- public Map<String, Object> membersCheck(@RequestParam String token) {
+- public Map<String, Object> usersCheck(@RequestParam String token) {
 ```
 ```java
-public Map<String, Object> membersCheck(
+public Map<String, Object> usersCheck(
         @ApiIgnore @RequestHeader("x-jwt-token") String token
         // @RequestHeader(value="x-jwt-token", required=false) String token
 ) {
@@ -168,14 +168,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 * `@Component` 주석 처리해 보기
 * `return true;` `false`로 바꿔 보기
 
-### /api/v1/members/check 경로에만 Filter 적용
+### /api/v1/users/check 경로에만 Filter 적용
 ```diff
 - return true;
 ```
 ```java
 AntPathMatcher pathMatcher = new AntPathMatcher();
 Collection<String> includeUrlPatterns = new ArrayList<>();
-includeUrlPatterns.add("/api/v1/members/check");
+includeUrlPatterns.add("/api/v1/users/check");
 boolean match = includeUrlPatterns
         .stream()
         .anyMatch(p -> pathMatcher.match(p, request.getServletPath()));
@@ -189,25 +189,25 @@ return !match;
 ```
 ```java
 String token = request.getHeader("x-jwt-token");
-Map<String, Object> member = JwtAuth.tokenCheck(token);
-request.setAttribute("member", member);
+Map<String, Object> user = JwtAuth.tokenCheck(token);
+request.setAttribute("user", user);
 filterChain.doFilter(request,response);
 ```
 
-src/main/java/패키지/api/v1/members/MembersController.java
+src/main/java/패키지/api/v1/users/UsersController.java
 ```diff
 - @RequestMapping(path = "/check", method = RequestMethod.GET)
-- public Map<String, Object> membersCheck(@RequestParam String token) {
--     Map<String, Object> member = JwtAuth.tokenCheck(token);
--     return member;
+- public Map<String, Object> usersCheck(@RequestParam String token) {
+-     Map<String, Object> user = JwtAuth.tokenCheck(token);
+-     return user;
 - }
 ```
 ```java
 @RequestMapping(path = "/check", method = RequestMethod.GET)
-public Map<String, Object> membersCheck(
-        @ApiIgnore @RequestAttribute Map<String, Object> member
+public Map<String, Object> usersCheck(
+        @ApiIgnore @RequestAttribute Map<String, Object> user
 ) {
-    return member;
+    return user;
 }
 ```
 

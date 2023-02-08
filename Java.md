@@ -739,59 +739,59 @@ System.out.println(new Date());
 ```
 
 ### 함수 실습 (회원 CRUD 만들기)
-MembersFunction.java
+UsersFunction.java
 
 1. Create
 
-public class MembersFunction {
+public class UsersFunction {
 ```java
-public static ArrayList<String> members = new ArrayList<>();
-public static void membersCreate(String member) {
-    members.add(member);
+public static ArrayList<String> users = new ArrayList<>();
+public static void usersCreate(String user) {
+    users.add(user);
 }
 ```
 public static void main(String[] args) {
 ```java
-membersCreate("홍길동");
-membersCreate("홍길동2");
+usersCreate("홍길동");
+usersCreate("홍길동2");
 ```
 
 2. Read
-public class MembersFunction {
+public class UsersFunction {
 ```java
-public static void membersRead() {
-    System.out.println(members);
+public static void usersRead() {
+    System.out.println(users);
 }
 ```
 public static void main(String[] args) {
 ```java
-membersRead();
+usersRead();
 ```
 
 3. Delete
-public class MembersFunction {
+public class UsersFunction {
 ```java
-public static void membersDelete(int index) {
-    members.remove(index);
+public static void usersDelete(int index) {
+    users.remove(index);
 }
 ```
 public static void main(String[] args) {
 ```java
-membersDelete(0);
-membersRead();
+usersDelete(0);
+usersRead();
 ```
 
 4. Update
-public class MembersFunction {
+public class UsersFunction {
 ```java
-public static void membersUpdate(int index, String member) {
-    members.set(index, member);
+public static void usersUpdate(int index, String user) {
+    users.set(index, user);
 }
 ```
 public static void main(String[] args) {
 ```java
-membersUpdate(0, "길동이");
-membersRead();
+usersUpdate(0, "길동이");
+usersRead();
 ```
 
-* `배열의 CRUD`를 참조 하여, `MembersFunction2.java` 파일을 생성하고, 처음 부터 코딩 해보기
+* `배열의 CRUD`를 참조 하여, `UsersFunction2.java` 파일을 생성하고, 처음 부터 코딩 해보기

@@ -1,37 +1,37 @@
 # Rest Template
 
 ## Service
-MembersService.java
+UsersService.java
 ```java
 @Service
-public class MembersService {
-    static String URL = "http://localhost:8080/api/v1/members";
+public class UsersService {
+    static String URL = "http://localhost:8080/api/v1/users";
 
-    public MembersResponse read() {
+    public UsersResponse read() {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<MembersResponse> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, null, MembersResponse.class);
+        ResponseEntity<UsersResponse> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, null, UsersResponse.class);
         return responseEntity.getBody();
     }
 
-    public MembersResponse create(Member member) {
+    public UsersResponse create(User user) {
         RestTemplate restTemplate = new RestTemplate();
-        HttpEntity<Member> httpEntity = new HttpEntity<>(member, null);
-        ResponseEntity<MembersResponse> responseEntity = restTemplate.exchange(URL, HttpMethod.POST, httpEntity, MembersResponse.class);
+        HttpEntity<User> httpEntity = new HttpEntity<>(user, null);
+        ResponseEntity<UsersResponse> responseEntity = restTemplate.exchange(URL, HttpMethod.POST, httpEntity, UsersResponse.class);
         return responseEntity.getBody();
     }
 
-    public MembersResponse delete(int index) {
+    public UsersResponse delete(int index) {
         RestTemplate restTemplate = new RestTemplate();
         String url = URL + "/" + index;
-        ResponseEntity<MembersResponse> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, null, MembersResponse.class);
+        ResponseEntity<UsersResponse> responseEntity = restTemplate.exchange(url, HttpMethod.DELETE, null, UsersResponse.class);
         return responseEntity.getBody();
     }
 
-    public MembersResponse update(int index, Member member) {
+    public UsersResponse update(int index, User user) {
         RestTemplate restTemplate = new RestTemplate();
         String url = URL + "/" + index;
-        HttpEntity<Member> httpEntity = new HttpEntity<>(member, null);
-        ResponseEntity<MembersResponse> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, MembersResponse.class);
+        HttpEntity<User> httpEntity = new HttpEntity<>(user, null);
+        ResponseEntity<UsersResponse> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, httpEntity, UsersResponse.class);
         return responseEntity.getBody();
     }
 }
@@ -39,10 +39,10 @@ public class MembersService {
 * ❕ `HttpMethod.PATCH` 통신은 기본으로 제공 하지 않는다.
 
 <!--
-### Warning: Dereference of 'membersResponse' may produce 'NullPointerException'
+### Warning: Dereference of 'usersResponse' may produce 'NullPointerException'
 ```diff
-- return membersResponse.members;
-+ return membersResponse != null ? membersResponse.members : null;
+- return usersResponse.users;
++ return usersResponse != null ? usersResponse.users : null;
 ```
 * 위와 같이 수정하면 경고가 나오지 않지만, 소스가 지저분 해지므로 경고를 무시한다.
 -->
@@ -67,7 +67,7 @@ public static String uriBuilder(String url, Object query) {
 }
 ```
 ```diff
-- ResponseEntity<MembersResponse> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, null, MembersResponse.class);
-+ String url = uriBuilder(URL, new Member("홍길동", 39));
-+ ResponseEntity<MembersResponse> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null, MembersResponse.class);
+- ResponseEntity<UsersResponse> responseEntity = restTemplate.exchange(URL, HttpMethod.GET, null, UsersResponse.class);
++ String url = uriBuilder(URL, new User("홍길동", 39));
++ ResponseEntity<UsersResponse> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null, UsersResponse.class);
 ```

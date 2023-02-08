@@ -143,14 +143,14 @@ src/webapp/WEB-INF/spring/root-context.xml
 </beans>
 ```
 
-src/main/resources/mappers/Members.xml
+src/main/resources/mappers/Users.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mycompany.myapp.repositories.MembersRepository">
+<mapper namespace="com.mycompany.myapp.repositories.UsersRepository">
     <select id="read" resultType="Map">
-        select * from members
+        select * from users
     </select>
 </mapper>
 ```
@@ -163,7 +163,7 @@ private SqlSessionFactory sqlSessionFactory;
 @RequestMapping(value = "/", method = RequestMethod.GET)
 public String home(Locale locale, Model model) {
   SqlSession sqlSession = sqlSessionFactory.openSession();
-  List<Map> members = sqlSession.selectList("com.mycompany.myapp.repositories.MembersRepository.read");
+  List<Map> users = sqlSession.selectList("com.mycompany.myapp.repositories.UsersRepository.read");
 ```
 
 ## log4jdbc

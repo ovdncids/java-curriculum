@@ -174,7 +174,7 @@ websocket/WebSocketServer.java
 ```
 ```java
 @Autowired
-private MembersService membersService;
+private UsersService usersService;
 ```
 
 ## Channel 나누기

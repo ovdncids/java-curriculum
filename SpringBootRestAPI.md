@@ -28,86 +28,86 @@ src/main/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicati
 public class SpringBootRestApiStudyApplication <- RUN 버튼 누르기
 ```
 
-## 회원(Members) Rest API
-src/main/java/com/example/SpringBootRestApiStudy/models/Member.java
+## 회원(Users) Rest API
+src/main/java/com/example/SpringBootRestApiStudy/models/User.java
 * Model, DTO(Data Transfer Object) 상황에 따라서 달리 불려진다.
 * VO(Value Object)는 주로 Request, Response 객체로 주로 사용 된다.
 ```java
-public class Member {
+public class User {
     private String name;
     private Integer age;
 }
 ```
 * `Generate...`, `Constructor`,  `Getter and Setter` 설명
 
-src/main/java/com/example/SpringBootRestApiStudy/models/MembersResponse.java
+src/main/java/com/example/SpringBootRestApiStudy/models/UsersResponse.java
 ```java
-public class MembersResponse {
+public class UsersResponse {
     public String result;
-    public List<Member> members;
+    public List<User> users;
 
-    public MembersResponse() {}
+    public UsersResponse() {}
 
-    public MembersResponse(String result) {
+    public UsersResponse(String result) {
         this.result = result;
     }
 
-    public MembersResponse(String result, List<Member> members) {
+    public UsersResponse(String result, List<User> users) {
         this.result = result;
-        this.members = members;
+        this.users = users;
     }
 }
 ```
 
 * ❕ 접근권한을 private로 만든 경우는 `Getter and Setter`가 필수 이지만, 접근권한을 public으로 만든 경우는 없어도 된다.
 
-src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
 ```java
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("api/v1/members")
-public class MembersController {
-    private static List<Member> init() {
-        List<Member> members = new ArrayList<>();
-        members.add(new Member("홍길동", 39));
-        members.add(new Member("김삼순", 33));
-        members.add(new Member("홍명보", 44));
-        members.add(new Member("박지삼", 22));
-        members.add(new Member("권명순", 10));
-        return members;
+@RequestMapping("api/v1/users")
+public class UsersController {
+    private static List<User> init() {
+        List<User> users = new ArrayList<>();
+        users.add(new User("홍길동", 39));
+        users.add(new User("김삼순", 33));
+        users.add(new User("홍명보", 44));
+        users.add(new User("박지삼", 22));
+        users.add(new User("권명순", 10));
+        return users;
     }
-    public static final List<Member> members = init();
+    public static final List<User> users = init();
 
     @RequestMapping(path = "", method = RequestMethod.POST)
-    public MembersResponse membersCreate(@RequestBody Member member) {
-        members.add(member);
-        return new MembersResponse("created");
+    public UsersResponse usersCreate(@RequestBody User user) {
+        users.add(user);
+        return new UsersResponse("created");
     }
 
     @RequestMapping(path = "", method = RequestMethod.GET)
-    // public MembersResponse membersRead(@ModelAttribute Member member) {
-    // public MembersResponse membersRead(@RequestParam("name") String title, @RequestParam(required=false, defaultValue="1") int age) {
-    public MembersResponse membersRead() {
-        return new MembersResponse("read", members);
+    // public UsersResponse usersRead(@ModelAttribute User user) {
+    // public UsersResponse usersRead(@RequestParam("name") String title, @RequestParam(required=false, defaultValue="1") int age) {
+    public UsersResponse usersRead() {
+        return new UsersResponse("read", users);
     }
 
     @RequestMapping(path = "/{index}", method = RequestMethod.DELETE)
-    public MembersResponse membersDelete(@PathVariable("index") int index) {
-        members.remove(index);
-        return new MembersResponse("deleted");
+    public UsersResponse usersDelete(@PathVariable("index") int index) {
+        users.remove(index);
+        return new UsersResponse("deleted");
     }
 
     @RequestMapping(path = "/{index}", method = {RequestMethod.PUT, RequestMethod.PATCH})
-    public MembersResponse membersUpdate(
+    public UsersResponse usersUpdate(
             @PathVariable("index") int index,
-            @RequestBody Member member
+            @RequestBody User user
     ) {
-        members.set(index, member);
-        return new MembersResponse("updated");
+        users.set(index, user);
+        return new UsersResponse("updated");
     }
 }
 ```
-* http://localhost:8080/api/v1/members
+* http://localhost:8080/api/v1/users
 
 <!--
 ### Global CORS configuration
@@ -204,34 +204,34 @@ pom.xml
 </dependency>
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/models/Member.java
+src/main/java/com/example/SpringBootRestApiStudy/models/User.java
 ```diff
-- public Member(String name, Integer age) {
+- public User(String name, Integer age) {
 -     this.name = name;
 -     this.age = age;
 - }
 ```
 
 ```java
-private Integer memberPk;
+private Integer userPk;
 
-public Member(Integer memberPk, String name, Integer age) {
-    this.memberPk = memberPk;
+public User(Integer userPk, String name, Integer age) {
+    this.userPk = userPk;
     this.name = name;
     this.age = age;
 }
 
-public Integer getMemberPk() {
-    return memberPk;
+public Integer getUserPk() {
+    return userPk;
 }
 
-public void setMemberPk(Integer memberPk) {
-    this.memberPk = memberPk;
+public void setUserPk(Integer userPk) {
+    this.userPk = userPk;
 }
 ```
-* ❕ `select * from members`의 경우는 생성자의 파라미터 순서대로 DB에서 내려 받는다.
-* ❕ `select name, age, member_pk from members`의 경우는 생성자의 파라미터 순서와 같이 않아도 받을 수 있다.
-* ❕ 생성자를 사용하지 않으면 `select * from members`, `select name, age, member_pk from members` 모두 받을 수 있다.
+* ❕ `select * from users`의 경우는 생성자의 파라미터 순서대로 DB에서 내려 받는다.
+* ❕ `select name, age, user_pk from users`의 경우는 생성자의 파라미터 순서와 같이 않아도 받을 수 있다.
+* ❕ 생성자를 사용하지 않으면 `select * from users`, `select name, age, user_pk from users` 모두 받을 수 있다.
 
 ## 1. JDBC(Java Database Connectivity) 연동 모듈
 pom.xml
@@ -242,20 +242,20 @@ pom.xml
 </dependency>
 ```
 
-### 회원(Members) Read
-src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
+### 회원(Users) Read
+src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
 ```java
 @Autowired
 JdbcTemplate jdbcTemplate;
 ```
 ```diff
-- public MembersResponse membersRead() {
+- public UsersResponse usersRead() {
 ```
 ```java
-public MembersResponse membersRead() {
-    String query = "select * from members";
-    List<Member> members = jdbcTemplate.query(query, (rs, rowNum) ->
-        new Member(rs.getInt("member_pk"), rs.getString("name"), (Integer) rs.getObject("age"))
+public UsersResponse usersRead() {
+    String query = "select * from users";
+    List<User> users = jdbcTemplate.query(query, (rs, rowNum) ->
+        new User(rs.getInt("user_pk"), rs.getString("name"), (Integer) rs.getObject("age"))
     );
 ```
 
@@ -266,31 +266,31 @@ public MembersResponse membersRead() {
 * https://wildeveloperetrain.tistory.com/26
 * https://medium.com/@jang.wangsu/di-dependency-injection-%EC%9D%B4%EB%9E%80-1b12fdefec4f
 
-### 회원(Members) Create
+### 회원(Users) Create
 ```diff
-- members.add(member);
+- users.add(user);
 ```
 ```java
-String query = "insert into members(name, age) values(?, ?)";
-jdbcTemplate.update(query, member.getName(),member.getAge());
+String query = "insert into users(name, age) values(?, ?)";
+jdbcTemplate.update(query, user.getName(),user.getAge());
 ```
 
-### 회원(Members) Delete
+### 회원(Users) Delete
 ```diff
-- members.remove(index);
+- users.remove(index);
 ```
 ```java
-String query = "delete from members where member_pk = ?";
+String query = "delete from users where user_pk = ?";
 jdbcTemplate.update(query, index);
 ```
 
-### 회원(Members) Update
+### 회원(Users) Update
 ```diff
-- members.set(index, member);
+- users.set(index, user);
 ```
 ```java
-String query = "update members set name = ?, age = ? where member_pk = ?";
-jdbcTemplate.update(query, member.getName(),member.getAge(), index);
+String query = "update users set name = ?, age = ? where user_pk = ?";
+jdbcTemplate.update(query, user.getName(),user.getAge(), index);
 ```
 
 ## 2. MyBatis 모듈
@@ -317,15 +317,15 @@ logging.level.com.example.SpringBootRestApiStudy=TRACE
 * ❕ SQL문 로깅이 잘 안 될 경우 `logging.level.com=TRACE` 해보자
 
 ### MySQL 접속 테스트 (JUnit)
-#### 회원(Members) Read
-src/main/resources/mappers/members.xml
+#### 회원(Users) Read
+src/main/resources/mappers/users.xml
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.SpringBootRestApiStudy.repositories.MembersRepository">
-    <select id="read" resultType="Member">
-        select * from members
+<mapper namespace="com.example.SpringBootRestApiStudy.repositories.UsersRepository">
+    <select id="read" resultType="User">
+        select * from users
     </select>
 </mapper>
 ```
@@ -338,20 +338,20 @@ private final Logger logger = LoggerFactory.getLogger(this.getClass());
 private SqlSessionFactory sqlSessionFactory;
 
 @Test
-void membersRead() {
+void usersRead() {
     SqlSession sqlSession = sqlSessionFactory.openSession();
-    List<Member> members = sqlSession.selectList("com.example.SpringBootRestApiStudy.repositories.MembersRepository.read");
-    logger.info("Done: MembersRepository.read");
+    List<User> users = sqlSession.selectList("com.example.SpringBootRestApiStudy.repositories.UsersRepository.read");
+    logger.info("Done: UsersRepository.read");
 }
 ```
 * 테스트를 사용하는 이유 (테스트 하고 싶은 부분만 바로 실행 할 수 있다.)
 * `org.slf4j.Logger` 선택
 
-#### 회원(Members) Create
-src/main/resources/mappers/members.xml
+#### 회원(Users) Create
+src/main/resources/mappers/users.xml
 ```xml
-<insert id="create" parameterType="Member">
-    insert into members(name, age)
+<insert id="create" parameterType="User">
+    insert into users(name, age)
     values(#{name}, #{age})
 </insert>
 ```
@@ -359,264 +359,264 @@ src/main/resources/mappers/members.xml
 src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
 ```java
 @Test
-void membersCreate() {
+void usersCreate() {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     Integer count = sqlSession.insert(
-        "com.example.SpringBootRestApiStudy.repositories.MembersRepository.create",
-        new Member(0, "홍길동", 39)
+        "com.example.SpringBootRestApiStudy.repositories.UsersRepository.create",
+        new User(0, "홍길동", 39)
     );
-    logger.info("Done: MembersRepository.create");
+    logger.info("Done: UsersRepository.create");
 }
 ```
 
-#### 회원(Members) Delete
-src/main/resources/mappers/members.xml
+#### 회원(Users) Delete
+src/main/resources/mappers/users.xml
 ```xml
 <delete id="delete" parameterType="Integer">
-    delete from members
-    where member_pk = #{memberPk}
+    delete from users
+    where user_pk = #{userPk}
 </delete>
 ```
 
 src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
 ```java
 @Test
-void membersDelete() {
+void usersDelete() {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     Integer count = sqlSession.delete(
-        "com.example.SpringBootRestApiStudy.repositories.MembersRepository.delete",
+        "com.example.SpringBootRestApiStudy.repositories.UsersRepository.delete",
         1
     );
-    logger.info("Done: MembersRepository.delete");
+    logger.info("Done: UsersRepository.delete");
 }
 ```
 
-#### 회원(Members) Update
-src/main/resources/mappers/members.xml
+#### 회원(Users) Update
+src/main/resources/mappers/users.xml
 ```xml
 <update id="update">
-    update members set name = #{name}, age = #{age}
-    where member_pk = #{memberPk}
+    update users set name = #{name}, age = #{age}
+    where user_pk = #{userPk}
 </update>
 ```
 
 src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
 ```java
 @Test
-void membersUpdate() {
+void usersUpdate() {
     SqlSession sqlSession = sqlSessionFactory.openSession();
     Integer count = sqlSession.update(
-        "com.example.SpringBootRestApiStudy.repositories.MembersRepository.update",
-        new Member(2, "이순신", 33)
+        "com.example.SpringBootRestApiStudy.repositories.UsersRepository.update",
+        new User(2, "이순신", 33)
     );
-    logger.info("Done: MembersRepository.update");
+    logger.info("Done: UsersRepository.update");
 }
 ```
 * `Controller`에서 `SqlSession` 적용해 보기
 
 ### Repository 인터페이스 매핑
-#### 회원(Members) Read
-src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.java
+#### 회원(Users) Read
+src/main/java/com/example/SpringBootRestApiStudy/repositories/UsersRepository.java
 ```java
 @Mapper
-public interface MembersRepository {
-    // @Select("select * from members")
-    List<Member> read();
+public interface UsersRepository {
+    // @Select("select * from users")
+    List<User> read();
 }
 ```
 * ❕ Repository 인터페이스 생성하는 이유 (Controller나 Service 마다 SqlSessionFactory, SqlSession을 호출할 필요 없이, 바로 매핑까지 해준다.)
 
-#### MembersController에서 Repository 사용하기
-src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
+#### UsersController에서 Repository 사용하기
+src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
 ```java
 @Autowired
-private MembersRepository membersRepository;
+private UsersRepository usersRepository;
 ```
 ```diff
-- public MembersResponse membersRead() {
+- public UsersResponse usersRead() {
 ```
 ```java
-public MembersResponse membersRead() {
-    List<Member> members = membersRepository.read();
+public UsersResponse usersRead() {
+    List<User> users = usersRepository.read();
 ```
 
-#### 회원(Members) Create
-src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.java
+#### 회원(Users) Create
+src/main/java/com/example/SpringBootRestApiStudy/repositories/UsersRepository.java
 ```java
-Integer create(Member member);
+Integer create(User user);
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
 ```diff
-- members.add(member);
+- users.add(user);
 ```
 ```java
-membersRepository.create(member);
+usersRepository.create(user);
 ```
-* `membersRepository.create(member);` 생성된 Member의 수를 반환한다.
+* `usersRepository.create(user);` 생성된 User의 수를 반환한다.
 
 ##### (no Creators, like default constructor, exist): cannot deserialize from Object value (no delegate- or property-based Creator) 발생 한다면
-src/main/java/com/example/SpringBootRestApiStudy/models/Member.java
+src/main/java/com/example/SpringBootRestApiStudy/models/User.java
 ```java
-public Member() {}
+public User() {}
 ```
 * 또는 `Swagger` 새로고침
 
-#### 회원(Members) Delete
-src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.java
+#### 회원(Users) Delete
+src/main/java/com/example/SpringBootRestApiStudy/repositories/UsersRepository.java
 ```java
-Integer delete(Integer memberPk);
+Integer delete(Integer userPk);
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
 ```diff
-- members.remove(index);
+- users.remove(index);
 ```
 ```java
-membersRepository.delete(memberPk);
+usersRepository.delete(userPk);
 ```
-+ index <- memberPk 수정
-* `membersRepository.delete(memberPk);` 삭제된 Member의 수를 반환한다.
++ index <- userPk 수정
+* `usersRepository.delete(userPk);` 삭제된 User의 수를 반환한다.
 
-### 회원(Members) Update
-src/main/resources/mappers/members.xml
+### 회원(Users) Update
+src/main/resources/mappers/users.xml
 ```diff
 - <update id="update">
--     update members set name = #{name}, age = #{age}
--     where member_pk = #{memberPk}
+-     update users set name = #{name}, age = #{age}
+-     where user_pk = #{userPk}
 - </update>
 ```
 ```xml
 <update id="update">
-    update members set name = #{member.name}, age = #{member.age}
-    where member_pk = #{memberPk}
+    update users set name = #{user.name}, age = #{user.age}
+    where user_pk = #{userPk}
 </update>
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.java
+src/main/java/com/example/SpringBootRestApiStudy/repositories/UsersRepository.java
 ```java
-Integer update(@Param("memberPk") Integer memberPk, @Param("member") Member member);
+Integer update(@Param("userPk") Integer userPk, @Param("user") User user);
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
 ```diff
-- members.set(index, member);
+- users.set(index, user);
 ```
 ```java
-membersRepository.update(memberPk, member);
+usersRepository.update(userPk, user);
 ```
-+ index <- memberPk 수정
-* `membersRepository.update(memberPk, member);` 수정된 Member의 수를 반환한다.
++ index <- userPk 수정
+* `usersRepository.update(userPk, user);` 수정된 User의 수를 반환한다.
 
-src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
 ```diff
-- private static List<Member> init() {
-- public static final List<Member> members = init();
+- private static List<User> init() {
+- public static final List<User> users = init();
 ```
-src/main/java/com/example/SpringBootRestApiStudy/models/Member.java
+src/main/java/com/example/SpringBootRestApiStudy/models/User.java
 ```diff
-- public Member(String name, Integer age) {
+- public User(String name, Integer age) {
 ```
 
-### 회원(Members) Service 만들기
+### 회원(Users) Service 만들기
 * ❕ Service를 생성하는 이유 (여러 Controller에서 사용 되거나, 또는 Test(JUnit)에서 사용될 비지니스 로직(DB의 CRUD등등)을 담을때 사용한다.)
 
-src/main/java/com/example/SpringBootRestApiStudy/services/MembersService.java
+src/main/java/com/example/SpringBootRestApiStudy/services/UsersService.java
 ```java
 @Service
-public class MembersService {
+public class UsersService {
     @Autowired
-    private MembersRepository membersRepository;
+    private UsersRepository usersRepository;
 
-    public List<Member> read() {
-        return membersRepository.read();
+    public List<User> read() {
+        return usersRepository.read();
     }
 
-    public Integer create(Member member) {
-        return membersRepository.create(member);
+    public Integer create(User user) {
+        return usersRepository.create(user);
     }
 
-    public Integer delete(Integer memberPk) {
-        return membersRepository.delete(memberPk);
+    public Integer delete(Integer userPk) {
+        return usersRepository.delete(userPk);
     }
 
-    public Integer update(@Param("memberPk") Integer memberPk, @Param("member") Member member) {
-        return membersRepository.update(memberPk, member);
+    public Integer update(@Param("userPk") Integer userPk, @Param("user") User user) {
+        return usersRepository.update(userPk, user);
     }
 }
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
 ```diff
-- private MembersRepository membersRepository;
-+ private MembersService membersService;
+- private UsersRepository usersRepository;
++ private UsersService usersService;
 ```
-* membersRepository <- membersService
+* usersRepository <- usersService
 
-#### 회원(Members) Service 테스트(JUnit)에서 호출 하기
+#### 회원(Users) Service 테스트(JUnit)에서 호출 하기
 src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
 ```java
 @Autowired
-private MembersService membersService;
+private UsersService usersService;
 
 @Test
-void members() {
-    List<Member> members = membersService.read();
-    membersService.create(new Member(null, "홍길동", 39));
-    membersService.delete(0);
-    membersService.update(0, new Member(null, "이순신", 33));
+void users() {
+    List<User> users = usersService.read();
+    usersService.create(new User(null, "홍길동", 39));
+    usersService.delete(0);
+    usersService.update(0, new User(null, "이순신", 33));
 }
 ```
 * ❕ 테스트에서도 Service를 자유롭게 사용 할 수 있다.
 
 <!--
 #### Repository에서 바로 쿼리문 사용하기
-src/main/java/com/example/SpringBootRestApiStudy/repositories/MembersRepository.java
+src/main/java/com/example/SpringBootRestApiStudy/repositories/UsersRepository.java
 ```java
-@Select("select * from members")
-List<Member> select();
+@Select("select * from users")
+List<User> select();
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/services/MembersService.java
+src/main/java/com/example/SpringBootRestApiStudy/services/UsersService.java
 ```java
-public List<Member> select() {
-    return membersRepository.select();
+public List<User> select() {
+    return usersRepository.select();
 }
 ```
 
 src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
 ```java
-members = membersService.select();
+users = usersService.select();
 ```
 -->
 
 ### Service와 ServiceImpl
 * 관습적으로 Service를 만들때 Service와 ServiceImpl로 나누어서 개발하는 곳이 많다.
 
-MembersService.java 복사해서 MembersServiceImpl.java
+UsersService.java 복사해서 UsersServiceImpl.java
 
-src/main/java/com/example/SpringBootRestApiStudy/services/MembersService.java
+src/main/java/com/example/SpringBootRestApiStudy/services/UsersService.java
 ```diff
 - @Service
 - 밑으로 모두
 ```
 ```java
-public interface MembersService {
-    List<Member> read();
-    Integer create(Member member);
-    Integer delete(Integer memberPk);
-    Integer update(@Param("memberPk") Integer memberPk, @Param("member") Member member);
+public interface UsersService {
+    List<User> read();
+    Integer create(User user);
+    Integer delete(Integer userPk);
+    Integer update(@Param("userPk") Integer userPk, @Param("user") User user);
 }
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/services/MembersServiceImpl.java
+src/main/java/com/example/SpringBootRestApiStudy/services/UsersServiceImpl.java
 ```diff
 - @Service
-- public class MembersService {
+- public class UsersService {
 ```
 ```java
-@Service("MembersService")
-public class MembersServiceImpl implements MembersService {
+@Service("UsersService")
+public class UsersServiceImpl implements UsersService {
 ```
 
 * ❕ 결론 Service와 ServiceImpl의 관계가 1:1인 경우는 service와 serviceImpl로 따로 나눌 필요 없다.
@@ -628,18 +628,18 @@ public class MembersServiceImpl implements MembersService {
 <!-- APO: 쉽게 미들웨어라고 생각하면 쉽다. -->
 
 ## 특정 컬럼 추가/삭제 후 Response 하기
-src/main/java/com/example/SpringBootRestApiStudy/models/Member.java
+src/main/java/com/example/SpringBootRestApiStudy/models/User.java
 ```java
-@JsonIgnoreProperties({"memberPk", "age"})
-class MemberRead extends Member {
+@JsonIgnoreProperties({"userPk", "age"})
+class UserRead extends User {
     public String add;
 }
 ```
 
-src/main/resources/mappers/members.xml
+src/main/resources/mappers/users.xml
 ```diff
-- <select id="read" resultType="Member">
-+ <select id="read" resultType="MemberRead">
+- <select id="read" resultType="User">
++ <select id="read" resultType="UserRead">
 ```
 
 # 기타 라이브러리
@@ -684,7 +684,7 @@ a1=123
 b1.b2=한글
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
 ```java
 @Slf4j
 @PropertySource(value = "classpath:custom.properties", encoding="UTF-8")
@@ -720,7 +720,7 @@ src/main/resources/application-production.properties
 property.c1=production
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
 ```java
 @Value("${property.c1}") private String c1;
 ```
@@ -742,7 +742,7 @@ src/main/resources/application-db-production.properties
 property.d1=db-production
 ```
 
-src/main/java/com/example/SpringBootRestApiStudy/controllers/MembersController.java
+src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
 ```java
 @Value("${property.d1}") private String d1;
 ```
