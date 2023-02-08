@@ -1,5 +1,8 @@
 # Spring Boot - Rest API
 
+## Rest API 패턴으로 개발 하는 이유 
+* Rest API 패턴으로 개발 하면 Frontend쪽 웹앱(SPA), 아이폰, 안드로이드 등등 하나로 모두 서비스 가능하다.
+
 ## 설치
 * https://start.spring.io
 * https://sidepower.tistory.com/352
