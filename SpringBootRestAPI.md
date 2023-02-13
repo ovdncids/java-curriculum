@@ -76,7 +76,7 @@ public class UsersController {
         users.add(new User("권명순", 10));
         return users;
     }
-    public static final List<User> users = init();
+    public static List<User> users = init();
 
     @RequestMapping(path = "", method = RequestMethod.POST)
     public UsersResponse usersCreate(@RequestBody User user) {
@@ -457,10 +457,10 @@ usersRepository.create(user);
 
 ##### (no Creators, like default constructor, exist): cannot deserialize from Object value (no delegate- or property-based Creator) 발생 한다면
 src/main/java/com/example/SpringBootRestApiStudy/models/User.java
-```java
-public User() {}
+```diff
+- public User(String name, Integer age) {
 ```
-* 또는 `Swagger` 새로고침
+* `Swagger` 새로고침
 
 #### 회원(Users) Delete
 src/main/java/com/example/SpringBootRestApiStudy/repositories/UsersRepository.java
@@ -511,11 +511,7 @@ usersRepository.update(userPk, user);
 src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
 ```diff
 - private static List<User> init() {
-- public static final List<User> users = init();
-```
-src/main/java/com/example/SpringBootRestApiStudy/models/User.java
-```diff
-- public User(String name, Integer age) {
+- public static List<User> users = init();
 ```
 
 ### 회원(Users) Service 만들기
@@ -540,7 +536,7 @@ public class UsersService {
         return usersRepository.delete(userPk);
     }
 
-    public Integer update(@Param("userPk") Integer userPk, @Param("user") User user) {
+    public Integer update(Integer userPk, User user) {
         return usersRepository.update(userPk, user);
     }
 }
