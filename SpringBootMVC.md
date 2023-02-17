@@ -603,3 +603,16 @@ src/main/webapp/WEB-INF/layout/nav.jsp
     </ul>
 </nav>
 ```
+
+### Session
+src/main/java/com/example/SpringBootMvcStudy/controllers/UsersController.java
+```java
+ModelAndView usersRead(HttpServletRequest request) {
+    System.out.println(request.getSession().getAttribute("userPk"));
+    request.getSession().setAttribute("userPk", 1);
+}
+```
+src/main/webapp/WEB-INF/views/users.jsp
+```jsp
+${userPk}
+```
