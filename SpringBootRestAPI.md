@@ -346,6 +346,7 @@ void usersRead() {
 ```
 * 테스트를 사용하는 이유 (테스트 하고 싶은 부분만 바로 실행 할 수 있다.)
 * `org.slf4j.Logger` 선택
+* ❕ `import` 못 찾을 경우 `타이핑` 해야 한다.
 
 #### 회원(Users) Create
 src/main/resources/mappers/users.xml
