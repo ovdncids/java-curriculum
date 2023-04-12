@@ -20,7 +20,7 @@ GENERATE <- SpringBootRestApiStudy.zip 다운받기
 압축 풀고 해당 경로를 Intellij에서 Open
 Terminal <- git init
 ```
-* `2.5.14 (SNAPSHOT)` SNAPSHOT 버전으로 생성해야 `Swagger UI`에서 오류가 발생 하지 않는다.
+* `2.5.14 (SNAPSHOT)` SNAPSHOT 버전으로 생성해야 `Swagger UI`에서 오류가 발생하지 않는다.
 
 ## Spring Boot Tomcat 서버 실행
 src/main/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplication.java
@@ -161,7 +161,7 @@ public class SwaggerConfig {
 * Spring Boot(Tomcat) 재시작
 * http://localhost:8080/swagger-ui.html
 * ❕ 안될 경우: IntelliJ 재시작
-* ❕ Spring Boot 2.6버전 이후 `documentationPluginsBootstrapper` 오류 발생 할 경우 `application.properties` 파일에 추가
+* ❕ Spring Boot 2.6버전 이후 `documentationPluginsBootstrapper` 오류 발생할 경우 `application.properties` 파일에 추가
 ```sh
 spring.mvc.pathmatch.matching-strategy=ANT_PATH_MATCHER
 ```
@@ -456,7 +456,7 @@ usersRepository.create(user);
 ```
 * `usersRepository.create(user);` 생성된 User의 수를 반환한다.
 
-##### (no Creators, like default constructor, exist): cannot deserialize from Object value (no delegate- or property-based Creator) 발생 한다면
+##### (no Creators, like default constructor, exist): cannot deserialize from Object value (no delegate- or property-based Creator) 발생한다면
 src/main/java/com/example/SpringBootRestApiStudy/models/User.java
 ```diff
 - public User(String name, Integer age) {
