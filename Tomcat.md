@@ -1,4 +1,4 @@
-# Tomcat 9
+# Tomcat 9 - Spring Boot 배포
 ## Spring boot war 파일 만들기
 * https://hye0-log.tistory.com/29
 ```gradle
@@ -33,7 +33,7 @@ tomcat/bin/shutdown.sh
 tail -f tomcat/logs/catalina.out
 ```
 
-# Tomcat 10
+# Tomcat 10 - Spring Boot 배포
 * https://adg0609.tistory.com/57
 ```sh
 # tomcat/webapps-javaee 폴더 생성
