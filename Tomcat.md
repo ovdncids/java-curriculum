@@ -1,6 +1,8 @@
 # Tomcat 9 - Spring Boot 배포
 ## Spring boot war 파일 만들기
 * https://hye0-log.tistory.com/29
+
+build.gradle
 ```gradle
 plugins {
 	id 'war'
