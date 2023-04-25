@@ -1,5 +1,10 @@
 # Tomcat 9 - Spring Boot 배포
 ## Spring boot war 파일 만들기
+https://start.spring.io
+```sh
+Packaging > War
+```
+
 ### Maven
 pom.xml
 ```xml
