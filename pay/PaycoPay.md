@@ -22,13 +22,13 @@
   "orderMethod": "EASYPAY",
   "orderProducts": [
     {
-    "cpId": "{cpId}",
-    "productId": "PROD_EASY",
-    "productAmt": 1500,
-    "productPaymentAmt": 1500,
-    "productName": "BAG",
-    "orderQuantity": 1,
-    "sellerOrderProductReferenceKey": "PRODUCT_00000001"
+      "cpId": "{cpId}",
+      "productId": "PROD_EASY",
+      "productAmt": 1500,
+      "productPaymentAmt": 1500,
+      "productName": "BAG",
+      "orderQuantity": 1,
+      "sellerOrderProductReferenceKey": "PRODUCT_00000001"
     }
   ]
 }
