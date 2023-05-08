@@ -638,6 +638,7 @@ src/main/resources/mappers/users.xml
 - <select id="read" resultType="User">
 + <select id="read" resultType="UserRead">
 ```
+* ❕ `Swagger`에 추가되지는 않는다.
 
 # 기타 라이브러리
 ## @Slf4j log
