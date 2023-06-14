@@ -274,6 +274,7 @@ public UsersResponse usersRead() {
 String query = "insert into users(name, age) values(?, ?)";
 jdbcTemplate.update(query, user.getName(),user.getAge());
 ```
+* `?`를 사용하지 않고 변수 이름으로 사용하고 싶을 경우 `NamedParameterJdbcTemplate` 사용
 
 ### 회원(Users) Delete
 ```diff
