@@ -70,3 +70,4 @@ class DemoApplicationTests {
 	}
 }
 ```
+* ❕ `톰캣`과 `Test` 둘다 돌리면 오동작이 발생 할 수 있다.
