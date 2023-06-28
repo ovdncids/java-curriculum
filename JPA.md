@@ -14,15 +14,10 @@ dependencies {
 
 src/main/resources/application.properties
 ```properties
-database: testdb
+# DB 설정
+...
 
-spring.h2.console.path=/h2-console
-spring.h2.console.enabled=true
-spring.datasource.url=jdbc:h2:mem:${database};MODE=mysql;
-spring.datasource.username=sa
-spring.datasource.password=
-spring.datasource.driverClassName=org.h2.Driver
-
+# JPA 설정
 spring.jpa.show-sql=true # Log에 SQL문 보기
 spring.jpa.properties.hibernate.format_sql=true # Log에 SQL문 이쁘게 보기
 spring.jpa.hibernate.ddl-auto=create # SessionFactory 시작시 스키마를 삭제하고 다시 생성 (개발시 유용)
