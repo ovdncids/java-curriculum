@@ -10,6 +10,7 @@
 * [함수](#함수)
 
 ## 설치
+* [IntelliJ에서 설치](https://github.com/ovdncids/react-native-curriculum/blob/master/ReactNativeInstall.md#java-%EB%B2%84%EC%A0%84-%ED%99%95%EC%9D%B8-m1%EC%9D%80-arm64aarch64-%EB%B2%84%EC%A0%84-%EC%84%A0%ED%83%9D)
 * https://www.oracle.com/kr/java/technologies/javase-downloads.html
 ```sh
 # Java SE 8 (or 1.8)
