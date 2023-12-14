@@ -566,6 +566,8 @@ void users() {
 }
 ```
 * ❕ 테스트에서도 Service를 자유롭게 사용 할 수 있다.
+* ❕ `usersUpdate` 테스트는 `UsersRepository.update` 파라미터가 변경 되었으므로 오류가 발생한다.
+* `class UserUpdate { public Integer userPk; public User user; }` 내부 클래스를 생성해서 연결하면 오류 해결 가능하다.
 
 <!--
 #### Repository에서 바로 쿼리문 사용하기
