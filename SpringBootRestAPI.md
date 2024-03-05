@@ -5,22 +5,38 @@
 
 ## 설치
 * https://start.spring.io
-* https://sidepower.tistory.com/352
+* <details><summary>Spring Boot 2.x</summary>
+
+    * https://sidepower.tistory.com/352
+    ```sh
+    Project: Maven Project
+    Language: Java
+    Spring Boot: 2.5.4 (현재)
+    Project Metadata
+        Artifact: SpringBootRestApiStudy
+    Packaging: Jar
+    Java: 8
+    Dependencies: Spring Web
+
+    GENERATE <- SpringBootRestApiStudy.zip 다운받기
+    압축 풀고 해당 경로를 Intellij에서 Open
+    ```
+    * `2.5.14 (SNAPSHOT)` SNAPSHOT 버전으로 생성해야 `Swagger UI`에서 오류가 발생하지 않는다.
+</details>
+
 ```sh
-Project: Maven Project
+Project: Gradle - Kotlin
 Language: Java
-Spring Boot: 2.5.4 (현재)
+Spring Boot: 3.2.4 (SNAPSHOT)
 Project Metadata
-    Artifact: SpringBootRestApiStudy
+  Artifact: SpringBootRestApiStudy
 Packaging: Jar
-Java: 8
+Java: 17
 Dependencies: Spring Web
 
 GENERATE <- SpringBootRestApiStudy.zip 다운받기
 압축 풀고 해당 경로를 Intellij에서 Open
-Terminal <- git init
 ```
-* `2.5.14 (SNAPSHOT)` SNAPSHOT 버전으로 생성해야 `Swagger UI`에서 오류가 발생하지 않는다.
 
 ## Spring Boot Tomcat 서버 실행
 src/main/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplication.java
@@ -128,56 +144,65 @@ public WebMvcConfigurer corsConfigurer() {
 -->
 
 ## Swagger UI 설정
-pom.xml
-```xml
-<dependency>
-    <groupId>io.springfox</groupId>
-    <artifactId>springfox-swagger2</artifactId>
-    <version>2.9.2</version>
-</dependency>
-<dependency>
-    <groupId>io.springfox</groupId>
-    <artifactId>springfox-swagger-ui</artifactId>
-    <version>2.9.2</version>
-</dependency>
-```
+* <details><summary>Spring Boot 2.x</summary>
 
-src/main/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplication.java
-```java
-@Configuration
-@EnableSwagger2
-public class SwaggerConfig {
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build();
+    pom.xml
+    ```xml
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>2.9.2</version>
+    </dependency>
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>2.9.2</version>
+    </dependency>
+    ```
+    
+    src/main/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplication.java
+    ```java
+    @Configuration
+    @EnableSwagger2
+    public class SwaggerConfig {
+        @Bean
+        public Docket api() {
+            return new Docket(DocumentationType.SWAGGER_2)
+                    .select()
+                    .apis(RequestHandlerSelectors.any())
+                    .paths(PathSelectors.any())
+                    .build();
+        }
     }
-}
-```
-* pom.xml <- Maven <- Reload project
-* Spring Boot(Tomcat) 재시작
-* http://localhost:8080/swagger-ui.html
-* ❕ 안될 경우: IntelliJ 재시작
-* ❕ Spring Boot 2.6버전 이후 `documentationPluginsBootstrapper` 오류 발생할 경우 `application.properties` 파일에 추가
-```sh
-spring.mvc.pathmatch.matching-strategy=ANT_PATH_MATCHER
-```
+    ```
+    * pom.xml <- Maven <- Reload project
+    * Spring Boot(Tomcat) 재시작
+    * http://localhost:8080/swagger-ui.html
+    * ❕ 안될 경우: IntelliJ 재시작
+    * ❕ Spring Boot 2.6버전 이후 `documentationPluginsBootstrapper` 오류 발생할 경우 `application.properties` 파일에 추가
+    ```sh
+    spring.mvc.pathmatch.matching-strategy=ANT_PATH_MATCHER
+    ```
+    
+    <!-- pom.xml 파일에서 문제가 있을경우 2.9.2 -> 2.6.1 변경 후 다시 2.9.2 버전으로 돌아 온다. -->
+    
+    <!--
+    ### Gradle
+    * https://mvnrepository.com/artifact/io.springfox/springfox-swagger2/2.9.2
+    
+    build.gradle
+    ```gradle
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    ```
+    * IntelliJ -> View -> Tool Windows -> Gradle -> Reload Gradle Project
+    -->
+</details>
+build.gradle.kts
 
-<!-- pom.xml 파일에서 문제가 있을경우 2.9.2 -> 2.6.1 변경 후 다시 2.9.2 버전으로 돌아 온다. -->
-
-<!--
-### Gradle
-* https://mvnrepository.com/artifact/io.springfox/springfox-swagger2/2.9.2
-
-build.gradle
-```gradle
-implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+```kts
+implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 ```
-* IntelliJ -> View -> Tool Windows -> Gradle -> Reload Gradle Project
--->
+* http://localhost:8080/swagger-ui/index.html
 
 # MySQL 연동
 * [mysql-curriculum](https://github.com/ovdncids/mysql-curriculum)
