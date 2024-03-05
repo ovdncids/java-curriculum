@@ -1,6 +1,6 @@
 # Spring Boot - Rest API
 
-## Rest API 패턴으로 개발 하는 이유 
+## Rest API 패턴으로 개발 하는 이유
 * Rest API 패턴으로 개발 하면 Frontend쪽 웹앱(SPA), 아이폰, 안드로이드 등등 하나로 모두 서비스 가능하다.
 
 ## 설치
@@ -272,6 +272,11 @@ pom.xml
 </dependency>
 ```
 
+build.gradle.kts
+```kts
+implementation("org.springframework.boot:spring-boot-starter-jdbc")
+```
+
 ### 회원(Users) Read
 src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
 ```java
@@ -327,15 +332,23 @@ jdbcTemplate.update(query, user.getName(),user.getAge(), index);
 ## 2. MyBatis 모듈
 https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure
 
-pom.xml
-```xml
-<dependency>
-    <groupId>org.mybatis.spring.boot</groupId>
-    <artifactId>mybatis-spring-boot-starter</artifactId>
-    <version>2.2.0</version>
-</dependency>
+* <details><summary>Spring Boot 2.x</summary>
+
+    pom.xml
+   ```xml
+   <dependency>
+       <groupId>org.mybatis.spring.boot</groupId>
+       <artifactId>mybatis-spring-boot-starter</artifactId>
+       <version>2.2.0</version>
+   </dependency>
+   ```
+   * ❕ Spring Boot 버전에 맞는 MyBatis를 넣어야 한다.
+</details>
+
+build.gradle.kts
+```kts
+implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
 ```
-* ❕ Spring Boot 버전에 맞는 MyBatis를 넣어야 한다.
 
 src/main/resources/application.properties
 ```properties
@@ -457,6 +470,7 @@ public interface UsersRepository {
 }
 ```
 * ❕ Repository 인터페이스 생성하는 이유 (Controller나 Service 마다 SqlSessionFactory, SqlSession을 호출할 필요 없이, 바로 매핑까지 해준다.)
+* ❕ `@Select("select * from users")` 사용할 경우 `users.xml`에서 `read`는 주석 처리해야 한다.
 
 #### UsersController에서 Repository 사용하기
 src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
