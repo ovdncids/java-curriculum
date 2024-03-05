@@ -197,10 +197,10 @@ public WebMvcConfigurer corsConfigurer() {
     * IntelliJ -> View -> Tool Windows -> Gradle -> Reload Gradle Project
     -->
 </details>
-build.gradle.kts
 
+build.gradle.kts
 ```kts
-implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
+implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 ```
 * http://localhost:8080/swagger-ui/index.html
 
@@ -227,6 +227,11 @@ pom.xml
     <artifactId>mysql-connector-java</artifactId>
     <version>8.0.31</version>
 </dependency>
+```
+
+build.gradle.kts
+```kts
+implementation ("mysql:mysql-connector-java:8.0.31")
 ```
 
 src/main/java/com/example/SpringBootRestApiStudy/models/User.java
