@@ -231,7 +231,7 @@ pom.xml
 
 build.gradle.kts
 ```kts
-implementation ("mysql:mysql-connector-java:8.0.31")
+implementation("mysql:mysql-connector-java:8.0.31")
 ```
 
 src/main/java/com/example/SpringBootRestApiStudy/models/User.java
