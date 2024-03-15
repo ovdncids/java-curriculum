@@ -6,16 +6,15 @@
 ```sh
 Project: Maven Project
 Language: Java
-Spring Boot: 2.5.4 (현재)
+Spring Boot: 3.2.4 (현재)
 Project Metadata
     Artifact: SpringBootMvcStudy
 Packaging: Jar
-Java: 8
+Java: 17
 Dependencies: Spring Web
 
 GENERATE <- SpringBootMvcStudy.zip 다운받기
 압축 풀고 해당 경로를 Intellij에서 Open
-Terminal <- git init
 ```
 
 ## Spring Boot Tomcat 서버 실행
@@ -77,21 +76,34 @@ src/main/webapp/test.jsp
 * pom.xml 설정 없이도 webapp 경로의 파일은 접근 가능하다. 하지만 jsp를 컴파일 하지 못한다.
 
 ### .jsp 파일 컴파일 하기
-pom.xml
-```xml
-<dependency>
-	<groupId>org.apache.tomcat.embed</groupId>
-	<artifactId>tomcat-embed-jasper</artifactId>
-</dependency>
-<dependency>
-	<groupId>javax.servlet</groupId>
-	<artifactId>jstl</artifactId>
-</dependency>
+* <details><summary>Spring Boot 2.x</summary>
+
+	* https://sidepower.tistory.com/352
+
+ 	pom.xml
+	```xml
+	<dependency>
+		<groupId>org.apache.tomcat.embed</groupId>
+		<artifactId>tomcat-embed-jasper</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>jstl</artifactId>
+	</dependency>
+	```
+	* pom.xml <- Maven <- Reload project
+	* Spring Boot(Tomcat) 재시작
+	* http://localhost:8080/test.jsp
+	* ❕ 안될 경우: IntelliJ 재시작
+</details>
+
+build.gradle.kts
+```kts
+implementation("org.apache.tomcat.embed:tomcat-embed-jasper")
+implementation("jakarta.servlet:jakarta.servlet-api")
+implementation("org.glassfish.web:jakarta.servlet.jsp.jstl")
+implementation("jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api")
 ```
-* pom.xml <- Maven <- Reload project
-* Spring Boot(Tomcat) 재시작
-* http://localhost:8080/test.jsp
-* ❕ 안될 경우: IntelliJ 재시작
 
 ## View 만들기
 src/main/webapp/WEB-INF/views/users.jsp
