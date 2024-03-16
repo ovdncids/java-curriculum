@@ -390,7 +390,7 @@ void usersRead() {
 ```
 * 테스트를 사용하는 이유 (테스트 하고 싶은 부분만 바로 실행 할 수 있다.)
 * `org.slf4j.Logger` 선택
-* ❕ `import` 못 찾을 경우 `타이핑` 해야 한다.
+* ❕ `import` 못 찾을 경우 `Logger`에서 한글자만 지우고 다시 한글자 입력 한다.
 
 #### 회원(Users) Create
 src/main/resources/mappers/users.xml
@@ -687,8 +687,14 @@ src/main/resources/mappers/users.xml
 ```
 * ❕ `Swagger`에 추가되지는 않는다.
 
-# 기타 라이브러리
-## @Slf4j log
+## Lombok
+build.gradle.kts
+```kts
+implementation("org.projectlombok:lombok")
+annotationProcessor("org.projectlombok:lombok")
+testAnnotationProcessor("org.projectlombok:lombok")
+```
+
 src/test/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicationTests.java
 ```java
 import lombok.extern.slf4j.Slf4j;
@@ -704,6 +710,7 @@ class SpringBootRestApiStudyApplicationTests {
 ```
 * ❕ `@Slf4j`는 `log` 함수를 바로 사용하게 해준다.
 * `@Slf4j` 임포트가 잘 안되면 (Add library 'Maven ... lombok' 선택)
+* [Lombok 어노테이션](https://github.com/ovdncids/java-curriculum/blob/master/SpringBootMockEtc.md#lombok-%EC%96%B4%EB%85%B8%ED%85%8C%EC%9D%B4%EC%85%98)
 
 ### STS4
 ```xml
