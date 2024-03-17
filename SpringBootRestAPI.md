@@ -783,7 +783,7 @@ log.info(c1);
 * Run -> Edit Configurations... -> Environment variables: `spring.profiles.active=local`
 * Command line인 경우: spring-boot:run -Dspring.profiles.active=local,db-dev
 * 잘 안되면 `@Value("${spring.profiles.active}") private String active;` 확인
-* [Docker - Spring Boot 설정](https://github.com/ovdncids/docker-curriculum/blob/master/SpringBoot.md#spring-boot)
+* [Docker - Spring Boot 설정](https://github.com/ovdncids/docker-curriculum/blob/master/DockerCompose.md#spring-boot---%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%83%9D%EC%84%B1)
 
 #### Environment variables 여러개 사용
 src/main/resources/application-db-local.properties
