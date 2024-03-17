@@ -735,6 +735,7 @@ src/main/resources/custom.properties
 a1=123
 b1.b2=한글
 ```
+* 한글이 깨질 경우 > Settings... > Editor > File Encodings > Default encoding for properties fiels > UTF-8
 
 src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
 ```java
