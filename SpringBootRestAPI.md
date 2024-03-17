@@ -735,7 +735,7 @@ src/main/resources/custom.properties
 a1=123
 b1.b2=한글
 ```
-* 한글이 깨질 경우 > Settings... > Editor > File Encodings > Default encoding for properties fiels > UTF-8
+* 한글이 깨질 경우 > Settings... > Editor > File Encodings > Transparent native-to-ascii conversion > 체크
 
 src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
 ```java
@@ -765,12 +765,12 @@ log.info(b2);
 ### local, production Properties 나누기
 src/main/resources/application-local.properties
 ```properties
-property.c1=local
+property.c1=localProperties
 ```
 
 src/main/resources/application-production.properties
 ```properties
-property.c1=production
+property.c1=productionProperties
 ```
 
 src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
@@ -788,12 +788,12 @@ log.info(c1);
 #### Environment variables 여러개 사용
 src/main/resources/application-db-local.properties
 ```properties
-property.d1=db-local
+property.d1=dbLocalProperties
 ```
 
 src/main/resources/application-db-production.properties
 ```properties
-property.d1=db-production
+property.d1=dbProductionProperties
 ```
 
 src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
