@@ -669,6 +669,11 @@ public class UsersServiceImpl implements UsersService {
 * https://elvis-note.tistory.com/entry/9-Spring-MVC-2-Service%EC%99%80-ServiceImpl
 * https://multifrontgarden.tistory.com/97
 
+#### Service와 ServiceImpl 쉽게 이동
+```java
+implements UsersService
+```
+
 <!-- APO: 쉽게 미들웨어라고 생각하면 쉽다. -->
 
 ## 특정 컬럼 추가/삭제 후 Response 하기
