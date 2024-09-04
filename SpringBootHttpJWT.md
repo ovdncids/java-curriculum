@@ -10,14 +10,21 @@ pom.xml
     <artifactId>jjwt</artifactId>
     <version>0.9.1</version>
 </dependency>
+<!-- Java 11 이상에서 java.lang.ClassNotFoundException: javax.xml.bind.DatatypeConverter 발생 하는 경우 -->
+<dependency>
+    <groupId>javax.xml.bind</groupId>
+    <artifactId>jaxb-api</artifactId>
+    <!-- <version>2.3.1</version> -->
+</dependency>
 ```
 
 build.gradle.kts
 ```kts
 implementation("io.jsonwebtoken:jjwt:0.9.1")
-implementation("com.sun.xml.bind:jaxb-impl:4.0.1")
-implementation("com.sun.xml.bind:jaxb-core:4.0.1")
-implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
+implementation("javax.xml.bind:jaxb-api:2.3.1")
+// implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
+// implementation("com.sun.xml.bind:jaxb-core:4.0.1")
+// implementation("com.sun.xml.bind:jaxb-impl:4.0.1")
 ```
 
 ## JWT 테스트
@@ -82,14 +89,6 @@ public Map<String, Object> usersCheck(@RequestParam String token) {
     Map<String, Object> user = JwtAuth.tokenCheck(token);
     return user;
 }
-```
-### Java 11 이상에서 java.lang.ClassNotFoundException: javax.xml.bind.DatatypeConverter 발생 하는 경우
-```xml
-<dependency>
-    <groupId>javax.xml.bind</groupId>
-    <artifactId>jaxb-api</artifactId>
-    <!-- <version>2.3.1</version> -->
-</dependency>
 ```
 
 ## token 값을 header에서 받기
