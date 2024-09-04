@@ -229,7 +229,7 @@ public Map<String, Object> usersCheck(@RequestParam String token) {
     </dependency>
     ```
     
-    src/main/java/패키지/WebSecurityConfig.java
+    src/main/java/패키지/common/WebSecurityConfig.java
     ```java
     @Configuration
     @EnableWebSecurity
@@ -384,15 +384,12 @@ public Map<String, Object> usersCheck(
 ```
 
 ## Security와 JwtRequestFilter 연결 (꼭 필요하지 않으면 사용 하지 않는다.)
-pom.xml
-```xml
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-security</artifactId>
-</dependency>
+build.gradle.kts
+```kts
+implementation("org.springframework.boot:spring-boot-starter-security")
 ```
 
-src/main/java/패키지/WebSecurityConfig.java
+src/main/java/패키지/common/WebSecurityConfig.java
 ```java
 @Configuration
 @EnableWebSecurity
