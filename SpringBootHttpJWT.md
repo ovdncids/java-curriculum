@@ -28,7 +28,7 @@ implementation("javax.xml.bind:jaxb-api:2.3.1")
 ```
 
 ## JWT 테스트
-src/main/java/패키지/common/JwtAuth.java
+src/main/java/패키지/config/JwtAuth.java
 ```java
 import io.jsonwebtoken.Header;
 import java.time.Duration;
@@ -154,7 +154,7 @@ public Map<String, Object> usersCheck(@RequestParam String token) {
     ## 모든 서버 요청에 JwtRequestFilter 먼저 실행 시키기
     * 필터(Filter), 인터셉터(Interceptor), 미들웨어(Middleware) 상황에 따라서 달리 불려진다.
     
-    src/main/java/패키지/common/JwtRequestFilter.java
+    src/main/java/패키지/config/JwtRequestFilter.java
     ```java
     @Component
     public class JwtRequestFilter extends OncePerRequestFilter {
@@ -229,7 +229,7 @@ public Map<String, Object> usersCheck(@RequestParam String token) {
     </dependency>
     ```
     
-    src/main/java/패키지/common/WebSecurityConfig.java
+    src/main/java/패키지/config/WebSecurityConfig.java
     ```java
     @Configuration
     @EnableWebSecurity
@@ -261,7 +261,7 @@ public Map<String, Object> usersCheck(@RequestParam String token) {
     -->
     * [WebSecurityConfigurerAdapter - deprecation 관련](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter)
     
-    src/main/java/패키지/common/JwtRequestFilter.java
+    src/main/java/패키지/config/JwtRequestFilter.java
     ```diff
     - @Component
     + // @Component
@@ -281,7 +281,7 @@ implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 ```
 * http://localhost:8080/swagger-ui/index.html
 
-src/main/java/패키지/common/SwaggerDocConfig.java
+src/main/java/패키지/config/SwaggerDocConfig.java
 ```java
 @OpenAPIDefinition(
         info = @Info(title = "타이틀",
@@ -317,7 +317,7 @@ public Map<String, Object> usersCheck(
 ## 모든 서버 요청에 JwtRequestFilter 먼저 실행 시키기
 * 필터(Filter), 인터셉터(Interceptor), 미들웨어(Middleware) 상황에 따라서 달리 불려진다.
 
-src/main/java/패키지/common/JwtRequestFilter.java
+src/main/java/패키지/config/JwtRequestFilter.java
 ```java
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -389,7 +389,7 @@ build.gradle.kts
 implementation("org.springframework.boot:spring-boot-starter-security")
 ```
 
-src/main/java/패키지/common/WebSecurityConfig.java
+src/main/java/패키지/config/WebSecurityConfig.java
 ```java
 @Configuration
 @EnableWebSecurity
@@ -404,24 +404,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 }
 ```
-<!--
-@Override
-public void configure(WebSecurity web) throws Exception {
-    // swagger 관련 리소스 시큐리티 필터 제거
-    web.ignoring().antMatchers(
-            "/v2/api-docs",
-            "/swagger-resources/**",
-            "/swagger-ui.html",
-            "/webjars/**", "/swagger/**"
-    );
-}
-
-* https://sup2is.github.io/2020/03/05/spring-security-login-with-jwt.html
-* https://kimchanjung.github.io/programming/2020/07/02/spring-security-02
--->
 * [WebSecurityConfigurerAdapter - deprecation 관련](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter)
 
-src/main/java/패키지/common/JwtRequestFilter.java
+src/main/java/패키지/config/JwtRequestFilter.java
 ```diff
 - @Component
 + // @Component
@@ -432,3 +417,19 @@ src/main/java/패키지/common/JwtRequestFilter.java
 * `.csrf().disable()` 주석 처리해 보기
 * ❕ `.addFilterBefore` 없으면 아무일도 일어나지 않는다.
 * ❕ `spring-boot-starter-security`는 `MVC` 패턴 기반이므로 `Rest API` 패턴에서 사용해야 할지는 신중히 판단 해야 한다.
+
+## CORS
+src/main/java/패키지/config/CorsConfig.java
+```java
+@Configuration
+public class CorsConfig implements WebMvcConfigurer {
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*")
+                .allowCredentials(true);
+    }
+}
+```
