@@ -377,7 +377,7 @@ src/main/java/패키지/api/v1/users/UsersController.java
 ```java
 @RequestMapping(path = "/check", method = RequestMethod.GET)
 public Map<String, Object> usersCheck(
-        @ApiIgnore @RequestAttribute Map<String, Object> user
+        @Parameter(hidden = true) @RequestAttribute Map<String, Object> user
 ) {
     return user;
 }
