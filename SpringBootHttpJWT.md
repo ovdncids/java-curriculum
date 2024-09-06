@@ -385,6 +385,7 @@ public Map<String, Object> usersCheck(
 
 ## Security와 JwtRequestFilter 연결 (꼭 필요하지 않으면 사용 하지 않는다.)
 * https://sjh9708.tistory.com/170
+
 build.gradle.kts
 ```kts
 implementation("org.springframework.boot:spring-boot-starter-security")
