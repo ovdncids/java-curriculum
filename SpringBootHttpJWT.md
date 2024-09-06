@@ -419,17 +419,18 @@ src/main/java/패키지/config/JwtRequestFilter.java
 * ❕ `spring-boot-starter-security`는 `MVC` 패턴 기반이므로 `Rest API` 패턴에서 사용해야 할지는 신중히 판단 해야 한다.
 
 ## CORS
-src/main/java/패키지/config/CorsConfig.java
+src/main/java/패키지/config/WebConfig.java
 ```java
 @Configuration
-public class CorsConfig implements WebMvcConfigurer {
+public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
+                // .allowCredentials(true)
                 .allowedOrigins("*")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*")
-                .allowCredentials(true);
+                .allowedMethods("GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE")
+                .allowedHeaders("*");
     }
 }
 ```
+* `allowCredentials` 쿠키를 사용할 경우 `allowedOrigins("http://localhost:3000")` 명시해야 한다.
