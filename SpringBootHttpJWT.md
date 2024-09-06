@@ -82,6 +82,7 @@ public String usersLogin(@RequestBody User user) {
     mapUser.put("name", user.getName());
     mapUser.put("age", user.getAge());
     return JwtAuth.tokenCreate(mapUser);
+    // return "Bearer " + JwtAuth.tokenCreate(mapUser);
 }
 
 @RequestMapping(path = "/check", method = RequestMethod.GET)
@@ -360,8 +361,11 @@ return !match;
 - filterChain.doFilter(request,response);
 ```
 ```java
+Map<String, Object> user = new HashMap<>();
 String token = request.getHeader("Authorization");
-Map<String, Object> user = JwtAuth.tokenCheck(token.replace("Bearer ", ""));
+if (token != null) {
+    user = JwtAuth.tokenCheck(token.replace("Bearer ", ""));
+}
 request.setAttribute("user", user);
 filterChain.doFilter(request, response);
 ```
