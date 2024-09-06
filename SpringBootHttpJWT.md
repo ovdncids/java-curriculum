@@ -384,6 +384,7 @@ public Map<String, Object> usersCheck(
 ```
 
 ## Security와 JwtRequestFilter 연결 (꼭 필요하지 않으면 사용 하지 않는다.)
+* https://sjh9708.tistory.com/170
 build.gradle.kts
 ```kts
 implementation("org.springframework.boot:spring-boot-starter-security")
@@ -393,18 +394,22 @@ src/main/java/패키지/config/WebSecurityConfig.java
 ```java
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                // csrf disable을 설정 안하면 POST, PATCH, DELETE 메소드에서 403 Forbidden 에러가 발생한다.
-                .csrf().disable()
-                .antMatcher("/api/v1/**")
-                .addFilterBefore(new JwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
+public class WebSecurityConfig {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .csrf((csrf) -> csrf.disable())
+                .authorizeHttpRequests((authz) -> {
+                    authz
+                            .requestMatchers("/swagger-ui/**", "/v3/**").permitAll()
+                            .requestMatchers("/api/v1/users/**").permitAll()
+                            .anyRequest().authenticated();
+                })
+                .addFilterBefore(new JwtRequestFilter(), AnonymousAuthenticationFilter.class)
+                .build();
     }
 }
 ```
-* [WebSecurityConfigurerAdapter - deprecation 관련](https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter)
 
 src/main/java/패키지/config/JwtRequestFilter.java
 ```diff
@@ -413,16 +418,14 @@ src/main/java/패키지/config/JwtRequestFilter.java
 ```
 
 * `디버깅 모드`에서 어떻게 동작 하는지 확인
-* `.antMatcher` 주석 처리해 보기
 * `.csrf().disable()` 주석 처리해 보기
-* ❕ `.addFilterBefore` 없으면 아무일도 일어나지 않는다.
 * ❕ `spring-boot-starter-security`는 `MVC` 패턴 기반이므로 `Rest API` 패턴에서 사용해야 할지는 신중히 판단 해야 한다.
 
 ## CORS
-src/main/java/패키지/config/WebConfig.java
+src/main/java/패키지/config/CorsConfig.java
 ```java
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
+public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
