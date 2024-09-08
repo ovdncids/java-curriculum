@@ -386,6 +386,24 @@ public Map<String, Object> usersCheck(
     return user;
 }
 ```
+* [React JWT](https://github.com/ovdncids/react-curriculum/blob/master/JWT.md#frontend)
+
+## CORS
+src/main/java/패키지/config/CorsConfig.java
+```java
+@Configuration
+public class CorsConfig implements WebMvcConfigurer {
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                // .allowCredentials(true)
+                .allowedOrigins("*")
+                .allowedMethods("GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE")
+                .allowedHeaders("*");
+    }
+}
+```
+* 쿠키를 사용할 경우 `allowCredentials(true)`로 변경 후 `allowedOrigins("http://localhost:3000")` 명시해야 한다.
 
 ## Security와 JwtRequestFilter 연결 (꼭 필요하지 않으면 사용 하지 않는다.)
 * https://sjh9708.tistory.com/170
@@ -425,20 +443,3 @@ src/main/java/패키지/config/JwtRequestFilter.java
 * `디버깅 모드`에서 어떻게 동작 하는지 확인
 * `.csrf().disable()` 주석 처리해 보기
 * ❕ `spring-boot-starter-security`는 `MVC` 패턴 기반이므로 `Rest API` 패턴에서 사용해야 할지는 신중히 판단 해야 한다.
-
-## CORS
-src/main/java/패키지/config/CorsConfig.java
-```java
-@Configuration
-public class CorsConfig implements WebMvcConfigurer {
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                // .allowCredentials(true)
-                .allowedOrigins("*")
-                .allowedMethods("GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE")
-                .allowedHeaders("*");
-    }
-}
-```
-* 쿠키를 사용할 경우 `allowCredentials(true)`로 변경 후 `allowedOrigins("http://localhost:3000")` 명시해야 한다.
