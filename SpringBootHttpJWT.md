@@ -441,4 +441,4 @@ public class CorsConfig implements WebMvcConfigurer {
     }
 }
 ```
-* `allowCredentials` 쿠키를 사용할 경우 `allowedOrigins("http://localhost:3000")` 명시해야 한다.
+* 쿠키를 사용할 경우 `allowCredentials(true)`로 변경 후 `allowedOrigins("http://localhost:3000")` 명시해야 한다.
