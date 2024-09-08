@@ -1,7 +1,5 @@
 # Spring Boot - File Upload
 
-* https://velog.io/@seokjun0915/Spring-Boot-%ED%8C%8C%EC%9D%BC-%EC%97%85%EB%A1%9C%EB%93%9C%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C
-
 ## File Upload
 src/main/java/패키지/config/MultipartConfig.java
 ```java
@@ -54,3 +52,6 @@ Arrays.stream(uploadFiles).forEach(multipartFile -> {
 });
 return text;
 ```
+
+## File Download
+* [File Download](https://velog.io/@seokjun0915/Spring-Boot-%ED%8C%8C%EC%9D%BC-%EC%97%85%EB%A1%9C%EB%93%9C%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C)
