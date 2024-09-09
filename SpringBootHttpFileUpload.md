@@ -1,4 +1,5 @@
 # Spring Boot - File Upload
+* https://velog.io/@seokjun0915/Spring-Boot-%ED%8C%8C%EC%9D%BC-%EC%97%85%EB%A1%9C%EB%93%9C%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C
 
 ## File Upload
 src/main/java/패키지/config/MultipartConfig.java
@@ -55,4 +56,22 @@ return text;
 ```
 
 ## File Download
-* [File Download](https://velog.io/@seokjun0915/Spring-Boot-%ED%8C%8C%EC%9D%BC-%EC%97%85%EB%A1%9C%EB%93%9C%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C)
+```java
+@GetMapping(value="/downloadFile/{fileName}")
+public ResponseEntity<?> downloadFile(
+        @PathVariable("fileName") String fileName
+) throws IOException {
+    Path path = Paths.get("이미지 업로드할 절대 경로" + "/" + fileName);
+    String contentType = Files.probeContentType(path);
+    HttpHeaders httpHeaders = new HttpHeaders();
+    httpHeaders.setContentDisposition(
+            ContentDisposition.builder("inline")
+                    .filename(fileName, StandardCharsets.UTF_8)
+                    .build()
+    );
+    httpHeaders.add(HttpHeaders.CONTENT_TYPE, contentType);
+    Resource resource = new InputStreamResource(Files.newInputStream(path));
+    return new ResponseEntity<>(resource, httpHeaders, HttpStatus.OK);
+}
+```
+* ❕ `ContentDisposition.builder` 값이 `inline`이면 브라우저에서 이미지를 볼 수 있고 `attachment`이면 브라우저에서 이미지를 다운로드 한다.
