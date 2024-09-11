@@ -369,6 +369,7 @@ if (token != null) {
 request.setAttribute("user", user);
 filterChain.doFilter(request, response);
 ```
+* ❕ `request.setAttribute`에 `userDTO`를 넘겨길 수 있다.
 
 src/main/java/패키지/api/v1/users/UsersController.java
 ```diff
