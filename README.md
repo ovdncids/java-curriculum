@@ -14,4 +14,6 @@
 
 * [Spring Boot - JWT](SpringBootHttpJWT.md)
 
+* [Spring Boot - JSON, Lombok](SpringBootMockEtc.md)
+
 * [Spring Boot - File Upload](SpringBootHttpFileUpload.md)
