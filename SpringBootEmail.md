@@ -21,7 +21,6 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 @GetMapping("/sendEmail")
 public void sendEmail(
 ) {
-    System.out.println(username);
     SimpleMailMessage message = new SimpleMailMessage();
     message.setFrom(username);
     message.setTo("받는자@nate.com");
