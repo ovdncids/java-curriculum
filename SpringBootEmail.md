@@ -18,6 +18,9 @@ spring.mail.properties.mail.smtp.starttls.enable=true
 ```java
 @Value("${spring.mail.username}") private String username;
 
+@Autowired
+private JavaMailSender mailSender;
+
 @GetMapping("/sendEmail")
 public void sendEmail(
 ) {
