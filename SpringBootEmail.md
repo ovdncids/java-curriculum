@@ -45,7 +45,7 @@ src/main/resources/application.properties
 ```properties
 spring.mail.host=smtp.naver.com
 spring.mail.port=25
-spring.mail.username=개발자@gmail.com
+spring.mail.username=개발자@naver.com
 spring.mail.password=네이버 비밀번호
 spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
