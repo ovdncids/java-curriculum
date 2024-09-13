@@ -26,7 +26,7 @@ public void sendEmail(
 ) {
     SimpleMailMessage message = new SimpleMailMessage();
     message.setFrom(username);
-    message.setTo("받는자@nate.com");
+    message.setTo("받는자@naver.com");
     message.setSubject("subject");
     message.setText("body");
     mailSender.send(message);
