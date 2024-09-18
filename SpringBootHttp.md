@@ -514,23 +514,13 @@ Object[] objects = {user, CustomProperties.getAll()};
 * https://cheese10yun.github.io/spring-guide-exception
 * https://supawer0728.github.io/2019/04/04/spring-error-handling
 
-src/main/resources/application.properties
-```properties
-server.error.include-message=ALWAYS
-server.error.include-exception=TRUE
-#server.error.include-stacktrace=ALWAYS
-```
-
-src/main/java/com/example/SpringBootHttpStudy/api/v1/UsersService.java
-```diff
-- return (List<User>) httpClient5Response.getResponseMap().get("users");
-```
+### 공용 예외 처리
+Controller
 ```java
 int a = 1 / 0;
-return (List<User>) httpClient5Response.getResponseMap().get("users");
 ```
+* 확인
 
-### 공용 예외 처리
 src/main/java/com/example/SpringBootHttpStudy/api/v1/ExceptionController.java
 ```java
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
@@ -543,7 +533,7 @@ public class ExceptionController {
         log.error("Exception", exception);
         DefaultErrorAttributes defaultErrorAttributes = new DefaultErrorAttributes();
         Map<String, Object> map = defaultErrorAttributes.getErrorAttributes(webRequest, ErrorAttributeOptions.defaults());
-        //  Map<String, Object> map = ErrorAttributes.getErrorAttributes(webRequest);
+        // Map<String, Object> map = ErrorAttributes.getErrorAttributes(webRequest);
         map.put("key", "value");
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(map);
     }
@@ -551,8 +541,16 @@ public class ExceptionController {
 ```
 * `@Slf4j` <- Add 'lombok' to classpath
 * pom.xml <- Reload project
+* JSON 형식으로 받는지 확인
 
 #### application.properties 설정에한 에러 레벨 적용한
+src/main/resources/application.properties
+```properties
+server.error.include-message=ALWAYS
+server.error.include-exception=TRUE
+server.error.include-stacktrace=ALWAYS
+```
+
 src/main/java/com/example/SpringBootHttpStudy/common/ErrorAttributes.java
 ```java
 @Component
@@ -562,13 +560,18 @@ public class ErrorAttributes extends DefaultErrorAttributes {
     @Value("${server.error.include-exception}")
     private Boolean _exception;
 
+    @Value("${server.error.include-stacktrace}")
+    private String _stacktrace;
+
     private static String message;
     private static Boolean exception;
+    private static String stacktrace;
 
     @PostConstruct
     private void init() {
         message = this._message;
         exception = this._exception;
+        stacktrace = this._stacktrace;
     }
 
     public static Map<String, Object> getErrorAttributes(WebRequest request) {
@@ -579,6 +582,9 @@ public class ErrorAttributes extends DefaultErrorAttributes {
         if (exception) {
             includes.add(ErrorAttributeOptions.Include.EXCEPTION);
         }
+        if ("ALWAYS".equals(stacktrace)) {
+            includes.add(ErrorAttributeOptions.Include.STACK_TRACE);
+        }
         ErrorAttributeOptions errorAttributeOptions = ErrorAttributeOptions.of(includes);
         ErrorAttributes ErrorAttributes = new ErrorAttributes();
         return ErrorAttributes.getErrorAttributes(request, errorAttributeOptions);
@@ -586,6 +592,7 @@ public class ErrorAttributes extends DefaultErrorAttributes {
 }
 ```
 * `ExceptionController.java` <- 주석 풀기
+* 확인
 
 <!--
     @Override
