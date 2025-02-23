@@ -518,6 +518,7 @@ for (int index6 = 1; index6 <= 10; index6 += 1) {
   System.out.println(index6 + "은 " + oddEven + " 입니다.");
 }
 ```
+* [프로그래머스](https://programmers.co.kr/learn/courses/30/lessons/12937)
 
 ### for문의 범위(Scope), 로컬(Local) 변수와 블록(Block) 변수의 차이
 1. 초기문 사용하지 않기
