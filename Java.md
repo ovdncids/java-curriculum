@@ -229,7 +229,7 @@ String result5 = string1 + string2;
   ```java
   String stringFirst = "올해 총 카드 사용 금액은 ";
   String stringLast = " 입니다.";
-  String stringChange = " 오백만원";
+  String stringChange = "오백만원";
   System.out.println(stringFirst + stringChange + stringLast);
   ```
 </details>
