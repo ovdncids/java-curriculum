@@ -242,7 +242,7 @@ boolean result6 = boolean1 + boolean2;
 ```
 * ❔ `+` 연산자를 `-`, `*`, `/`로 바꾼다면
 
-### 2. 동등 비교 연산자 (==)
+### 2. 동등 연산자 (==)
 ```java
 boolean equalBoolean1 = true == true;
 boolean equalBoolean2 = true == false;
