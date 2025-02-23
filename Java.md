@@ -227,10 +227,10 @@ String result5 = string1 + string2;
 * <details><summary>정답</summary>
 
   ```java
-  String string3 = "올해 총 카드 사용 금액은 ";
-  String string4 = " 입니다.";
-  String string5 = " 오백만원";
-  System.out.println(string3 + string5 + string4);
+  String stringFirst = "올해 총 카드 사용 금액은 ";
+  String stringLast = " 입니다.";
+  String stringChange = " 오백만원";
+  System.out.println(stringFirst + stringChange + stringLast);
   ```
 </details>
 
