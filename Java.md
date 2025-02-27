@@ -754,6 +754,7 @@ public static void usersCreate(String user) {
 ```
 public static void main(String[] args) {
 ```java
+// Create
 usersCreate("홍길동");
 usersCreate("홍길동2");
 ```
@@ -767,6 +768,7 @@ public static void usersRead() {
 ```
 public static void main(String[] args) {
 ```java
+// Read
 usersRead();
 ```
 
@@ -779,6 +781,7 @@ public static void usersDelete(int index) {
 ```
 public static void main(String[] args) {
 ```java
+// Delete
 usersDelete(0);
 usersRead();
 ```
@@ -792,6 +795,7 @@ public static void usersUpdate(int index, String user) {
 ```
 public static void main(String[] args) {
 ```java
+// Update
 usersUpdate(0, "길동이");
 usersRead();
 ```
