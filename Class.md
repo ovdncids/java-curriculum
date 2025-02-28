@@ -2,9 +2,13 @@
 
 ## 원시(Primitive)자료형과 래퍼(Wrapper)클래스
 ### int와 Integer형 비교
+
+Wrapper.java
 ```java
 int int1 = 1;
 Integer int2 = new Integer(1);
+System.out.println(int2);
+System.out.println(int2.toString());
 System.out.println(int1 == int2);
 System.out.println(int2.toString() + 1);
 System.out.println(int2.equals(int1));
@@ -16,6 +20,8 @@ System.out.println(int2.equals(int1));
 ```java
 boolean bool1 = true;
 Boolean bool2 = new Boolean(true);
+System.out.println(bool2);
+System.out.println(bool2.toString());
 System.out.println(bool1 == bool2);
 System.out.println(bool2.toString() + 1);
 System.out.println(bool2.equals(bool1));
@@ -29,22 +35,6 @@ System.out.println(bool2.equals(bool1));
 int int3 = null;
 Integer int4 = null;
 ```
-
-Main.java
-```java
-class PrimitiveTest {
-    int a;
-}
-
-public class Main {
-    public static void main(String[] args) {
-        PrimitiveTest primitiveTest = new PrimitiveTest();
-        System.out.println(primitiveTest.a);
-    }
-}
-```
-* ❔ `primitiveTest.a`값은?
-* ❔ `int a;`를 `Integer a;`로 바꾼다면?
 
 ## Model형 Class
 `배열`은 변수의 집합으로 `숫자(index)` 기준으로 변수에 접근 하지만, Model형 Class로 만든 `객체(Object)`는 `문자`를 기준으로 변수에 접근 한다.
@@ -146,23 +136,24 @@ public void setV2(Integer v2) {
 
 src/com/company/models/Model1.java
 ```java
-public static String s1 = "Static user";
-public static void s2() {
-    System.out.println(s1);
+public static String sVariable = "Static user";
+public static void sMethod() {
+    System.out.println(sVariable);
 }
 ```
 
 src/com/company/Class.java
 ```java
-Model1.s2();
+Model1.sMethod();
 Model1 m1 = new Model1();
-m1.s1 = "Static m1";
-m1.s2();
+m1.sVariable = "Static m1";
+m1.sMethod();
 Model1 m2 = new Model1();
-m2.s1 = "Static m2";
-m2.s2();
-Model1.s2();
+m2.sVariable = "Static m2";
+m2.sMethod();
+Model1.sMethod();
 ```
+* ❔ `m1`객체와 `m2`객체가 `동등`한지 `System.out.println`로 찍어 보기
 
 ## 외부 라이브러리 불러오기
 ### Gson
