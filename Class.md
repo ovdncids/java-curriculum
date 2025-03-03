@@ -121,7 +121,7 @@ model1.setV3(null);
 ```
 
 ### set 메서드에서 Validation 적용
-* 상황: `model1`객체의 멤버변수 `v2`는 양수만 받아야 하고, 음수를 받을 경우 0으로 대치 하려한다.
+* 상황: `model1`객체의 멤버변수 `v2`는 양수만 받아야 하고, 음수를 받을 경우 `0`으로 대치 하려한다.
 ```java
 public void setV2(Integer v2) {
     if (v2 < 0) v2 = 0;
