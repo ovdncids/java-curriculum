@@ -353,6 +353,7 @@ implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
 
 src/main/resources/application.properties
 ```properties
+# MyBatis
 mybatis.configuration.map-underscore-to-camel-case=true
 mybatis.type-aliases-package=com.example.SpringBootRestApiStudy.models
 mybatis.mapper-locations=classpath:mappers/*.xml
