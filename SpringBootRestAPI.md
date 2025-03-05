@@ -210,6 +210,7 @@ implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 
 src/main/resources/application.properties
 ```properties
+# MySQL
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 spring.datasource.url=jdbc:mysql://127.0.0.1:3306/DB명
 spring.datasource.username=계정
