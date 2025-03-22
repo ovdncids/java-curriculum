@@ -78,27 +78,23 @@ public class UsersResponse {
 
 * ❕ 접근권한을 private로 만든 경우는 `Getter and Setter`가 필수 이지만, 접근권한을 public으로 만든 경우는 없어도 된다.
 
+### UsersController - GET 메서드
 src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
 ```java
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("api/v1/users")
 public class UsersController {
-    private static List<User> init() {
+    public List<User> users;
+
+    public UsersController() {
         List<User> users = new ArrayList<>();
         users.add(new User("홍길동", 39));
         users.add(new User("김삼순", 33));
         users.add(new User("홍명보", 44));
         users.add(new User("박지삼", 22));
         users.add(new User("권명순", 10));
-        return users;
-    }
-    public static List<User> users = init();
-
-    @RequestMapping(path = "", method = RequestMethod.POST)
-    public UsersResponse usersCreate(@RequestBody User user) {
-        users.add(user);
-        return new UsersResponse("created");
+        this.users = users;
     }
 
     @RequestMapping(path = "", method = RequestMethod.GET)
@@ -106,21 +102,6 @@ public class UsersController {
     // public UsersResponse usersRead(@RequestParam("name") String title, @RequestParam(required=false, defaultValue="1") int age) {
     public UsersResponse usersRead() {
         return new UsersResponse("read", users);
-    }
-
-    @RequestMapping(path = "/{index}", method = RequestMethod.DELETE)
-    public UsersResponse usersDelete(@PathVariable("index") int index) {
-        users.remove(index);
-        return new UsersResponse("deleted");
-    }
-
-    @RequestMapping(path = "/{index}", method = {RequestMethod.PUT, RequestMethod.PATCH})
-    public UsersResponse usersUpdate(
-            @PathVariable("index") int index,
-            @RequestBody User user
-    ) {
-        users.set(index, user);
-        return new UsersResponse("updated");
     }
 }
 ```
@@ -204,6 +185,33 @@ build.gradle.kts
 implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2")
 ```
 * http://localhost:8080/swagger-ui/index.html
+
+### UsersController - POST, DELETE, (PUT, PATCH) 메서드
+src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
+```java
+@RequestMapping(path = "", method = RequestMethod.POST)
+public UsersResponse usersCreate(@RequestBody User user) {
+    users.add(user);
+    return new UsersResponse("created");
+}
+```
+```java
+@RequestMapping(path = "/{index}", method = RequestMethod.DELETE)
+public UsersResponse usersDelete(@PathVariable("index") int index) {
+    users.remove(index);
+    return new UsersResponse("deleted");
+}
+```
+```java
+@RequestMapping(path = "/{index}", method = {RequestMethod.PUT, RequestMethod.PATCH})
+public UsersResponse usersUpdate(
+        @PathVariable("index") int index,
+        @RequestBody User user
+) {
+    users.set(index, user);
+    return new UsersResponse("updated");
+}
+```
 
 # MySQL 연동
 * [mysql-curriculum](https://github.com/ovdncids/mysql-curriculum)
@@ -559,8 +567,8 @@ usersRepository.update(userPk, user);
 
 src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
 ```diff
-- private static List<User> init() {
-- public static List<User> users = init();
+- public List<User> users;
+- public UsersController() {
 ```
 
 ### 회원(Users) Service 만들기
