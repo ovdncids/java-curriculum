@@ -43,6 +43,7 @@ src/main/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplicati
 ```sh
 public class SpringBootRestApiStudyApplication <- RUN 버튼 누르기
 ```
+* http://localhost:8080
 
 ## 회원(Users) Rest API
 src/main/java/com/example/SpringBootRestApiStudy/models/User.java
