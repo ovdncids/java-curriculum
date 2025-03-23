@@ -212,6 +212,7 @@ public UsersResponse usersUpdate(
     return new UsersResponse("updated");
 }
 ```
+* `Item` 모델과 컨트롤러 만들어 보기
 
 # MySQL 연동
 * [mysql-curriculum](https://github.com/ovdncids/mysql-curriculum)
