@@ -403,6 +403,7 @@ void usersRead() {
 * 테스트를 사용하는 이유 (테스트 하고 싶은 부분만 바로 실행 할 수 있다.)
 * `org.slf4j.Logger` 선택
 * ❕ `import` 못 찾을 경우 `Logger`에서 한글자만 지우고 다시 한글자 입력 한다.
+* ❕ `SqlSessionFactory`를 못 찾을 경우 IntelliJ 재시작
 
 #### 회원(Users) Create
 src/main/resources/mappers/users.xml
