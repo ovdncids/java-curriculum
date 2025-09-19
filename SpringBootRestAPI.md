@@ -231,6 +231,14 @@ spring.datasource.password=비밀번호
 # spring.datasource.url=jdbc:mysql://127.0.0.1:3306/DB명?useUnicode=true&amp;characterEncoding=utf8
 ```
 
+src/main/resources/application.yml
+```yml
+spring:
+   datasource:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+...
+```
+
 pom.xml
 ```xml
 <dependency>
