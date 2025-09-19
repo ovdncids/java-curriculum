@@ -747,6 +747,9 @@ class SpringBootRestApiStudyApplicationTests {
 * STS4 시작
 
 ## Properties
+* ❕ `Controller`가 `Spring Bean`에 등록 후에 `Properties`를 읽을 수 있으므로 일반 메소드에서는 쉽게 읽을 수 있다.
+* ❕ 생성자는 `public UsersController(@Value("${a1}") String a1) {` 이렇게 읽을 수 있다.
+
 ### 커스텀 Properties 읽기
 src/main/resources/custom.properties
 ```properties
