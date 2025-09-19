@@ -828,7 +828,7 @@ src/main/resources/application.properties
 ```properties
 a1=1
 b1.b2=b2
-property.c1=c1 
+property.c1=c1
 property.d1=d1
 ```
 * https://www.whiteship.me/spring-boot-external-config
