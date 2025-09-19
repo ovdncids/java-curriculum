@@ -103,7 +103,7 @@ src/com/company/models/Model1.java
 ```
 
 src/com/company/Class.java
-```diff
+```java
 // 오브젝트 Read
 boolean v1 = model1.getV1();
 int v2 = model1.getV2();
@@ -155,6 +155,7 @@ Model1.sMethod();
 ```
 * ❔ `m1`객체와 `m2`객체가 `동등`한지 `System.out.println`로 찍어 보기
 
+<!--
 ## 외부 라이브러리 불러오기
 ### Gson
 * Object를 JSON 형식으로 쉽게 변경 가능
@@ -183,3 +184,4 @@ System.out.println(model1New);
     <artifactId>gson</artifactId>
 </dependency>
 ```
+-->
