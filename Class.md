@@ -7,6 +7,7 @@ Wrapper.java
 ```java
 int int1 = 1;
 Integer int2 = new Integer(1);
+// Integer int2 = 1;
 System.out.println(int2);
 System.out.println(int2.toString());
 System.out.println(int1 == int2);
