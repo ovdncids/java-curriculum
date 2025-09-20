@@ -452,30 +452,49 @@ src/main/java/com/example/SpringBootHttpStudy/api/v1/models/CustomProperties.jav
 @Component
 @PropertySource(value="classpath:custom.properties", encoding="UTF-8")
 public class CustomProperties {
-    @Value("${a1}")
-    public Integer a1;
-    @Value("${b1.b2}")
-    public String b2;
+    private static Integer a1;
+    private static String b2;
 
-    private static Integer _a1;
-    private static String _b2;
-
-    private CustomProperties() {}
-
-    @PostConstruct
-    private void init() {
-        _a1 = this.a1;
-        _b2 = this.b2;
-    }
-
-    public static CustomProperties getAll() {
-        CustomProperties properties = new CustomProperties();
-        properties.a1 = _a1;
-        properties.b2 = _b2;
-        return properties;
+    public CustomProperties(
+            @Value("${a1}") Integer a1,
+            @Value("${b1.b2}") String b2
+    ) {
+        CustomProperties.a1 = a1;
+        CustomProperties.b2 = b2;
     }
 }
 ```
+* <details><summary>다른 방법</summary>
+
+    ```java
+    @Component
+    @PropertySource(value="classpath:custom.properties", encoding="UTF-8")
+    public class CustomProperties {
+        @Value("${a1}")
+        public Integer a1;
+        @Value("${b1.b2}")
+        public String b2;
+    
+        private static Integer _a1;
+        private static String _b2;
+    
+        private CustomProperties() {}
+    
+        @PostConstruct
+        private void init() {
+            _a1 = this.a1;
+            _b2 = this.b2;
+        }
+    
+        public static CustomProperties getAll() {
+            CustomProperties properties = new CustomProperties();
+            properties.a1 = _a1;
+            properties.b2 = _b2;
+            return properties;
+        }
+    }
+    ```
+</details>
 
 src/main/java/com/example/SpringBootHttpStudy/api/v1/UsersService.java
 ```diff
