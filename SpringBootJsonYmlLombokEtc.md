@@ -1,128 +1,97 @@
-# Spring Boot - Mock JSON
-
+# Spring Boot - JSON, YML, Lombok
+## JSON
 src/main/resources/json/User.json
 ```json
 {
-    "name": "홍길동",
-    "age": 39
+  "name": "홍길동",
+  "age": 39
 }
 ```
 
 src/main/resources/json/Users.json
 ```json
 [
-    {
-        "name": "홍길동",
-        "age": 39
-    },
-    {
-        "name": "김삼순",
-        "age": 33
-    },
-    {
-        "name": "홍명보",
-        "age": 44
-    },
-    {
-        "name": "박지삼",
-        "age": 22
-    },
-    {
-        "name": "권명순",
-        "age": 10
-    }
+  {
+    "name": "홍길동",
+    "age": 39
+  },
+  {
+    "name": "김삼순",
+    "age": 33
+  },
+  {
+    "name": "홍명보",
+    "age": 44
+  },
+  {
+    "name": "박지삼",
+    "age": 22
+  },
+  {
+    "name": "권명순",
+    "age": 10
+  }
 ]
 ```
 
-<!--
-## Gson
-src/test/java/패키지/{프로젝트명}Tests.java
-```java
-import java.lang.reflect.Type;
-```
-```java
-@Test
-void contextLoads() {
-    User user = getMockJSON("json/User.json", User.class);
-    System.out.println(user);
-
-    List<User> users = getMockJSON(
-            "json/Users.json",
-            new TypeToken<List<User>>(){}.getType()
-    );
-    System.out.println(users);
-}
-
-static <T>T getMockJSON(String filePath, Type type) {
-    try {
-        ClassPathResource resource = new ClassPathResource(filePath);
-        Path path = Paths.get(resource.getURI());
-        Reader reader = new FileReader(path.toString());
-        Gson gson = new Gson();
-        return gson.fromJson(reader, type);
-    } catch (Exception exception) {
-        exception.printStackTrace();
-        return null;
-    }
-}
-```
--->
-
 ## Jackson
-src/test/java/패키지/{프로젝트명}Tests.java
+src/test/java/패키지/{프로젝트명}Tests.java > 복사 > JSONTests.java 
 ```java
-static Path getResource(String filePath) {
-    try {
-        ClassPathResource resource = new ClassPathResource(filePath);
-        return Paths.get(resource.getURI());
-    } catch (IOException ioException) {
-        ioException.printStackTrace();
-        return null;
+@SpringBootTest
+class JSONTests {
+    static Path getResource(String filePath) {
+        try {
+            ClassPathResource resource = new ClassPathResource(filePath);
+            return Paths.get(resource.getURI());
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+            return null;
+        }
     }
-}
 
-static String getMockJSON(String filePath) {
-    try {
-        return new String(Files.readAllBytes(getResource(filePath)));
-    } catch (IOException ioException) {
-        ioException.printStackTrace();
-        return null;
+    static String getMockJSON(String filePath) {
+        try {
+            return new String(Files.readAllBytes(getResource(filePath)));
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+            return null;
+        }
     }
-}
 
-static <T>T getMockJSON(String filePath, Class<T> valueType) {
-    ObjectMapper mapper = new ObjectMapper();
-    try {
-        return mapper.readValue(new File(getResource(filePath).toUri()), valueType);
-    } catch (IOException ioException) {
-        ioException.printStackTrace();
-        return null;
+    static <T>T getMockJSON(String filePath, Class<T> valueType) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.readValue(new File(getResource(filePath).toUri()), valueType);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+            return null;
+        }
     }
-}
 
-static <T>T getMockJSON(String filePath, TypeReference<T> valueTypeRef) {
-    ObjectMapper mapper = new ObjectMapper();
-    try {
-        return mapper.readValue(new File(getResource(filePath).toUri()), valueTypeRef);
-    } catch (IOException ioException) {
-        ioException.printStackTrace();
-        return null;
+    static <T>T getMockJSON(String filePath, TypeReference<T> valueTypeRef) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            return mapper.readValue(new File(getResource(filePath).toUri()), valueTypeRef);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+            return null;
+        }
     }
-}
 
-@Test
-void testUser() {
-    String jsonUser = getMockJSON("json/User.json");
-    System.out.println(jsonUser);
+    @Test
+    void testUsers() {
+        String jsonUser = getMockJSON("json/User.json");
+        System.out.println(jsonUser);
 
-    User user = getMockJSON("json/User.json", User.class);
-    System.out.println(user);
+        User user = getMockJSON("json/User.json", User.class);
+        System.out.println(user);
 
-    List<User> users = getMockJSON(
-            "json/Users.json",
-            new TypeReference<List<User>>(){}
-    );
-    System.out.println(users);
+        List<User> users = getMockJSON(
+                "json/Users.json",
+                new TypeReference<List<User>>(){}
+        );
+        System.out.println(users);
+    }
 }
 ```
 * ❕ `Model`의 `멤버 변수`들이 `private`일 경우, `public 빈 생성자` 또는 `get`, `set` 메서드가 있어야 한다.
@@ -145,6 +114,45 @@ users.forEach(user -> {
 });
 ```
 * `Python`의 `lambda` 형식으로 실행 가능
+
+## YML
+src/main/resources/application.yml
+```yml
+yml-users:
+  user:
+    name: "홍길동"
+    age: 39
+
+  users:
+    - name: "홍길동"
+      age: 39
+    - name: "김삼순"
+      age: 33
+    - name: "홍명보"
+      age: 44
+    - name: "박지삼"
+      age: 22
+    - name: "권명순"
+      age: 10
+```
+
+src/test/java/패키지/{프로젝트명}Tests.java > 복사 > YMLTests.java 
+```java
+@SpringBootTest
+@ConfigurationProperties(prefix = "yml-users")
+class YMLTests {
+    private User user;
+    private List<User> users;
+
+    // Getter and Setter
+
+    @Test
+	void testUsers() {
+        System.out.println(user);
+        System.out.println(users);
+	}
+}
+```
 
 ## Lombok 어노테이션
 * `@ToString(exclude = "password")` toString()에서 password만 제외 시킨다.
