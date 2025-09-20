@@ -239,19 +239,21 @@ spring:
 ...
 ```
 
-pom.xml
-```xml
-<dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>8.0.31</version>
-</dependency>
-```
-
 build.gradle.kts
 ```kts
 implementation("mysql:mysql-connector-java:8.0.31")
 ```
+
+* <details><summary>pom.xml</summary>
+
+  ```xml
+   <dependency>
+       <groupId>mysql</groupId>
+       <artifactId>mysql-connector-java</artifactId>
+       <version>8.0.31</version>
+   </dependency>
+   ```
+</details>
 
 src/main/java/com/example/SpringBootRestApiStudy/models/User.java
 ```diff
@@ -283,18 +285,20 @@ public void setUserPk(Integer userPk) {
 * ❕ 생성자를 사용하지 않으면 `select * from users`, `select name, age, user_pk from users` 모두 받을 수 있다.
 
 ## 1. JDBC(Java Database Connectivity) 연동 모듈
-pom.xml
-```xml
-<dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-jdbc</artifactId>
-</dependency>
-```
-
 build.gradle.kts
 ```kts
 implementation("org.springframework.boot:spring-boot-starter-jdbc")
 ```
+
+* <details><summary>pom.xml</summary>
+
+  ```xml
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-jdbc</artifactId>
+   </dependency>
+   ```
+</details>
 
 ### 회원(Users) Read
 src/main/java/com/example/SpringBootRestApiStudy/controllers/UsersController.java
