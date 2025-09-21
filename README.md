@@ -16,6 +16,6 @@
 
 * [Spring Boot - File Upload](SpringBootHttpFileUpload.md)
 
-* [Spring Boot - JSON, Lombok, Etc](SpringBootMockEtc.md)
+* [Spring Boot - JSON, YML, Lombok, Etc](SpringBootJsonYmlLombokEtc.md)
 
 * [Spring Boot - Email](SpringBootEmail.md)
