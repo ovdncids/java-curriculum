@@ -231,6 +231,7 @@ spring.datasource.password=비밀번호
 # spring.datasource.url=jdbc:mysql://127.0.0.1:3306/DB명?useUnicode=true&amp;characterEncoding=utf8
 ```
 
+#### YML
 src/main/resources/application.properties > 파일명 변경 > src/main/resources/application.yml
 ```yml
 spring:
