@@ -35,10 +35,10 @@ src/main/resources/json/Users.json
 ```
 
 ## Jackson
-src/test/java/패키지/{프로젝트명}Tests.java > 복사 > JSONTests.java 
+src/test/java/패키지/{프로젝트명}Tests.java > 복사 > JsonUsersTests.java 
 ```java
 @SpringBootTest
-class JSONTests {
+class JsonUsersTests {
     static Path getResource(String filePath) {
         try {
             ClassPathResource resource = new ClassPathResource(filePath);
@@ -136,11 +136,11 @@ yml-users:
       age: 10
 ```
 
-src/test/java/패키지/{프로젝트명}Tests.java > 복사 > YMLTests.java 
+src/test/java/패키지/{프로젝트명}Tests.java > 복사 > YmlUsersTests.java 
 ```java
 @SpringBootTest
 @ConfigurationProperties(prefix = "yml-users")
-class YMLTests {
+class YmlUsersTests {
     private User user;
     private List<User> users;
 
