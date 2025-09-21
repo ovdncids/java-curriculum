@@ -231,13 +231,78 @@ spring.datasource.password=비밀번호
 # spring.datasource.url=jdbc:mysql://127.0.0.1:3306/DB명?useUnicode=true&amp;characterEncoding=utf8
 ```
 
-src/main/resources/application.yml
+src/main/resources/application.properties > 파일명 변경 > src/main/resources/application.yml
 ```yml
 spring:
    datasource:
       driver-class-name: com.mysql.cj.jdbc.Driver
 ...
 ```
+* ❔ `...` 나머지 완성하기
+* <details><summary>XML, JSON, YML, Class 자료형들의 차이점</summary>
+
+  * XML
+  ```xml
+  <users>
+    <user>
+      <name>홍길동</name>
+      <age>39</age>
+    </user>
+    <user>
+      <name>김삼순</name>
+      <age>33</age>
+    </user>
+    <user>
+      <name>홍명보</name>
+      <age>44</age>
+    </user>
+  </users>
+  ```
+
+  * JSON
+  ```json
+  [
+    {
+       "name": "홍길동",
+       "age": 39
+     },
+     {
+       "name": "김삼순",
+       "age": 33
+     },
+     {
+       "name": "홍명보",
+       "age": 44
+     }
+  ]
+  ```
+
+  * YML
+  ```
+  users:
+    - name: "홍길동"
+      age: 39
+    - name: "김삼순"
+      age: 33
+    - name: "홍명보"
+      age: 44
+  ```
+
+  * Class
+  ```java
+  public class User {
+    public String name;
+    public Integer age;
+  }
+
+  List<User> users = new ArrayList<>();
+  users.add(new User("홍길동", 39));
+  users.add(new User("김삼순", 33));
+  users.add(new User("홍명보", 44));
+  ```
+
+  * [JSON, YML 사용 예제](https://github.com/ovdncids/java-curriculum/blob/master/SpringBootJsonYmlLombokEtc.md)
+</details>
 
 build.gradle.kts
 ```kts
