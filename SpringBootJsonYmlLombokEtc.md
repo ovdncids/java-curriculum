@@ -37,6 +37,10 @@ src/main/resources/json/Users.json
 ## Jackson
 src/test/java/패키지/{프로젝트명}Tests.java > 복사 > JsonUsersTests.java 
 ```java
+import java.nio.file.Path;
+import java.nio.file.Paths;
+```
+```java
 @SpringBootTest
 class JsonUsersTests {
     static Path getResource(String filePath) {
