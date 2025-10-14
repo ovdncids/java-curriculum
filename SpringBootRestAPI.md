@@ -27,7 +27,7 @@
 ```sh
 Project: Gradle - Kotlin
 Language: Java
-Spring Boot: 3.2.4 (SNAPSHOT)
+Spring Boot: 3.4.10
 Project Metadata
   Artifact: SpringBootRestApiStudy
 Packaging: Jar
@@ -37,6 +37,55 @@ Dependencies: Spring Web
 GENERATE <- SpringBootRestApiStudy.zip 다운받기
 압축 풀고 해당 경로를 Intellij에서 Open
 ```
+
+* <details><summary>build.gradle.kts</summary>
+
+    ```kts
+    plugins {
+        java
+        id("org.springframework.boot") version "3.4.10"
+        id("io.spring.dependency-management") version "1.1.7"
+    }
+
+    group = "com.example"
+    version = "0.0.1-SNAPSHOT"
+    description = "Demo project for Spring Boot"
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        implementation("org.springframework.boot:spring-boot-starter-web")
+        testImplementation("org.springframework.boot:spring-boot-starter-test")
+        testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    }
+
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
+    ```
+</details>
+
+* <details><summary>settings.gradle.kts</summary>
+
+    ```kts
+    rootProject.name = "SpringBootRestApiStudy"
+
+    pluginManagement {
+        repositories {
+            gradlePluginPortal()
+            mavenCentral()
+        }
+    }
+    ```
+</details>
 
 ## Spring Boot Tomcat 서버 실행
 src/main/java/com/example/SpringBootRestApiStudy/SpringBootRestApiStudyApplication.java
