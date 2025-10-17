@@ -36,6 +36,20 @@ Dependencies: Spring Web
 
 GENERATE <- SpringBootRestApiStudy.zip 다운받기
 압축 풀고 해당 경로를 Intellij에서 Open
+
+InteilliJ
+  File > Project Structure > Project
+    SDK: 해당 버전 선택
+    Language level: SDK default
+  Gradle 탭 > Build Tool Settings
+    Build and run using: Gradle (Default)
+    Run tests using: Gradle (Default)
+    Disribution: Wrapper
+    Gradle JVM: Project SDK
+  Terminal에서 java, gradlew 명령 사용
+    File > Settings > Tools > Terminal
+      Environment variables > Path > SDK 경로 추가 (C:\Users\{사용자}\.jdks\azul-17.0.16\bin)
+      Shell path > cmd.exe
 ```
 
 * <details><summary>build.gradle.kts</summary>
