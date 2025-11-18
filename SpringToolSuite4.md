@@ -11,7 +11,9 @@ Window > Java > Installed JREs > jre 폴더 선택
   > Maven test > Edit configuration and launch
     > Main > User settings: ~/.m2/settings.xml (Nexus 설정 파일)
     > JRE > Execution environment: JRE 설정에서 등록한 JRE 선택
-  > Maven install
+프로젝트 > Maven > Update Project...
+프로젝트 > Run As > Maven install
+main() 함수가 있는 Java 파일 > Run As Java Application
 ```
 
 ## Gradle 설정
