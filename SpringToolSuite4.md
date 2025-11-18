@@ -1,5 +1,19 @@
 # Spring Tool Suite 4 (4.31.0)
 
+## Maven 설정
+```sh
+# JRE 설정
+Window > Java > Installed JREs > jre 폴더 선택
+
+# Maven 설정
+프로젝트 > Run As
+  > Maven clean
+  > Maven test > Edit configuration and launch
+    > Main > User settings: ~/.m2/settings.xml (Nexus 설정 파일)
+    > JRE > Execution environment: JRE 설정에서 등록한 JRE 선택
+  > Maven install
+```
+
 ## Gradle 설정
 ```sh
 Import projects... > Gradle > Existing Gradle Project >
