@@ -28,3 +28,26 @@ Import projects... > Gradle > Existing Gradle Project >
 Gradle Tasks 탭 > build
 ```
 * ❕ STS4 재실행 후에 `Gradle Tasks 탭`에서 에러 표시가 나온다면 `새로 고침` 버튼을 누른다.
+
+### 로컬과 Docker에서 사용가능한 설정파일 위치
+```java
+public File getTempFile(String resourcesPath, String tempName, String tempExtension) {
+    File file = null;
+    try {
+        InputStream ssoAgentconfigInputStream = PlatformUtil.class.getResourceAsStream(resourcesPath);
+        Path tempFile = Files.createTempFile(tempName, tempExtension);
+        Files.copy(ssoAgentconfigInputStream, tempFile, StandardCopyOption.REPLACE_EXISTING);
+        file = tempFile.toFile();
+    } catch (IOException e) {
+        throw new RuntimeException(e);
+    }
+    return file;
+}
+
+// src/main/resources/sso/agentconfig-LOCAL.xml
+File file = PlatformUtil.get().getTempFile(
+        "/sso/agentconfig-LOCAL.xml",
+        "agentconfig-LOCAL",
+        ".xml"
+);
+```
