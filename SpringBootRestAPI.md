@@ -889,7 +889,7 @@ class SpringBootRestApiStudyApplicationTests {
 
 ## Properties
 * ❕ `Controller`가 `Spring Bean`에 등록 후에 `Properties`를 읽을 수 있으므로 일반 메소드에서는 쉽게 읽을 수 있다.
-* ❕ 생성자는 `public UsersController(@Value("${a1}") String a1) {` 이렇게 읽을 수 있다.
+* ❕ 생성자는 `public UsersController(@Value("${a1:기본값}") String a1) {` 이렇게 읽을 수 있다.
 
 ### 커스텀 Properties 읽기
 src/main/resources/custom.properties
@@ -944,7 +944,7 @@ log.info(c1);
 ```
 * Run -> Edit Configurations... -> Environment variables: `spring.profiles.active=local`
 * Command line인 경우: spring-boot:run -Dspring.profiles.active=local,db-dev
-* 잘 안되면 `@Value("${spring.profiles.active}") private String active;` 확인
+* 잘 안되면 `@Value("${spring.profiles.active:기본값}") private String active;` 확인
 * [Docker - Spring Boot 설정](https://github.com/ovdncids/docker-curriculum/blob/master/DockerCompose.md#spring-boot---%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%83%9D%EC%84%B1)
 
 #### Environment variables 여러개 사용
