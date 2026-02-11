@@ -28,6 +28,7 @@ Import projects... > Gradle > Existing Gradle Project >
 Gradle Tasks 탭 > build
 ```
 * ❕ STS4 재실행 후에 `Gradle Tasks 탭`에서 에러 표시가 나온다면 `새로 고침` 버튼을 누른다.
+* ❕ `gradle-8.14.3.zip` 파일을 `Nexus`에서 다운이 안 되면 `C:\Users\{사용자}\.gradle\wrapper\dists\gradle-8.14.3-bin\{해시}\gradle-8.14.3.zip` 위치에 놓는다.
 
 ### 로컬과 Docker에서 사용가능한 설정파일 위치
 ```java
