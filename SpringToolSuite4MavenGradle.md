@@ -27,8 +27,8 @@ Import projects... > Gradle > Existing Gradle Project >
     Show Executions View: 체크
 Gradle Tasks 탭 > build
 ```
-* ❕ `gradle-8.14.3.zip` 파일이 `Nexus`에서 다운이 안 되면 `C:\Users\{사용자}\.gradle\wrapper\dists\gradle-8.14.3-bin\{해시}\gradle-8.14.3.zip` 위치에 놓는다.
 * ❕ STS4 재실행 후에 `Gradle Tasks 탭`에서 에러 표시가 나온다면 `새로 고침` 버튼을 누른다.
+* ❕[gradle build 중 gradle-8.14.3-bin.zip 파일을 Nexus에서 못 받을때](https://github.com/ovdncids/tools/blob/master/NexusYarn.md#gradle-build-%EC%A4%91-gradle-8143-binzip-%ED%8C%8C%EC%9D%BC%EC%9D%84-nexus%EC%97%90%EC%84%9C-%EB%AA%BB-%EB%B0%9B%EC%9D%84%EB%95%8C)
 
 ### 로컬과 Docker에서 사용가능한 설정파일 위치
 ```java
