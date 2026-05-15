@@ -52,3 +52,4 @@ File file = PlatformUtil.get().getTempFile(
         ".xml"
 );
 ```
+* `System.getProperty("catalina.base")` 경로는 jsp와 Spring에서 Tomcat이 실행된 이후에 접근 가능하다.
