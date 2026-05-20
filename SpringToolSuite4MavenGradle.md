@@ -16,6 +16,41 @@ Window > Java > Installed JREs > jre 폴더 선택
 main() 함수가 있는 Java 파일 > Run As Java Application
 ```
 
+### Failed to connect to MBean server at port 9001: Could not invoke shutdown operation: Spring application did not start before the configured timeout (30000ms
+```powershell
+./mvnw.cmd spring-boot:start -X `
+"-s" "C:\maven\settings.xml" `
+"-Dspring-boot.run.profiles=windows" `
+-f pom.xml
+```
+```log
+[DEBUG] Connected to local MBeanServer at port 9001
+[DEBUG] Waiting for spring application to start...
+[DEBUG] Spring application is not ready yet, waiting 500ms (attempt 1)
+...
+[DEBUG] Spring application is not ready yet, waiting 500ms (attempt 59)
+[DEBUG] Spring application is not ready yet, waiting 500ms (attempt 60)
+# spring-boot:start가 0.5초씩 attempt 60안에 완료 되지 않으면 MBeanServer가 강제 종료 시킴
+```
+pom.xml
+```xml
+<plugin>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-maven-plugin</artifactId>
+    <configuration>
+        <wait>1000</wait>
+    </configuration>
+</plugin>
+```
+* 기본 0.5초에서 1초로 변경 시킴
+
+```sh
+InteilliJ > Maven > 프로젝트 > 플러그인 > spring-boot > spring-boot:start > 실행 구성 수정 > 실행
+실행: spring-boot:start -X -s C:\maven\settings.xml -Dspring-boot.run.profiles=windows -f pom.xml
+# -X: DEBUG값 출력
+# pom.xml에 wait값인 1초가 적용 된다.
+```
+
 ## Gradle 설정
 ```sh
 Import projects... > Gradle > Existing Gradle Project >
