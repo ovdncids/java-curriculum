@@ -18,8 +18,13 @@ main() 함수가 있는 Java 파일 > Run As Java Application
 
 ### Failed to connect to MBean server at port 9001: Could not invoke shutdown operation: Spring application did not start before the configured timeout (30000ms
 ```powershell
+$env:MAVEN_OPTS="-Xms1024m -Xmx4096m -XX:MaxMetaspaceSize=1024m -javaagent:C:\lombok.jar"
+echo $env:MAVEN_OPTS
+```
+```powershell
 ./mvnw.cmd spring-boot:start -X `
 "-s" "C:\maven\settings.xml" `
+"-Dspring-boot.run.jvmArguments=-javaagent:C:\lombok.jar" `
 "-Dspring-boot.run.profiles=windows" `
 -f pom.xml
 ```
