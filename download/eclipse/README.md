@@ -34,6 +34,7 @@ Delete Line: Ctrl + Shift + k
 현재 단어 선택: Ctrl + < 다음 Ctrl + Shift + >
 Copy Lines: Alt + Shift + Down (기존의 Alt + Shift + Down 바인딩 먼저 모두 삭제)
 Duplicate Lines: Alt + Shift + Up (기존의 Alt + Shift + Up 바인딩 먼저 모두 삭제)
+Open Resource: Ctrl + p
 ```
 
 ## Spring 프로젝트 열기
