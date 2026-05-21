@@ -19,6 +19,23 @@ eclipseinstaller > Eclipse IDE for Enterprise Java and Web Developers
 /usr/libexec/java_home -V
 ```
 
+## 아이콘 크기 변경
+eclipse.ini
+```ini
+-Dswt.autoScale=150
+```
+
+## 단축키
+* Window > Preferences > General > Keys > 검색창 > `Alt+Shift`
+```sh
+Show In: Ctrl + Alt + e
+Toggle Split Editor (Vertical): Ctrl + \
+Delete Line: Ctrl + Shift + k
+현재 단어 선택: Ctrl + < 다음 Ctrl + Shift + >
+Copy Lines: Alt + Shift + Down (기존의 Alt + Shift + Down 바인딩 먼저 모두 삭제)
+Duplicate Lines: Alt + Shift + Up (기존의 Alt + Shift + Up 바인딩 먼저 모두 삭제)
+```
+
 ## Spring 프로젝트 열기
 ```sh
 File > Import... > Maven > Existing Maven Projects > Spring 프로젝트
