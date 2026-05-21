@@ -43,18 +43,19 @@ pom.xml
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-maven-plugin</artifactId>
     <configuration>
-        <wait>1000</wait>
+        <fork>false</fork><!-- 디버그 모드에서 Breakpoint가 동작하지 않을 경우 -->
+        <wait>1000000</wait><!-- 기본 0.5초에서 1,000 초로 변경 시킴 -->
     </configuration>
 </plugin>
 ```
-* 기본 0.5초에서 1초로 변경 시킴
 
 ```sh
 InteilliJ > Maven > 프로젝트 > 플러그인 > spring-boot > spring-boot:start > 실행 구성 수정 > 실행
 실행: spring-boot:start -X -s C:\maven\settings.xml -Dspring-boot.run.profiles=windows -f pom.xml
 # -X: DEBUG값 출력
-# pom.xml에 wait값인 1초가 적용 된다.
+# pom.xml에 wait값인 1,000 초가 적용 된다.
 ```
+* `InteilliJ > compile` 불가능 하다면 `Eclipse > Project > Build Automatically` 선택 후 루트에서 F5키
 
 ## Gradle 설정
 ```sh
