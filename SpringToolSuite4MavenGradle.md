@@ -94,3 +94,25 @@ File file = PlatformUtil.get().getTempFile(
 );
 ```
 * `System.getProperty("catalina.base")` 경로는 jsp와 Spring에서 Tomcat이 실행된 이후에 접근 가능하다.
+
+### Gradle InteilliJ Nexus SSL
+#### Gradle 탭에서 새로고침할때 Nexus를 못 찾으면
+* Gradle 설정 > 배포: 래퍼 = /gradle/wrapper/gradle-warapper.properties
+```propertis
+distributionUrl=https\://{넥서스주소}/repository/service-gradle-distributions/gradle-8.13.-bin.zip
+```
+
+#### Gradle 탭에서 사용하는 옵션
+* gradle.properties
+```properties
+org.gradle.jvmargs=-Dfile.encoding=UTF-8 -Djavax.net.ssl.trustStore=certs/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit
+```
+
+#### gradlew.bat 명령으로 Nexus 연결 확인
+gradlew.bat
+```bat
+set GRADLE_HOME=%USERPROFILE%\.gradle\wrapper\dist\gradle-8.13-bin/t7.../gradle-8.13
+set JAVA_HOME=%JAVA_HOME%
+set GRADLE_OPTS=-Dfile.encoding=UTF-8 -Djavax.net.ssl.trustStore=certs/truststore.jks -Djavax.net.ssl.trustStorePassword=changeit
+```
+* gradlew.bat help --scan
