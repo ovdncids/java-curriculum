@@ -108,13 +108,13 @@ keytool -genkeypair -alias tomcat -keyalg RSA -keysize 2048 -validity 3650 -stor
 
 connf/server.xml
 ```xml
-    <Connector  port="8443"
-                protocol="org.apache.coyote.http11.Http11NioProtocol"
-                SSLEnabled="true"
-                keystoreFile="conf/localhost.p12"
-                keystorePass="changeit"
-                keystoreType="PKCS12"
-                sslProtocol="TLS"
-                />
+    <Connector port="8443"
+               protocol="org.apache.coyote.http11.Http11NioProtocol"
+               SSLEnabled="true"
+               keystoreFile="conf/localhost.p12"
+               keystorePass="changeit"
+               keystoreType="PKCS12"
+               sslProtocol="TLS"
+               />
 ```
 * https://localhost:8443
