@@ -96,7 +96,7 @@ for (String allow : allowList) {
     }
 }
 %>{
-    "userId": "<%=userId%>",
+    "userId": "admin",
 }
 ```
 
