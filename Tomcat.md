@@ -99,3 +99,22 @@ for (String allow : allowList) {
     "userId": "<%=userId%>",
 }
 ```
+
+# HTTPS 인증서
+```cmd
+keytool -genkeypair -alias tomcat -keyalg RSA -keysize 2048 -validity 3650 -storetype PKCS12 -keystore localhost.p12 -storepass changeit -dname "CN=localhost"
+```
+* 생성된 localhost.p12 파일을 conf/localhost.p12 이동
+
+connf/server.xml
+```xml
+    <Connector  port="8443"
+                protocol="org.apache.coyote.http11.Http11NioProtocol"
+                SSLEnabled="true"
+                keystoreFile="conf/localhost.p12"
+                keystorePass="changeit"
+                keystoreType="PKCS12"
+                sslProtocol="TLS"
+                />
+```
+* https://localhost:8443
