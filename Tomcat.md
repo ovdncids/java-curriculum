@@ -100,7 +100,7 @@ for (String allow : allowList) {
 }
 ```
 
-# HTTPS 인증서
+# HTTPS localhost 인증서
 ```cmd
 keytool -genkeypair -alias tomcat -keyalg RSA -keysize 2048 -validity 3650 -storetype PKCS12 -keystore localhost.p12 -storepass changeit -dname "CN=localhost"
 ```
