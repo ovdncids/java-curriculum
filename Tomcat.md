@@ -72,3 +72,30 @@ mv tomcat/webapps/ROOT tomcat/webapps/ROOT_ORI
 # tomcat/webapps-javaee 폴더 생성
 # tomcat/webapps-javaee/ROOT.war 이동
 ```
+
+# CORS
+```jsp
+<%@ page contentType="application/json; charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%
+ response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+ response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+// Ajax 허용 도메인 목록
+String[] allowList = {
+    // 로컬 서버
+    "https://localhost:3000",
+    // 개발 서버
+    "https://localhost:3001"
+};
+String origin = request.getHeader("Origin");
+System.out.println("origin: " + origin);
+for (String allow : allowList) {
+    if (allow.equals(origin)) {
+        response.setHeader("Access-Control-Allow-Origin", origin);
+        response.setHeader("Access-Control-Allow-Credentials", "true");
+    }
+}
+%>{
+    "userId": "<%=userId%>",
+}
+```
