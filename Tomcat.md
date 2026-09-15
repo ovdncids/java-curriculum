@@ -118,3 +118,16 @@ connf/server.xml
                />
 ```
 * https://localhost:8443
+
+# Debugger
+```cmd
+set JPDA_ADDRESS=8000
+set JPDA_TRANSPORT=dt_socket
+bin/catalina.bat jpda start
+```
+* InteilliJ > 실행/디버그 구성 > 새 구성 추가 > 원격 JVM 디버그 > 포트: 8000
+
+## InteilliJ Community 버전은 .jsp 파일로 Breakpoint를 찍을 수 없어 Servlet(.java)를 만들어서 Breakpoint를 사용한다.
+```cmd
+javac -cp C:\a.jar;C:\b.jar C:\a.java
+```
